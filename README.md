@@ -10,6 +10,7 @@
 <hr>
 
 ## Step to add artical
+
 ```shell
 git clone [this repo]
 
@@ -21,10 +22,11 @@ git add .   //指定新增文件添加到repo中的位置
 
 git commit -m "Update reason"
 
+git push  //更新
+
+//资源管理指令
 git rm [delete file]
 
 git rm -r [delete dir]
-
-git push  //更新
 
 ```
