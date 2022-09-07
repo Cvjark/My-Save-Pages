@@ -17,6 +17,8 @@
 |------|------|------|
 | [Github Page進階使用branch分支產生靜態頁面.html](https://cvjark.github.io/My-Save-Pages/杂谈issue贴/github%20page%E9%80%B2%E9%9A%8E%E4%BD%BF%E7%94%A8branch%E5%88%86%E6%94%AF%E7%94%A2%E7%94%9F%E9%9D%9C%E6%85%8B%E9%A0%81%E9%9D%A2.html) | 2022.09.04 | ed |
 | [Git pull 拉取代码](https://cvjark.github.io/My-Save-Pages/%E6%9D%82%E8%B0%88issue%E8%B4%B4/git%20%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81.html) | 2022/09/04 | ed |
+| [隐藏的细节：编译与链接](https://www.bilibili.com/video/BV1TN4y1375q/?spm_id_from=333.788.recommend_more_video.-1&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed |
+| [动态链接库(dll)是如何工作的？](https://www.bilibili.com/video/BV1vB4y1V7gR?spm_id_from=333.851.b_7265636f6d6d656e64.8&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed |
 
 
 
