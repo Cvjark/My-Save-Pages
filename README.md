@@ -40,6 +40,8 @@ git status //检查当前
 
 //拖拽网页中down下来的资源
 
+git pull
+
 git add .   //指定新增文件添加到repo中的位置
 
 git commit -m "Update reason"
