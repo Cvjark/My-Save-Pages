@@ -22,7 +22,7 @@
 | [隐藏的细节：编译与链接](https://www.bilibili.com/video/BV1TN4y1375q/?spm_id_from=333.788.recommend_more_video.-1&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [动态链接库(dll)是如何工作的？](https://www.bilibili.com/video/BV1vB4y1V7gR?spm_id_from=333.851.b_7265636f6d6d656e64.8&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [gitkraken](https://www.gitkraken.com/) | 2022.09.07 | ed | 工具 |
-| [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | 工具 |   
+| [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | ed | 工具 |   
 
 <hr>
 
