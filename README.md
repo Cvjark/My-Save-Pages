@@ -6,6 +6,8 @@
 | 文章Link | 添加日期 | 是否已读 |
 |------|------|------|
 | [AFL二三事 —— 源码分析 1](https://cvjark.github.io/My-Save-Pages/技术贴/AFL%E4%BA%8C%E4%B8%89%E4%BA%8B%20--%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%201.html)| 2022.09.04 | ing |
+| [Linux进程间通信（一）：信号 signal()、sigaction()](https://cvjark.github.io/My-Save-Pages/%E6%8A%80%E6%9C%AF%E8%B4%B4/Linux%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BF%A1%E5%8F%B7%20signal()%E3%80%81sigaction().html) | 2022.09.14 | ing |
+
 
 
 
@@ -20,6 +22,7 @@
 | [隐藏的细节：编译与链接](https://www.bilibili.com/video/BV1TN4y1375q/?spm_id_from=333.788.recommend_more_video.-1&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [动态链接库(dll)是如何工作的？](https://www.bilibili.com/video/BV1vB4y1V7gR?spm_id_from=333.851.b_7265636f6d6d656e64.8&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [gitkraken](https://www.gitkraken.com/) | 2022.09.07 | ed | 工具 |
+| [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | 工具 |   
 
 <hr>
 
