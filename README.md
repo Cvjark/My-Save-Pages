@@ -23,6 +23,7 @@
 | [动态链接库(dll)是如何工作的？](https://www.bilibili.com/video/BV1vB4y1V7gR?spm_id_from=333.851.b_7265636f6d6d656e64.8&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [gitkraken](https://www.gitkraken.com/) | 2022.09.07 | ed | 工具 |
 | [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | ed | 工具 |   
+| [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md) | 2022.09.07 |  ed |  Github repo |
 
 <hr>
 
@@ -33,29 +34,51 @@
 
 <hr>
 
-<details>
+- <details>
   <summary>Step to add artical </summary>
 
-```shell
-git clone [this repo]
+  ```shell
+  git clone [this repo]
 
-git status //检查当前
+  git status //检查当前
 
-//拖拽网页中down下来的资源
+  //拖拽网页中down下来的资源
 
-git pull
+  git pull
 
-git add .   //指定新增文件添加到repo中的位置
+  git add .   //指定新增文件添加到repo中的位置
 
-git commit -m "Update reason"
+  git commit -m "Update reason"
 
-git push  //更新
+  git push  //更新
 
-//资源管理指令
-git rm [delete file]
+  //资源管理指令
+  git rm [delete file]
 
-git rm -r [delete dir]
+  git rm -r [delete dir]
 
-```
+  ```
 
-</details>
+  </details>
+
+- <details>
+  <summary>中文排版指南</summary>
+  
+  
+  笔者偶然在网络中发现的一篇贴文（可能不是 Original Source）：[如果中文圈每个人都能重视中文排版的格式，我们的网页浏览体验一定会变得更好](https://www.v2ex.com/t/793989)
+
+  觉得很有意思，然后从页面追到了如下一个 GitHub 项目，其中记载了中文一些中文文案排版指南， [Link 点我](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)， 这里与诸君共勉，为营造更好的中文知识交流分享圈而努力。这里就简要的列一下平时用比较多的点
+  - About 空格
+    1. 中英文之间需要增加空格
+    2. 中文与数字之间需要增加空格
+    3. 数字与单位之间需要增加空格 ps：例外：度数／百分比与数字之间不需要增加空格
+
+  - About 标点符号
+    1. 全角标点与其他字符之间不加空格
+    2. 不重复使用标点符号
+
+  - About 全角和半角
+    1. 使用全角中文标点
+    2. 数字使用半角
+  </details>
+
