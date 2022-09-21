@@ -26,7 +26,7 @@
 | [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md) | 2022.09.07 |  ed |  Github repo |
 |[Github 下使用 mermaid 绘制流程图](https://cloud.tencent.com/developer/article/1977307) | 2022.09.18 | ed | 贴文 |
 | [Github Markdown 流程图工具# mermaid ](https://mermaid-js.github.io/mermaid/#/) | 2022.09.20 | ing | 文档 |
-
+| [Git 施工事故集合]() | 2022.09.21 | ing | 贴文 |
 
 
 
