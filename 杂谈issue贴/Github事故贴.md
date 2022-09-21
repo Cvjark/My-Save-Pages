@@ -1,7 +1,8 @@
 该贴记录自己以往使用 git 遇到的一些问题
 
-### 问题描述
 
+<details><summary>问题一：OpenSSL SSL_read: Connection was reset, errno 10054</summary>
+  
 ```Bash
 $ git push
 fatal: unable to access 'https://github.com/xxx/xxx/': OpenSSL SSL_read: Connection was reset, errno 10054
@@ -26,3 +27,26 @@ fatal: unable to access 'https://github.com/xxx/xxx/': Failed to connect to gith
 
 问题解决：
 ![image](https://user-images.githubusercontent.com/89090949/191401342-0faa0d6d-6a5b-4e4e-9e16-8370da8b49fa.png)
+
+</details>
+
+  
+  
+<details><summary>问题一的补充</summary>
+  <br>
+  实际应用过程中，发现问题一的解决方式不能全局应用，因为问题一的方案是对当个已 clone 下来的项目有效。随后笔者在 clone 其他项目仓库也发现了同样的问题
+  
+  ![image](https://user-images.githubusercontent.com/89090949/191408515-8152478d-9004-4978-88f6-bbace42e85ff.png)
+  
+  因此，猜想是否 git 本身就存在配置文件，随后找到 git 的安装目录，找到了一个配置文件：
+  
+  ![image](https://user-images.githubusercontent.com/89090949/191408608-f790e8d8-9298-4e51-bf19-453a32fa9f4c.png)
+  
+管理员打开，加入如下内容：
+  
+  ![image](https://user-images.githubusercontent.com/89090949/191408689-4c929ad5-8380-4294-a9e6-6b82df24a2e3.png)
+  
+解决问题
+  
+</details>
+  
