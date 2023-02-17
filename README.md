@@ -21,12 +21,13 @@
 | [Git pull 拉取代码](https://cvjark.github.io/My-Save-Pages/%E6%9D%82%E8%B0%88issue%E8%B4%B4/git%20%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81.html) | 2022/09/04 | ed | 贴文 |
 | [隐藏的细节：编译与链接](https://www.bilibili.com/video/BV1TN4y1375q/?spm_id_from=333.788.recommend_more_video.-1&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
 | [动态链接库(dll)是如何工作的？](https://www.bilibili.com/video/BV1vB4y1V7gR?spm_id_from=333.851.b_7265636f6d6d656e64.8&vd_source=8ce655e3c07da54cb9d1990c148f394f) | 2022.09.07 | ed | 视频 |
-| [gitkraken](https://www.gitkraken.com/) | 2022.09.07 | ed | 工具 |
-| [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | ed | 工具 |   
+| [gitkraken](https://www.gitkraken.com/) | 2022.09.07 | ed | 站点 |
+| [在线 Hex 编辑工具](https://hexed.it/) | 2022.09.14 | ed | 站点 |   
 | [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md) | 2022.09.07 |  ed |  Github repo |
 |[Github 下使用 mermaid 绘制流程图](https://cloud.tencent.com/developer/article/1977307) | 2022.09.18 | ed | 贴文 |
 | [Github Markdown 流程图工具# mermaid ](https://mermaid-js.github.io/mermaid/#/) | 2022.09.20 | ing | 文档 |
 | [Git 施工事故集合](https://github.com/Cvjark/My-Save-Pages/blob/main/%E6%9D%82%E8%B0%88issue%E8%B4%B4/Github%E4%BA%8B%E6%95%85%E8%B4%B4.md) | 2022.09.21 | ing | 贴文 |
+| [CTF wiki 学习资源站](https://ctf-wiki.org/) | 2023.2.17 | ing | 站点 | 
 
 
 
