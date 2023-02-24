@@ -28,7 +28,7 @@
 | [Github Markdown 流程图工具# mermaid ](https://mermaid-js.github.io/mermaid/#/) | 2022.09.20 | ing | 文档 |
 | [Git 施工事故集合](https://github.com/Cvjark/My-Save-Pages/blob/main/%E6%9D%82%E8%B0%88issue%E8%B4%B4/Github%E4%BA%8B%E6%95%85%E8%B4%B4.md) | 2022.09.21 | ing | 贴文 |
 | [CTF wiki 学习资源站](https://ctf-wiki.org/) | 2023.2.17 | ing | 站点 | 
-| [Learn Opcode](https://github.com/Cvjark/My-Save-Pages/blob/main/%E6%8A%80%E6%9C%AF%E8%B4%B4/learningopcode/index.htm) | 2023.2.17 | ing | 贴文 |
+| [Learn Opcode](https://cvjark.github.io/My-Save-Pages/%E6%8A%80%E6%9C%AF%E8%B4%B4/learningopcode/index.htm) | 2023.2.17 | ing | 贴文 |
 
 
 
