@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://www.cnblogs.com/jiu0821/p/4507281.html -->
+<html lang="zh-cn" style="--olcb-folder-code-block-max-height:80vh;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="description" content="先分享一个案例： 1 #include 2 3 __declspec(naked) void Test() 4 { 5 int x; 6 x = 3; 7 __asm ret; 8 } 9 10 in">
+    <meta property="og:description" content="先分享一个案例： 1 #include 2 3 __declspec(naked) void Test() 4 { 5 int x; 6 x = 3; 7 __asm ret; 8 } 9 10 in">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>裸函数naked解析 - jiu~ - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <style>#home :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([highlighted]):not([class*="brush:"]) code:not(.hljs), :not(.cnblogs_code):not(.cnblogs_Highlighter)>pre:not([highlighted]):not([class*="brush:"]) code:not(.hljs) {background: rgb(245, 245, 245);
+        padding: 12px;
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 3px;
+        border-color: transparent;
+        color: rgb(68, 68, 68);
+        font-family: "Courier New", sans-serif;
+        font-size: 12px</style><link rel="stylesheet" href="./裸函数naked解析 - jiu_ - 博客园_files/blog-common.min.css">
+    
+
+    <link id="MainCss" rel="stylesheet" href="./裸函数naked解析 - jiu_ - 博客园_files/bundle-blacklowkey.min.css">
+        <link id="highlighter-theme-cnblogs" type="text/css" rel="stylesheet" href="./裸函数naked解析 - jiu_ - 博客园_files/cnblogs.css">
+    <link type="text/css" rel="stylesheet" href="./裸函数naked解析 - jiu_ - 博客园_files/custom.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./裸函数naked解析 - jiu_ - 博客园_files/bundle-blacklowkey-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/jiu0821/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/jiu0821/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/jiu0821/wlwmanifest.xml">
+    <script type="text/javascript" src="./裸函数naked解析 - jiu_ - 博客园_files/encoder.js.下载"></script><script type="text/javascript" async="" src="./裸函数naked解析 - jiu_ - 博客园_files/analytics.js.下载"></script><script>
+        var currentBlogId = 144410;
+        var currentBlogApp = 'jiu0821';
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'BlackLowKey';
+        var visitorUserId = '';
+        var hasCustomScript = true;
+        try {
+            if (hasCustomScript && document.referrer && document.referrer.indexOf('baidu.com') >= 0) {
+                Object.defineProperty(document, 'referrer', { value: '' });
+                Object.defineProperty(Document.prototype, 'referrer', { get: function () { return ''; } });
+            }
+        } catch (error) { }
+        window.cb_enable_mathjax = true;
+        window.mathEngine = 0;
+        window.codeHighlightEngine = 1;
+        window.enableCodeLineNumber = false;
+        window.codeHighlightTheme = 'cnblogs';
+        window.darkModeCodeHighlightTheme = 'vs2015';
+        window.isDarkCodeHighlightTheme = false;
+        window.isDarkModeCodeHighlightThemeDark = true;
+        window.isDisableCodeHighlighter = false;
+        window.enableCodeThemeTypeFollowSystem = false;
+    </script>
+        <script>
+            var currentPostDateAdded = '2015-05-16 03:45';
+        </script>
+    <script src="./裸函数naked解析 - jiu_ - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="./裸函数naked解析 - jiu_ - 博客园_files/blog-common.min.js.下载"></script><style>.medium-zoom-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 300ms;
+  will-change: opacity;
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+  cursor: pointer;
+  cursor: zoom-out;
+  opacity: 1;
+}
+
+.medium-zoom-image {
+  cursor: pointer;
+  cursor: zoom-in;
+  /*
+    The `transition` is marked as "!important" for the animation to happen
+    even though it's overriden by another inline `transition` style attribute.
+
+    This is problematic with frameworks that generate inline styles on their
+    images (e.g. Gatsby).
+
+    See https://github.com/francoischalifour/medium-zoom/issues/110
+   */
+  transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.medium-zoom-image--hidden {
+  visibility: hidden;
+}
+
+.medium-zoom-image--opened {
+  position: relative;
+  cursor: pointer;
+  cursor: zoom-out;
+  will-change: transform;
+}
+</style><script id="hljs-script" src="./裸函数naked解析 - jiu_ - 博客园_files/highlight.min.js.下载" type="text/javascript" async=""></script>
+    
+
+    
+<script id="mathjax" src="./裸函数naked解析 - jiu_ - 博客园_files/MathJax.js.下载" type="text/javascript" async=""></script><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script src="./裸函数naked解析 - jiu_ - 博客园_files/pubads_impl_2023021401.js.下载" async=""></script><link rel="preload" href="https://adservice.google.co.jp/adsid/integrator.js?domain=www.cnblogs.com" as="script"><script type="text/javascript" src="https://adservice.google.co.jp/adsid/integrator.js?domain=www.cnblogs.com"></script><link rel="preload" href="./裸函数naked解析 - jiu_ - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./裸函数naked解析 - jiu_ - 博客园_files/f.txt"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="skin-blacklowkey no-navbar mathjax2"><div id="MathJax_Message" style="display: none;"></div>
+    <a name="top"></a>
+    <div id="top_nav" class="navbar forpc navbar-custom">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园" role="banner">
+                            <img src="./裸函数naked解析 - jiu_ - 博客园_files/logo.svg" alt="博客园Logo">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.cnblogs.com/" onclick="countClicks(&#39;skin-navbar-sitehome&#39;)">首页</a>
+                </li>
+                <li>
+                    <a href="https://news.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-news&#39;)">新闻</a>
+                </li>
+                <li>
+                    <a href="https://q.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-q&#39;)">博问</a>
+                </li>
+                <li>
+                    <a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-brands&#39;)">专区</a>
+                </li>
+                <li>
+                    <a href="https://ing.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-ing&#39;)">闪存</a>
+                </li>
+                <li>
+                    <a href="https://edu.cnblogs.com/" onclick="countClicks(&#39;nav&#39;, &#39;skin-navbar-edu&#39;)">班级</a>
+                </li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search dropdown" action="https://zzk.cnblogs.com/s" method="get" role="search">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="search" tabindex="3" autocomplete="off">
+                        <button id="zzk_search_button" onclick="window.navbarSearchManager.triggerActiveOption()">
+                            <img id="search_icon" class="focus-hidden" src="./裸函数naked解析 - jiu_ - 博客园_files/search.svg" alt="搜索">
+                            <img class="hidden focus-visible" src="./裸函数naked解析 - jiu_ - 博客园_files/enter.svg" alt="搜索">
+                        </button>
+                        <ul id="navbar_search_options" class="dropdown-menu quick-search-menu">
+                            <li tabindex="0" class="active" onclick="zzkSearch(event, document.getElementById(&#39;zzk_search_input&#39;).value)">
+                                <div class="keyword-wrapper">
+                                    <img src="./裸函数naked解析 - jiu_ - 博客园_files/search.svg" alt="搜索">
+                                    <div class="keyword"></div>
+                                </div>
+                                <span class="search-area">所有博客</span>
+                            </li>
+                                    <li tabindex="1" onclick="zzkBlogSearch(event, &#39;jiu0821&#39;, document.getElementById(&#39;zzk_search_input&#39;).value)">
+                                        <div class="keyword-wrapper">
+                                            <img src="./裸函数naked解析 - jiu_ - 博客园_files/search.svg" alt="搜索">
+                                            <div class="keyword"></div>
+                                        </div>
+                                        <span class="search-area">当前博客</span>
+                                    </li>
+                        </ul>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a class="navbar-user-info navbar-blog" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" alt="写随笔" title="写随笔" style="display: none;">
+                        <img id="new_post_icon" class="navbar-icon" src="./裸函数naked解析 - jiu_ - 博客园_files/newpost.svg" alt="写随笔">
+                    </a>
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                        <img id="myblog_icon" class="navbar-icon" src="./裸函数naked解析 - jiu_ - 博客园_files/myblog.svg" alt="我的博客">
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                        <img id="msg_icon" class="navbar-icon" src="./裸函数naked解析 - jiu_ - 博客园_files/message.svg" alt="短消息">
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <a id="navbar_lite_mode_indicator" data-current-page="blog" style="display: none" href="javascript:void(0)" alt="简洁模式" title="简洁模式启用，您在访问他人博客时会使用简洁款皮肤展示">
+                        <img class="navbar-icon" src="./裸函数naked解析 - jiu_ - 博客园_files/lite-mode-on.svg" alt="简洁模式">
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="./裸函数naked解析 - jiu_ - 博客园_files/avatar-default.svg" alt="用户头像">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" id="navbar_lite_mode_toggle" title="简洁模式会使用简洁款皮肤显示所有博客">
+    简洁模式 <img id="navbar_lite_mode_on" src="./裸函数naked解析 - jiu_ - 博客园_files/lite-mode-check.svg" class="hide"><span id="navbar_lite_mode_spinner" class="hide">...</span>
+</a>
+                            <a href="javascript:void(0)" onclick="account.logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup" style="display: inline;">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="account.login()" style="display: inline;">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="page_begin_html">
+        <script type="text/javascript">
+/*
+  $(document.body).bind({
+            copy: function(e) {//copy事件
+                var cpTxt = window.getSelection().toString() + "\r\n\r\n作者：jiu~\r\n链接："+location.href+"\r\n来源：博客园\r\n著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。\r\n";
+                var clipboardData = window.clipboardData; //for IE
+                if (!clipboardData) { // for chrome
+                    clipboardData = e.originalEvent.clipboardData;
+                }
+                clipboardData.setData('Text', cpTxt);
+                return false;//否则设不生效
+            }
+        });
+*/
+</script>
+
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259053720'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259053720%26online%3D1' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1259053720"></span><script src="./裸函数naked解析 - jiu_ - 博客园_files/z_stat.php" type="text/javascript"></script>
+
+<script type="text/javascript">
+/*
+    功能：生成博客目录的JS工具
+    测试：IE8，火狐，google测试通过
+    孤傲苍狼
+    2014-5-11
+*/
+var BlogDirectory = {
+    /*
+        获取元素位置，距浏览器左边界的距离（left）和距浏览器上边界的距离（top）
+    */
+    getElementPosition:function (ele) {        
+        var topPosition = 0;
+        var leftPosition = 0;
+        while (ele){              
+            topPosition += ele.offsetTop;
+            leftPosition += ele.offsetLeft;        
+            ele = ele.offsetParent;     
+        }  
+        return {top:topPosition, left:leftPosition}; 
+    },
+
+    /*
+    获取滚动条当前位置
+    */
+    getScrollBarPosition:function () {
+        var scrollBarPosition = document.body.scrollTop || document.documentElement.scrollTop;
+        return  scrollBarPosition;
+    },
+    
+    /*
+    移动滚动条，finalPos 为目的位置，internal 为移动速度
+    */
+    moveScrollBar:function(finalpos, interval) {
+
+        //若不支持此方法，则退出
+        if(!window.scrollTo) {
+            return false;
+        }
+
+        //窗体滚动时，禁用鼠标滚轮
+        window.onmousewheel = function(){
+            return false;
+        };
+          
+        //清除计时
+        if (document.body.movement) { 
+            clearTimeout(document.body.movement); 
+        } 
+
+        var currentpos =BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
+
+        var dist = 0; 
+        if (currentpos == finalpos) {//到达预定位置，则解禁鼠标滚轮，并退出
+            window.onmousewheel = function(){
+                return true;
+            }
+            return true; 
+        } 
+        if (currentpos < finalpos) {//未到达，则计算下一步所要移动的距离
+            dist = Math.ceil((finalpos - currentpos)/10); 
+            currentpos += dist; 
+        } 
+        if (currentpos > finalpos) { 
+            dist = Math.ceil((currentpos - finalpos)/10); 
+            currentpos -= dist; 
+        }
+        
+        var scrTop = BlogDirectory.getScrollBarPosition();//获取滚动条当前位置
+        window.scrollTo(0, currentpos);//移动窗口
+        if(BlogDirectory.getScrollBarPosition() == scrTop)//若已到底部，则解禁鼠标滚轮，并退出
+        {
+            window.onmousewheel = function(){
+                return true;
+            }
+            return true;
+        }
+        
+        //进行下一步移动
+        var repeat = "BlogDirectory.moveScrollBar(" + finalpos + "," + interval + ")"; 
+        document.body.movement = setTimeout(repeat, interval); 
+    },
+    
+    htmlDecode:function (text){
+        var temp = document.createElement("div");
+        temp.innerHTML = text;
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
+    },
+
+    /*
+    创建博客目录，
+    id表示包含博文正文的 div 容器的 id，
+    mt 和 st 分别表示主标题和次级标题的标签名称（如 H2、H3，大写或小写都可以！），
+    interval 表示移动的速度
+    */
+    createBlogDirectory:function (id, mt, st, interval){
+         //获取博文正文div容器
+        var elem = document.getElementById(id);
+        if(!elem) return false;
+        //获取div中所有元素结点
+        var nodes = elem.getElementsByTagName("*");
+        //创建博客目录的div容器
+        var divSideBar = document.createElement('DIV');
+        divSideBar.className = 'uprightsideBar';
+        divSideBar.setAttribute('id', 'uprightsideBar');
+        var divSideBarTab = document.createElement('DIV');
+        divSideBarTab.setAttribute('id', 'sideBarTab');
+        divSideBar.appendChild(divSideBarTab);
+        var h2 = document.createElement('H2');
+        divSideBarTab.appendChild(h2);
+        var txt = document.createTextNode('目录导航');
+        h2.appendChild(txt);
+        var divSideBarContents = document.createElement('DIV');
+        divSideBarContents.style.display = 'none';
+        divSideBarContents.setAttribute('id', 'sideBarContents');
+        divSideBar.appendChild(divSideBarContents);
+        //创建自定义列表
+        var dlist = document.createElement("dl");
+        divSideBarContents.appendChild(dlist);
+        var num = 0;//统计找到的mt和st
+        mt = mt.toUpperCase();//转化成大写
+        st = st.toUpperCase();//转化成大写
+        //遍历所有元素结点
+        for(var i=0; i<nodes.length; i++)
+        {
+            if(nodes[i].nodeName == mt|| nodes[i].nodeName == st)    
+            {
+                //获取标题文本
+                var nodetext = nodes[i].innerHTML.replace(/<\/?[^>]+>/g,"");//innerHTML里面的内容可能有HTML标签，所以用正则表达式去除HTML的标签
+                nodetext = nodetext.replace(/ /ig, "");//替换掉所有的 
+                nodetext = BlogDirectory.htmlDecode(nodetext);
+                //插入锚        
+                nodes[i].setAttribute("id", "blogTitle" + num);
+                var item;
+                switch(nodes[i].nodeName)
+                {
+                    case mt:    //若为主标题 
+                        item = document.createElement("dt");
+                        break;
+                    case st:    //若为子标题
+                        item = document.createElement("dd");
+                        break;
+                }
+                
+                //创建锚链接
+                var itemtext = document.createTextNode(nodetext);
+                item.appendChild(itemtext);
+                item.setAttribute("name", num);
+                item.onclick = function(){        //添加鼠标点击触发函数
+                    var pos = BlogDirectory.getElementPosition(document.getElementById("blogTitle" + this.getAttribute("name")));
+                    if(!BlogDirectory.moveScrollBar(pos.top, interval)) return false;
+                };            
+                
+                //将自定义表项加入自定义列表中
+                dlist.appendChild(item);
+                num++;
+            }
+        }
+        
+        if(num == 0) return false; 
+        /*鼠标进入时的事件处理*/
+        divSideBarTab.onmouseenter = function(){
+            divSideBarContents.style.display = 'block';
+        }
+        /*鼠标离开时的事件处理*/
+        divSideBar.onmouseleave = function() {
+            divSideBarContents.style.display = 'none';
+        }
+
+        document.body.appendChild(divSideBar);
+    }
+    
+};
+
+window.onload=function(){
+    /*页面加载完成之后生成博客目录*/
+    BlogDirectory.createBlogDirectory("cnblogs_post_body","h2","h3",20);
+}
+</script>
+    </div>
+
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/jiu0821/"><img id="blogLogo" src="./裸函数naked解析 - jiu_ - 博客园_files/logo.gif" alt="返回主页"></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/jiu0821/">jiu__</a>
+</h1>
+<h2>卓越 OR 淘汰</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/jiu0821/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/jiu~">
+联系</a></li>
+<li>
+
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 607&nbsp; </span>
+<span id="stats_article_count">文章 - 27&nbsp; </span>
+<span id="stats-comment_count">评论 - 215&nbsp; </span>
+<span id="stats-total-view-count">阅读 - 
+<span title="总阅读数: 2814783">
+281万</span></span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/jiu0821/p/4507281.html">
+    <span role="heading" aria-level="2">裸函数naked解析</span>
+    
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                <div id="cnblogs_post_body" class="blogpost-body blogpost-body-html">
+<p>先分享一个案例：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 128, 128, 1)"> 1</span> #include &lt;stdio.h&gt;
+<span style="color: rgba(0, 128, 128, 1)"> 2</span> 
+<span style="color: rgba(0, 128, 128, 1)"> 3</span> __declspec(naked) <span style="color: rgba(0, 0, 255, 1)">void</span><span style="color: rgba(0, 0, 0, 1)"> Test()
+</span><span style="color: rgba(0, 128, 128, 1)"> 4</span> <span style="color: rgba(0, 0, 0, 1)">{
+</span><span style="color: rgba(0, 128, 128, 1)"> 5</span>     <span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> x;
+</span><span style="color: rgba(0, 128, 128, 1)"> 6</span>     x = <span style="color: rgba(128, 0, 128, 1)">3</span><span style="color: rgba(0, 0, 0, 1)">;
+</span><span style="color: rgba(0, 128, 128, 1)"> 7</span> <span style="color: rgba(0, 0, 0, 1)">    __asm ret;
+</span><span style="color: rgba(0, 128, 128, 1)"> 8</span> <span style="color: rgba(0, 0, 0, 1)">}
+</span><span style="color: rgba(0, 128, 128, 1)"> 9</span> 
+<span style="color: rgba(0, 128, 128, 1)">10</span> <span style="color: rgba(0, 0, 255, 1)">int</span> main(<span style="color: rgba(0, 0, 255, 1)">int</span> argc, <span style="color: rgba(0, 0, 255, 1)">char</span>*<span style="color: rgba(0, 0, 0, 1)"> argv[])
+</span><span style="color: rgba(0, 128, 128, 1)">11</span> <span style="color: rgba(0, 0, 0, 1)">{
+</span><span style="color: rgba(0, 128, 128, 1)">12</span>     <span style="color: rgba(0, 0, 255, 1)">int</span> x = <span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">;
+</span><span style="color: rgba(0, 128, 128, 1)">13</span> <span style="color: rgba(0, 0, 0, 1)">    Test();
+</span><span style="color: rgba(0, 128, 128, 1)">14</span>     printf(<span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">%d\n</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,x);
+</span><span style="color: rgba(0, 128, 128, 1)">15</span>     <span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">;
+</span><span style="color: rgba(0, 128, 128, 1)">16</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>猜猜输出什么？输出3，而不是1。</p>
+<p>看下反汇编代码：</p>
+<p><img src="./裸函数naked解析 - jiu_ - 博客园_files/160230540794904.png" alt="" class="medium-zoom-image"></p>
+<p>有疑问先留着。下面讲解下naked：</p>
+<p>MSDN中关于naked关键字的介绍：</p>
+<p>For functions declared with the&nbsp;<span class="keyword">naked&nbsp;attribute,&nbsp;the compiler generates code without prolog and epilog code. You can use this feature to write your own prolog/epilog code sequences using inline assembler code. Naked functions are particularly useful in writing virtual device drivers. Note that the<span class="keyword">naked&nbsp;attribute is only valid on x86, and is not available on x64 or Itanium.</span></span></p>
+<p>我们知道VC++和gcc都支持naked函数，即所谓的“裸函数”，<span id="mt1" class="sentence" data-guid="a232dbfa2d70212d9f841614e613d339" data-source="For functions declared with the &lt;span class=&quot;input&quot;&gt;naked attribute, the compiler generates code without prolog and epilog code.">对于使用&nbsp;<span><span class="input">naked&nbsp;特性声明的函数，编译器将生成编码，而无需 prolog 和 epilog 代码。而一般性函数，编译器会主动加上很多prilog和epilog代码，还会做一些优化，有些是赘余的。而使用内联汇编，可以写完全按自己意愿跑的函数。</span></span><span id="mt2" class="sentence" data-guid="8ca7a74ac97e6b963cb3b9af0f3bc445" data-source="You can use this feature to write your own prolog/epilog code sequences using inline assembler code.">可以使用此功能来编写使用汇编程序代码的自己的 prolog/epilog 代码顺序。&nbsp;<span id="mt3" class="sentence" data-guid="8d9489050617e3cc19e9aea149e21b20" data-source="Naked functions are particularly useful in writing virtual device drivers.  Note that the &lt;span class=&quot;input&quot;&gt;naked attribute is only valid on x86 and ARM, and is not available on x64.">裸函数尤为用在编写虚拟设备驱动程序。请注意&nbsp;<span><span class="input">naked&nbsp;特性仅适用于 x86和ARM，并不用于 x64 。关于自己编写prolog 和 epilog 代码，在后面有讲到。</span></span></span></span></span></p>
+<p>VC++的声明语法：<code class="codecolorer asm default"><span class="asm">__declspec(naked)</span></code></p>
+<p>gcc的声明语法：<code class="codecolorer asm default"><span class="asm">__attribute__((naked))</span></code></p>
+<p>因为编译器不会生成入口代码和退出代码，所以写naked函数的时候要分外小心。进入函数代码时，父函数仅仅会将参数和返回地址压栈，亦即只有esp寄存器和eip寄存器会发生变化。</p>
+<p>&nbsp;</p>
+<p>一般来说，使用naked函数时需要注意以下问题：（以VC++编译器为例）</p>
+<p>1、函数必须显式返回。</p>
+<p>一般通过<code class="codecolorer asm default"><span class="asm">__asm&nbsp;ret</span></code>的内嵌汇编指令返回。</p>
+<p>2、不可以通过任何方式使用局部变量。</p>
+<p>若声明一个局部变量，并在代码中为其赋值，则会更改父函数中相应位置的局部函数的值。</p>
+<p>3、只能通过esp引用参数。</p>
+<p>因为子函数继承了父函数的ebp寄存器，所以只能通过esp引用参数。</p>
+<p>4、<span><span class="input">naked&nbsp;属性仅与函数的定义相关，不能在函数原型中指定。不能用于函数指针，不能用于数据定义。</span></span></p>
+<p>&nbsp;</p>
+<p><span><span class="input">官方给出的naked的规则限制：</span></span></p>
+<ul>
+<li>
+<p><span id="mt2" class="sentence" data-guid="4a61f01a078284d82d32e64974f1c8c4" data-source="The &lt;span class=&quot;input&quot;&gt;return statement is not permitted.">不允许使用&nbsp;<span><span class="input">return&nbsp;语句。</span></span></span></p>
+</li>
+<li>
+<p><span id="mt3" class="sentence" data-guid="f588acf8b89d9aa3016e2417b94d8e9d" data-source="Structured Exception Handling and C++ Exception Handling constructs are not permitted because they must unwind across the stack frame.">不允许结构化异常处理和 C++ 异常处理构造，因为它们必须在堆栈帧中展开。</span></p>
+</li>
+<li>
+<p><span id="mt4" class="sentence" data-guid="5ba82262b893043063233bb6b800e9a6" data-source="For the same reason, any form of &lt;strong&gt;setjmp&lt;/strong&gt; is prohibited.">出于同一原因，禁止任何形式的&nbsp;<strong>setjmp</strong>。</span></p>
+</li>
+<li>
+<p><span id="mt5" class="sentence" data-guid="9aab86eb663cd01900e8e3b8dea367c5" data-source="Use of the &lt;strong&gt;_alloca&lt;/strong&gt; function is prohibited.">禁止使用&nbsp;<strong>_alloca</strong>&nbsp;函数。</span></p>
+</li>
+<li>
+<p><span id="mt6" class="sentence" data-guid="9fba71657bdd350c2b6e330d3b9ac6fb" data-source="To ensure that no initialization code for local variables appears before the prolog sequence, initialized local variables are not permitted at function scope.">若要确保局部变量的初始化代码不在 prolog 序列之前出现，函数范围中不允许存在初始化的局部变量。&nbsp;<span id="mt7" class="sentence" data-guid="1e0bf304621f285ca7f15e05853c77d8" data-source="In particular, the declaration of C++ objects is not permitted at function scope.">具体而言，函数范围中不允许有 C++ 对象的声明。&nbsp;<span id="mt8" class="sentence" data-guid="63e2d21c3325cac376c89b8f2897f08c" data-source="There may, however, be initialized data in a nested scope.">但是，嵌套的范围中可能有初始化的数据。</span></span></span></p>
+</li>
+<li>
+<p><span id="mt9" class="sentence" data-guid="838fa6171145ae702c94878c669f7cdc" data-source="Frame pointer optimization (the /Oy compiler option) is not recommended, but it is automatically suppressed for a naked function.">不建议使用帧指针优化（/Oy 编译器选项），但会自动为裸函数将其取消。</span></p>
+</li>
+<li>
+<p><span id="mt10" class="sentence" data-guid="d40297b0752ee838bdcbd11fdf2deb30" data-source="You cannot declare C++ class objects at the function lexical scope.">不能在函数词法范围中声明 C++ 类对象。&nbsp;<span id="mt11" class="sentence" data-guid="9f1bae6395d57f81973ef6f7f5224fc4" data-source="You can, however, declare objects in a nested block.">但是，可以在嵌套的块中声明对象。</span></span></p>
+</li>
+<li>
+<p><span id="mt12" class="sentence" data-guid="0facf9c7594ff04f61b8dd7a2ade60a6" data-source="The &lt;span class=&quot;input&quot;&gt;naked keyword is ignored when compiling with &lt;span class=&quot;mtpsTagOuterHtml&quot; &gt;/clr.">在使用&nbsp;<a href="https://msdn.microsoft.com/zh-cn/library/k8d11d4s.aspx" rel="noopener">/clr</a>&nbsp;进行编译时，将忽略&nbsp;<span><span class="input">naked&nbsp;关键字。</span></span></span></p>
+</li>
+<li>
+<p><span class="sentence" data-guid="454f700ce22873c94b1c3b7566a6150e" data-source="For &lt;span class=&quot;mtpsTagOuterHtml&quot; &gt;__fastcall naked functions, whenever there is a reference in C/C++ code to one of the register arguments, the prolog code should store the values of that register into the stack location for that variable.">对于&nbsp;<a href="https://msdn.microsoft.com/zh-cn/library/6xa169sk.aspx" rel="noopener">__fastcall</a>&nbsp;裸函数，只要 C/C++ 代码中存在对某个寄存器参数的引用，prolog 代码就应将该寄存器的值存储到该变量的堆栈位置中。&nbsp;<span class="sentence" data-guid="fa3a10105c9b5660cbdf9bbc8079647f" data-source="For example:">例如：</span></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 128, 128, 1)"> 1</span> <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> nkdfastcl.cpp
+</span><span style="color: rgba(0, 128, 128, 1)"> 2</span> <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> compile with: /c
+</span><span style="color: rgba(0, 128, 128, 1)"> 3</span> <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> processor: x86</span>
+<span style="color: rgba(0, 128, 128, 1)"> 4</span> __declspec(naked) <span style="color: rgba(0, 0, 255, 1)">int</span> __fastcall  power(<span style="color: rgba(0, 0, 255, 1)">int</span> i, <span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> j) {
+</span><span style="color: rgba(0, 128, 128, 1)"> 5</span>    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> calculates i^j, assumes that j &gt;= 0
+</span><span style="color: rgba(0, 128, 128, 1)"> 6</span> 
+<span style="color: rgba(0, 128, 128, 1)"> 7</span>    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> prolog</span>
+<span style="color: rgba(0, 128, 128, 1)"> 8</span> <span style="color: rgba(0, 0, 0, 1)">   __asm {
+</span><span style="color: rgba(0, 128, 128, 1)"> 9</span> <span style="color: rgba(0, 0, 0, 1)">      push ebp
+</span><span style="color: rgba(0, 128, 128, 1)">10</span> <span style="color: rgba(0, 0, 0, 1)">      mov ebp, esp
+</span><span style="color: rgba(0, 128, 128, 1)">11</span> <span style="color: rgba(0, 0, 0, 1)">      sub esp, __LOCAL_SIZE
+</span><span style="color: rgba(0, 128, 128, 1)">12</span>      <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> store ECX and EDX into stack locations allocated for i and j</span>
+<span style="color: rgba(0, 128, 128, 1)">13</span> <span style="color: rgba(0, 0, 0, 1)">     mov i, ecx
+</span><span style="color: rgba(0, 128, 128, 1)">14</span> <span style="color: rgba(0, 0, 0, 1)">     mov j, edx
+</span><span style="color: rgba(0, 128, 128, 1)">15</span> <span style="color: rgba(0, 0, 0, 1)">   }
+</span><span style="color: rgba(0, 128, 128, 1)">16</span> 
+<span style="color: rgba(0, 128, 128, 1)">17</span> <span style="color: rgba(0, 0, 0, 1)">   {
+</span><span style="color: rgba(0, 128, 128, 1)">18</span>       <span style="color: rgba(0, 0, 255, 1)">int</span> k = <span style="color: rgba(128, 0, 128, 1)">1</span>;   <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> return value</span>
+<span style="color: rgba(0, 128, 128, 1)">19</span>       <span style="color: rgba(0, 0, 255, 1)">while</span> (j-- &gt; <span style="color: rgba(128, 0, 128, 1)">0</span><span style="color: rgba(0, 0, 0, 1)">) 
+</span><span style="color: rgba(0, 128, 128, 1)">20</span>          k *=<span style="color: rgba(0, 0, 0, 1)"> i;
+</span><span style="color: rgba(0, 128, 128, 1)">21</span> <span style="color: rgba(0, 0, 0, 1)">      __asm { 
+</span><span style="color: rgba(0, 128, 128, 1)">22</span> <span style="color: rgba(0, 0, 0, 1)">         mov eax, k 
+</span><span style="color: rgba(0, 128, 128, 1)">23</span> <span style="color: rgba(0, 0, 0, 1)">      };
+</span><span style="color: rgba(0, 128, 128, 1)">24</span> <span style="color: rgba(0, 0, 0, 1)">   }
+</span><span style="color: rgba(0, 128, 128, 1)">25</span> 
+<span style="color: rgba(0, 128, 128, 1)">26</span>    <span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> epilog</span>
+<span style="color: rgba(0, 128, 128, 1)">27</span> <span style="color: rgba(0, 0, 0, 1)">   __asm {
+</span><span style="color: rgba(0, 128, 128, 1)">28</span> <span style="color: rgba(0, 0, 0, 1)">      mov esp, ebp
+</span><span style="color: rgba(0, 128, 128, 1)">29</span> <span style="color: rgba(0, 0, 0, 1)">      pop ebp
+</span><span style="color: rgba(0, 128, 128, 1)">30</span> <span style="color: rgba(0, 0, 0, 1)">      ret
+</span><span style="color: rgba(0, 128, 128, 1)">31</span> <span style="color: rgba(0, 0, 0, 1)">   }
+</span><span style="color: rgba(0, 128, 128, 1)">32</span> }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h1 class="title"><span style="font-size: 16px">编写 Prolog/Epilog 代码的注意事项</span></h1>
+<p><strong><span style="font-size: 16px">堆栈帧布局：</span></strong></p>
+<p><span style="font-size: 14px">此示例显示了可能出现在 32 位函数中的标准 prolog 代码：</span></p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">push        ebp                ; Save ebp
+mov         ebp, esp           ; Set stack frame pointer
+sub         esp, localbytes    ; Allocate space </span><span style="color: rgba(0, 0, 255, 1)">for</span><span style="color: rgba(0, 0, 0, 1)"> locals
+push        </span>&lt;registers&gt;        ; Save registers</pre>
+</div>
+<p><span id="mt4" class="sentence" data-guid="e1352d53e6ab5c00abd507ba6af4de8b" data-source="The &lt;span class=&quot;code&quot;&gt;localbytes variable represents the number of bytes needed on the stack for local variables, and the &lt;span class=&quot;code&quot;&gt;&amp;lt;registers&amp;gt; variable is a placeholder that represents the list of registers to be saved on the stack."><span class="code">localbytes&nbsp;变量表示局部变量堆栈上所需的字节数，<span class="code">&lt;registers&gt;&nbsp;变量是表示要保存在堆栈上的寄存器列表的占位符。&nbsp;<span id="mt5" class="sentence" data-guid="843815764e7f8d9ad617aba5e6216256" data-source="After pushing the registers, you can place any other appropriate data on the stack.">推入寄存器后，您可以将任何其他适当的数据放置在堆栈上。&nbsp;<span id="mt6" class="sentence" data-guid="10c0227660a8ec46d633d332dff6a0f3" data-source="The following is the corresponding epilog code:">下面是相应的 epilog 代码：</span></span></span></span></span></p>
+<div class="cnblogs_code">
+<pre>pop         &lt;registers&gt;<span style="color: rgba(0, 0, 0, 1)">   ; Restore registers
+mov         esp, ebp      ; Restore stack pointer
+pop         ebp           ; Restore ebp
+ret                       ; Return </span><span style="color: rgba(0, 0, 255, 1)">from</span> function</pre>
+</div>
+<p><span id="mt7" class="sentence" data-guid="96d9402d82883494d7eeb5bc9d6621d8" data-source="The stack always grows down (from high to low memory addresses).">堆栈始终向下增长（从高内存地址到低内存地址）。&nbsp;<span id="mt8" class="sentence" data-guid="e9c18bb1a6acf4397eb8e76e409c7d90" data-source="The base pointer (&lt;span class=&quot;code&quot;&gt;ebp) points to the pushed value of &lt;span class=&quot;code&quot;&gt;ebp.">基指针 (<span class="code">ebp) 指向&nbsp;<span class="code">ebp&nbsp;的推入值。&nbsp;<span id="mt9" class="sentence" data-guid="07f6fa378565825c644d358c47915cdf" data-source="The locals area begins at &lt;span class=&quot;code&quot;&gt;ebp-4.">本地区域开始于&nbsp;<span class="code">ebp-4。&nbsp;<span id="mt10" class="sentence" data-guid="2c8bf4c42e12677302fe2eedecc6ef5f" data-source="To access local variables, calculate an offset from &lt;span class=&quot;code&quot;&gt;ebp by subtracting the appropriate value from &lt;span class=&quot;code&quot;&gt;ebp.">若要访问局部变量，可通过从&nbsp;<span class="code">ebp&nbsp;中减去适当的值来计算<span class="code">ebp&nbsp;的偏移量。</span></span></span></span></span></span></span></span></span></p>
+<p>&nbsp;</p>
+<p><span class="sentence" data-guid="96d9402d82883494d7eeb5bc9d6621d8" data-source="The stack always grows down (from high to low memory addresses)."><strong>__LOCAL_SIZE</strong>&nbsp;：</span></p>
+<p><span id="mt11" class="sentence" style="font-size: 14px" data-guid="5e69972122e07fddd9d816df42f7c390" data-source="The compiler provides a symbol, &lt;strong&gt;__LOCAL_SIZE&lt;/strong&gt;, for use in the inline assembler block of function prolog code.">编译器提供符号&nbsp;<strong>__LOCAL_SIZE</strong>&nbsp;以用于函数 prolog 代码的内联汇编程序块中。&nbsp;<span id="mt12" class="sentence" data-guid="58b3a79b549580bbee9b25239ef43e5f" data-source="This symbol is used to allocate space for local variables on the stack frame in custom prolog code.">此符号用于在自定义 prolog 代码中的堆栈帧上为局部变量分配空间。</span></span></p>
+<p><span class="sentence" style="font-size: 14px" data-guid="f73c7db8247c8baf7696b9a58e3303ec" data-source="The compiler determines the value of &lt;strong&gt;__LOCAL_SIZE&lt;/strong&gt;.">编译器确定&nbsp;<strong>__LOCAL_SIZE</strong>&nbsp;的值。&nbsp;<span class="sentence" data-guid="25f301b7a399641795c2916c4a438f38" data-source="Its value is the total number of bytes of all user-defined local variables and compiler-generated temporary variables.">其值是所有用户定义的局部变量和编译器生成的临时变量的总字节数。&nbsp;<span class="sentence" data-guid="9d496ecbbb741e625a38887e06053a35" data-source="&lt;strong&gt;__LOCAL_SIZE&lt;/strong&gt; can be used only as an immediate operand; it cannot be used in an expression."><strong>__LOCAL_SIZE</strong>&nbsp;只能用作即时操作数；它不能在表达式中使用。&nbsp;<span class="sentence" data-guid="a9d3a0de3d29d3584e0c8cf8dcd2d138" data-source="You must not change or redefine the value of this symbol.">不得更改或重新定义此符号的值。&nbsp;<span class="sentence" data-guid="fa3a10105c9b5660cbdf9bbc8079647f" data-source="For example:">例如：</span></span></span></span></span></p>
+<div class="cnblogs_code">
+<pre>mov        eax, __LOCAL_SIZE           ;Immediate operand--<span style="color: rgba(0, 0, 0, 1)">Okay
+mov        eax, [ebp </span>- __LOCAL_SIZE]   ;Error</pre>
+</div>
+<p>以下包含自定义 prolog 和 epilog 序列的裸函数的示例在 prolog 序列中使用&nbsp;<strong>__LOCAL_SIZE</strong>&nbsp;符号：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> the__local_size_symbol.cpp
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)"> processor: x86</span>
+__declspec ( naked ) <span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> main() {
+   </span><span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> i;
+   </span><span style="color: rgba(0, 0, 255, 1)">int</span><span style="color: rgba(0, 0, 0, 1)"> j;
+
+   __asm {      </span><span style="color: rgba(0, 128, 0, 1)">/*</span><span style="color: rgba(0, 128, 0, 1)"> prolog </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+      push   ebp
+      mov      ebp, esp
+      sub      esp, __LOCAL_SIZE
+      }
+      
+   </span><span style="color: rgba(0, 128, 0, 1)">/*</span><span style="color: rgba(0, 128, 0, 1)"> Function body </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+   __asm {   </span><span style="color: rgba(0, 128, 0, 1)">/*</span><span style="color: rgba(0, 128, 0, 1)"> epilog </span><span style="color: rgba(0, 128, 0, 1)">*/</span><span style="color: rgba(0, 0, 0, 1)">
+      mov      esp, ebp
+      pop      ebp
+      ret
+      }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./裸函数naked解析 - jiu_ - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>最初的案例现在看起来简单多了，编译器不主动加prolog 和 epilog 代码，子函数用父函数的ebp，所以这里修改了main函数的栈，后面结果出错了。后面的ret是必须写蛤，要自己维持栈平衡。</p>
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block" role="contentinfo"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/jiu0821/category/635266.html" target="_blank">C++/C</a></div>
+
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4507281,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;99cadaa5-7a8c-e211-90a7-f6db9189f8ef&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./裸函数naked解析 - jiu_ - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./裸函数naked解析 - jiu_ - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/jiu0821/" target="_blank"><img src="./裸函数naked解析 - jiu_ - 博客园_files/20141124212903.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/jiu0821/">jiu~</a><br>
+            <a href="https://home.cnblogs.com/u/jiu0821/followers/">粉丝 - <span class="follower-count">212</span></a>
+            <a href="https://home.cnblogs.com/u/jiu0821/followees/">关注 - <span class="following-count">101</span></a><br>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow" class="follow-tip">
+                <a href="javascript:void(0);" onclick="follow(&#39;99cadaa5-7a8c-e211-90a7-f6db9189f8ef&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(4507281,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(4507281,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/jiu0821/p/4505480.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/jiu0821/p/4505480.html" data-featured-image="" title="发布于 2015-05-15 11:30">acoj-1735 输油管道          【中位数】</a>
+    <br>
+    <a href="https://www.cnblogs.com/jiu0821/p/4518559.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/jiu0821/p/4518559.html" data-featured-image="" title="发布于 2015-05-20 23:30">九度oj-1533 最长上升子序列           （LIS）</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date" data-date-updated-tip="disable" data-date-updated="2015-05-16 09:59">2015-05-16 03:45</span>&nbsp;
+<a href="https://www.cnblogs.com/jiu0821/">jiu~</a>&nbsp;
+阅读(<span id="post_view_count">8958</span>)&nbsp;
+评论(<span id="post_comment_count">0</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=4507281" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(4507281);return false;">收藏</a>&nbsp;
+<a href="javascript:void(0)" onclick="reportManager.report({ currentUserId: &#39;&#39;, targetType: &#39;blogPost&#39;, targetId: &#39;4507281&#39;, targetLink: &#39;https://www.cnblogs.com/jiu0821/p/4507281.html&#39;, title: &#39;裸函数naked解析&#39; })">举报</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+
+<script>
+    var cb_entryId = 4507281, cb_entryCreatedDate = '2015-05-16 03:45', cb_postType = 1, cb_postTitle = '裸函数naked解析';
+    var allowComments = true, cb_blogId = 144410, cb_blogApp = 'jiu0821', cb_blogUserGuid = '99cadaa5-7a8c-e211-90a7-f6db9189f8ef';
+    mermaidRender.render()
+    markdown_highlight()
+    zoomManager.apply("#cnblogs_post_body img:not(.code_img_closed):not(.code_img_opened)");
+    updatePostStats(
+            [cb_entryId],
+            function(id, count) { $("#post_view_count").text(count) },
+            function(id, count) { $("#post_comment_count").text(count) })
+</script>
+<a id="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/jiu0821/p/4507281.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/jiu0821/p/4507281.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能查看或发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return account.login(&#39;!comments&#39;);">登录</a> 或者
+    <a href="https://www.cnblogs.com/">逛逛</a> 博客园首页
+</div>
+</div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+        <div id="cnblogs_ch"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="under-post-card" style="display: none;">
+            <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none; width: 300px; height: 0px;"></div></div>
+    </div>
+    <div id="under_post_card1"><div class="under-post-card">
+<b>编辑推荐：</b>
+<br>
+
+· <a href="https://www.cnblogs.com/dragonir/p/17121487.html" target="_blank">Three.js 进阶之旅：物理效果-碰撞和声音</a>
+    <br>
+· <a href="https://www.cnblogs.com/linvanda/p/17120205.html" target="_blank">我已经受够了“系统异常”！</a>
+    <br>
+· <a href="https://www.cnblogs.com/huangxincheng/p/17115916.html" target="_blank">记一次 .NET 某游戏网站 CPU 爆高分析</a>
+    <br>
+· <a href="https://www.cnblogs.com/jackyfei/p/17107742.html" target="_blank">探索 ABP 基础架构的横切关注点</a>
+    <br>
+· <a href="https://www.cnblogs.com/eryuan/p/17109391.html" target="_blank">一次生产环境 CPU 占用高的排查 </a>
+    <br>
+</div></div>
+    <div id="under_post_card2"><div class="itnews under-post-card">
+    <b>阅读排行：</b>
+    <br>
+ ·          <a href="https://www.cnblogs.com/ilovejaney/p/17125810.html" target="_blank">炸了！3年图片都没了</a>
+        <br>
+ ·          <a href="https://www.cnblogs.com/pzqu/p/17125799.html" target="_blank">夭寿啦！我的网站被攻击了了735200次还没崩</a>
+        <br>
+ ·          <a href="https://www.cnblogs.com/densen2014/p/17125416.html" target="_blank">Blazor 拖放上传文件转换格式并推送到浏览器下载</a>
+        <br>
+ ·          <a href="https://www.cnblogs.com/xueweihan/p/17125389.html" target="_blank">如何让程序更健壮「GitHub 热点速览」</a>
+        <br>
+ ·          <a href="https://www.cnblogs.com/newbe36524/p/0x01D-I-don-t-want-to-pass-nameof-anymore.html" target="_blank">我不想再传递 nameof 了</a>
+        <br>
+</div></div>
+    <div id="HistoryToday" class="under-post-card"></div>
+    <script type="text/javascript">
+        var commentManager = new blogCommentManager();
+        commentManager.renderComments(0);
+        fixPostBody();
+        window.footnoteTipManager.generateFootnoteTips();
+
+            window.tocManager.displayDisableTocTips = false;
+            window.tocManager.generateToc();
+            
+                setTimeout(function() { countViews(cb_blogId, cb_entryId); }, 50);
+            
+            deliverT2();
+            deliverC1C2();
+            loadNewsAndKb();
+            
+                LoadPostCategoriesTags(cb_blogId, cb_entryId);
+            
+            LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+            GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+            loadOptUnderPost();
+            GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+                </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem"><!--done-->
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    <object type="application/x-shockwave-flash" style="outline:none;" data="./裸函数naked解析 - jiu_ - 博客园_files/hamster.swf.下载" width="200" height="160">
+<param name="movie" value="http://cdn.abowman.com/widgets/hamster/hamster.swf?up_bodyColor=f0e9cc&amp;up_feetColor=D4C898&amp;up_eyeColor=000567&amp;up_wheelSpokeColor=DEDEDE&amp;up_wheelColor=FFFFFF&amp;up_waterColor=E0EFFF&amp;up_earColor=b0c4de&amp;up_wheelOuterColor=FF4D4D&amp;up_snoutColor=F7F4E9&amp;up_bgColor=F0E4E4&amp;up_foodColor=cba920&amp;up_wheelCenterColor=E4EB2E&amp;up_tailColor=E6DEBE&amp;">
+<param name="AllowScriptAccess" value="always">
+<param name="wmode" value="opaque"></object>
+<span style="color: #3E8BD6;font-size: 9pt;"></span>
+
+<div id="myTime">
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="160" height="70" id="honehoneclock" align="middle">
+            <param name="allowScriptAccess" value="always">
+            <param name="movie" value="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf">
+            <param name="quality" value="high">
+            <param name="bgcolor" value="#ffffff">
+            <param name="wmode" value="transparent">
+            <embed wmode="transparent" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_wh.swf" quality="high" bgcolor="#ffffff" width="160" height="70" name="honehoneclock" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+        </object>
+    </div>
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/jiu0821/">
+            jiu~
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/jiu0821/" title="入园时间：2013-03-14">
+            9年11个月
+        </a>
+        <br>
+        粉丝：
+        <a class="follower-count" href="https://home.cnblogs.com/u/jiu0821/followers/">
+            212
+        </a>
+        <br>
+        关注：
+        <a class="folowing-count" href="https://home.cnblogs.com/u/jiu0821/followees/">
+            101
+        </a>
+        <div id="p_b_follow" class="follow-tip">
+<a href="javascript:void(0)" onclick="follow(&#39;99cadaa5-7a8c-e211-90a7-f6db9189f8ef&#39;)">+加关注</a></div>
+        <script>getFollowStatus('99cadaa5-7a8c-e211-90a7-f6db9189f8ef');</script>
+    </div>
+</div>
+
+</div>
+<div id="sidebar_c3"></div>
+			<div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2023/01/17&#39;); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2023年2月</td>
+                            <td align="right" class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2023/03/17&#39;); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <tr>
+        <th class="CalDayHeader" align="center" abbr="日" scope="col">日</th>
+        <th class="CalDayHeader" align="center" abbr="一" scope="col">一</th>
+        <th class="CalDayHeader" align="center" abbr="二" scope="col">二</th>
+        <th class="CalDayHeader" align="center" abbr="三" scope="col">三</th>
+        <th class="CalDayHeader" align="center" abbr="四" scope="col">四</th>
+        <th class="CalDayHeader" align="center" abbr="五" scope="col">五</th>
+        <th class="CalDayHeader" align="center" abbr="六" scope="col">六</th>
+    </tr>
+            <tr>
+                            <td class="CalOtherMonthDay" align="center">29</td>
+                            <td class="CalOtherMonthDay" align="center">30</td>
+                            <td class="CalOtherMonthDay" align="center">31</td>
+                        <td class="" align="center">
+                            1
+                        </td>
+                        <td class="" align="center">
+                            2
+                        </td>
+                        <td class="" align="center">
+                            3
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        4
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            5
+                        </td>
+                            <td class="" align="center">
+                                6
+                            </td>
+                            <td class="" align="center">
+                                7
+                            </td>
+                            <td class="" align="center">
+                                8
+                            </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            11
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            12
+                        </td>
+                            <td class="" align="center">
+                                13
+                            </td>
+                            <td class="" align="center">
+                                14
+                            </td>
+                            <td class="" align="center">
+                                15
+                            </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="CalTodayDay" align="center">
+                                17
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            18
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            19
+                        </td>
+                            <td class="" align="center">
+                                20
+                            </td>
+                            <td class="" align="center">
+                                21
+                            </td>
+                            <td class="" align="center">
+                                22
+                            </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            25
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            26
+                        </td>
+                            <td class="" align="center">
+                                27
+                            </td>
+                            <td class="" align="center">
+                                28
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                2
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                3
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            4
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            5
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                6
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                9
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                10
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            11
+                        </td>
+                </tr>
+    </tbody>
+</table></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block"><div class="catListLink">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+    <li><a href="https://www.cnblogs.com/jiu0821/p/" title="我的博客的随笔列表">我的随笔</a></li>
+<li><a href="https://www.cnblogs.com/jiu0821/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+<li><a href="https://www.cnblogs.com/jiu0821/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+<li><a href="https://www.cnblogs.com/jiu0821/comments" title="我的博客的评论列表">最新评论</a></li>
+<li><a href="https://www.cnblogs.com/jiu0821/tag/" title="我的博客的标签列表">我的标签</a></li>
+
+</ul>
+</div>
+
+</div>
+
+<!-- 最新随笔 -->
+<div id="sidebar_recentposts" class="sidebar-block"><div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+    <ul>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/12358292.html">1.ubuntu17.10 163源</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/12267483.html">2.Ubuntu "Unable to locate package lrzsz"解决办法</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/12264259.html">3.安装VMware Tools选项显示灰色的正确解决办法</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/12149854.html">4.Other UltraISO 软碟通注册码</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/12037306.html">5.Linux平台Boost 1.6.7的编译方法</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/11837046.html">6.hyper-v显示分辨率如何自动调整</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/11762154.html">7.Ubuntu 14.04下超级终端Minicom连接ARM（转）</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/11750046.html">8.Ubuntu 17.10安装VirtualBox 5.2.2 及相关问题解决</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/11406069.html">9.ffmpeg fails with error "max delay reached. need to consume packet"</a>
+
+                </li>
+                <li>
+                    
+<a href="https://www.cnblogs.com/jiu0821/p/11406055.html">10.VLC搭建RTSP服务器</a>
+
+                </li>
+    </ul>
+</div>
+
+</div>
+
+<!-- 我的标签 -->
+
+
+<!-- 积分与排名 -->
+<div id="sidebar_scorerank" class="sidebar-block"><div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	
+953859
+	</li>
+	<li class="liRank">
+		排名 -	
+353
+	</li>
+</ul>
+</div>
+
+
+
+</div>
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+
+    <div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+        <h3 class="catListTitle">
+            
+    <a class="sidebar-card-title-a" href="https://www.cnblogs.com/jiu0821/post-categories">随笔分类</a>
+
+
+
+        </h3>
+
+        <ul>
+
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634850.html" class="category-item-link" rel="" target="">ACM之dp(10)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/664316.html" class="category-item-link" rel="" target="">ACM之分治(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634851.html" class="category-item-link" rel="" target="">ACM之高精度(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634848.html" class="category-item-link" rel="" target="">ACM之计算几何(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/668582.html" class="category-item-link" rel="" target="">ACM之模拟(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634843.html" class="category-item-link" rel="" target="">ACM之数据结构(35)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634840.html" class="category-item-link" rel="" target="">ACM之数学(11)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/667180.html" class="category-item-link" rel="" target="">ACM之搜索(9)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/642786.html" class="category-item-link" rel="" target="">ACM之贪心(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/634021.html" class="category-item-link" rel="" target="">ACM之图论(11)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/633994.html" class="category-item-link" rel="" target="">ACM之小技巧性题目(14)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/644379.html" class="category-item-link" rel="" target="">ACM之字符串(8)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/639462.html" class="category-item-link" rel="" target="">assembly(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/635266.html" class="category-item-link" rel="" target="">C++/C(133)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/643087.html" class="category-item-link" rel="" target="">computer networks(16)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1143608.html" class="category-item-link" rel="" target="">computer vision(25)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/846570.html" class="category-item-link" rel="" target="">elasticsearch(31)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/675584.html" class="category-item-link" rel="" target="">Hacker(10)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/644309.html" class="category-item-link" rel="" target="">JAVA(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1116531.html" class="category-item-link" rel="" target="">JSON(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/675033.html" class="category-item-link" rel="" target="">linux(183)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/705659.html" class="category-item-link" rel="" target="">MFC(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1143644.html" class="category-item-link" rel="" target="">mind maps(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/776803.html" class="category-item-link" rel="" target="">mysql(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/882016.html" class="category-item-link" rel="" target="">OS(16)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/642514.html" class="category-item-link" rel="" target="">other(20)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1082512.html" class="category-item-link" rel="" target="">penetration(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/772330.html" class="category-item-link" rel="" target="">php&amp;web开发(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/638391.html" class="category-item-link" rel="" target="">python(57)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/703117.html" class="category-item-link" rel="" target="">security(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/892185.html" class="category-item-link" rel="" target="">software test(11)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/640872.html" class="category-item-link" rel="" target="">verilog(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/734055.html" class="category-item-link" rel="" target="">windows核心编程(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1184344.html" class="category-item-link" rel="" target="">面试(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/675041.html" class="category-item-link" rel="" target="">文件系统&amp;数据恢复(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/806709.html" class="category-item-link" rel="" target="">正则与编译原理(4)</a>
+ 
+                </li>                
+            <li>
+                <a href="javascript:void(0)" onclick="sideColumnManager.loadMore(this)">更多</a>
+            </li>
+        </ul>
+
+
+    </div>    
+    <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+        <h3 class="catListTitle">
+            
+随笔档案
+
+
+        </h3>
+
+        <ul>
+
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2020/02.html" class="category-item-link" rel="" target="">2020年2月(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2020/01.html" class="category-item-link" rel="" target="">2020年1月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/12.html" class="category-item-link" rel="" target="">2019年12月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/11.html" class="category-item-link" rel="" target="">2019年11月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/10.html" class="category-item-link" rel="" target="">2019年10月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/08.html" class="category-item-link" rel="" target="">2019年8月(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/07.html" class="category-item-link" rel="" target="">2019年7月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/06.html" class="category-item-link" rel="" target="">2019年6月(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/05.html" class="category-item-link" rel="" target="">2019年5月(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/04.html" class="category-item-link" rel="" target="">2019年4月(19)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/03.html" class="category-item-link" rel="" target="">2019年3月(8)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/02.html" class="category-item-link" rel="" target="">2019年2月(8)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2019/01.html" class="category-item-link" rel="" target="">2019年1月(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/12.html" class="category-item-link" rel="" target="">2018年12月(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/11.html" class="category-item-link" rel="" target="">2018年11月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/10.html" class="category-item-link" rel="" target="">2018年10月(6)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/09.html" class="category-item-link" rel="" target="">2018年9月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/08.html" class="category-item-link" rel="" target="">2018年8月(6)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/07.html" class="category-item-link" rel="" target="">2018年7月(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/06.html" class="category-item-link" rel="" target="">2018年6月(17)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/05.html" class="category-item-link" rel="" target="">2018年5月(22)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/04.html" class="category-item-link" rel="" target="">2018年4月(16)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/03.html" class="category-item-link" rel="" target="">2018年3月(26)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/02.html" class="category-item-link" rel="" target="">2018年2月(15)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2018/01.html" class="category-item-link" rel="" target="">2018年1月(10)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/12.html" class="category-item-link" rel="" target="">2017年12月(13)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/11.html" class="category-item-link" rel="" target="">2017年11月(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/10.html" class="category-item-link" rel="" target="">2017年10月(17)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/09.html" class="category-item-link" rel="" target="">2017年9月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/08.html" class="category-item-link" rel="" target="">2017年8月(9)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/07.html" class="category-item-link" rel="" target="">2017年7月(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/06.html" class="category-item-link" rel="" target="">2017年6月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/05.html" class="category-item-link" rel="" target="">2017年5月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/04.html" class="category-item-link" rel="" target="">2017年4月(6)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/03.html" class="category-item-link" rel="" target="">2017年3月(13)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/02.html" class="category-item-link" rel="" target="">2017年2月(13)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2017/01.html" class="category-item-link" rel="" target="">2017年1月(14)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/12.html" class="category-item-link" rel="" target="">2016年12月(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/11.html" class="category-item-link" rel="" target="">2016年11月(16)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/10.html" class="category-item-link" rel="" target="">2016年10月(27)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/09.html" class="category-item-link" rel="" target="">2016年9月(13)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/08.html" class="category-item-link" rel="" target="">2016年8月(6)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/07.html" class="category-item-link" rel="" target="">2016年7月(20)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/06.html" class="category-item-link" rel="" target="">2016年6月(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/05.html" class="category-item-link" rel="" target="">2016年5月(6)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/04.html" class="category-item-link" rel="" target="">2016年4月(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/03.html" class="category-item-link" rel="" target="">2016年3月(21)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/02.html" class="category-item-link" rel="" target="">2016年2月(3)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2016/01.html" class="category-item-link" rel="" target="">2016年1月(4)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/12.html" class="category-item-link" rel="" target="">2015年12月(5)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/11.html" class="category-item-link" rel="" target="">2015年11月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/10.html" class="category-item-link" rel="" target="">2015年10月(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/09.html" class="category-item-link" rel="" target="">2015年9月(7)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/08.html" class="category-item-link" rel="" target="">2015年8月(1)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/07.html" class="category-item-link" rel="" target="">2015年7月(17)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/06.html" class="category-item-link" rel="" target="">2015年6月(16)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/05.html" class="category-item-link" rel="" target="">2015年5月(19)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/04.html" class="category-item-link" rel="" target="">2015年4月(32)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/03.html" class="category-item-link" rel="" target="">2015年3月(27)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/02.html" class="category-item-link" rel="" target="">2015年2月(11)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2015/01.html" class="category-item-link" rel="" target="">2015年1月(12)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2014/12.html" class="category-item-link" rel="" target="">2014年12月(25)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="false" style="display: none">
+                    
+<a href="https://www.cnblogs.com/jiu0821/archive/2014/11.html" class="category-item-link" rel="" target="">2014年11月(4)</a>
+ 
+                </li>                
+            <li>
+                <a href="javascript:void(0)" onclick="sideColumnManager.loadMore(this)">更多</a>
+            </li>
+        </ul>
+
+
+    </div>    
+    <div id="sidebar_articlecategory" class="catListArticleCategory sidebar-block">
+        <h3 class="catListTitle">
+            
+    <a class="sidebar-card-title-a" href="https://www.cnblogs.com/jiu0821/article-categories">文章分类</a>
+
+
+
+        </h3>
+
+        <ul>
+
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1423697.html" class="category-item-link" rel="" target="">dialogue(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/1419121.html" class="category-item-link" rel="" target="">Speech(2)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/663179.html" class="category-item-link" rel="" target="">思索篇(19)</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://www.cnblogs.com/jiu0821/category/674707.html" class="category-item-link" rel="" target="">杂谈(1)</a>
+ 
+                </li>                
+            
+        </ul>
+
+
+    </div>    
+    <div id="sidebar_links1116530" class="catList sidebar-block">
+        <h3 class="catListTitle">
+            
+my link
+
+
+        </h3>
+
+        <ul>
+
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://acmicpc.info/archives/224" class="category-item-link" rel="nofollow noopener noreferrer" target="">各大OJ近期比赛汇总</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://www.cplusplus.com/reference/" class="category-item-link" rel="nofollow noopener noreferrer" target="">C++ reference</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://www.w3school.com.cn/index.html" class="category-item-link" rel="nofollow noopener noreferrer" target="">w3school</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://www.runoob.com/" class="category-item-link" rel="nofollow noopener noreferrer" target="">runoob</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://linuxtools-rst.readthedocs.io/zh_CN/latest/index.html" class="category-item-link" rel="nofollow noopener noreferrer" target="">Linux Tools Quick Tutorial</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="https://zhuanlan.zhihu.com/ItsFuture" class="category-item-link" rel="nofollow noopener noreferrer" target="">机器之眼</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://rapidjson.org/zh-cn/index.html" class="category-item-link" rel="nofollow noopener noreferrer" target="">rapidjson</a>
+ 
+                </li>                
+                <li data-category-list-item-visible="true" style="display: block">
+                    
+<a href="http://man.linuxde.net/" class="category-item-link" rel="nofollow noopener noreferrer" target="">linux shell</a>
+ 
+                </li>                
+            
+        </ul>
+
+
+    </div>    
+</div>
+
+<!-- 最新评论 -->
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block"><div class="catListView">
+    <h3 class="catListTitle">
+        <a href="https://www.cnblogs.com/jiu0821/most-viewed" class="sidebar-card-title-a">
+    阅读排行榜
+</a>
+
+    </h3>
+    <div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/8420672.html">
+                            1. ubuntu重启、关机命令(154971)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/7994838.html">
+                            2. Linux下用netstat查看网络状态、端口状态(128740)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/5999566.html">
+                            3. linux修改系统时间和linux查看时区、修改时区的方法(121166)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/6244313.html">
+                            4. linux中用户的主目录～(92186)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/6275685.html">
+                            5. python实现文件下载的方法总结(77704)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/5641600.html">
+                            6. HTTP请求报文和HTTP响应报文(68774)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/5650027.html">
+                            7. Elasticsearch内存分配设置详解(55703)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/6268500.html">
+                            8. linux shell 用sed命令在文本的行尾或行首添加字符(40549)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/6768473.html">
+                            9. Linux GCC编译警告：Clock skew detected. 错误解决办法(37051)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/6489249.html">
+                            10. Linux上挂载NTFS分区(35691)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block"><div class="catListFeedback">
+    <h3 class="catListTitle">
+        <a href="https://www.cnblogs.com/jiu0821/most-commented" class="sidebar-card-title-a">评论排行榜</a>
+
+    </h3>
+    <div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/4620041.html">
+                            1. 第一个MFC实例：计算圆周长和圆面积(36)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/4631484.html">
+                            2. 第二个MFC实例：GPA计算器(18)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/5624908.html">
+                            3. elasticsearch配置文件里的一些坑 [Failed to load settings from [elasticsearch.yml]](9)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/4667799.html">
+                            4. C++版修真小说(8)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/jiu0821/p/4430720.html">
+                            5. 磁盘存储结构与文件恢复实验(FAT文件系统)(7)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">
+            <a href="https://www.cnblogs.com/jiu0821/most-liked" class="sidebar-card-title-a">推荐排行榜</a>
+
+        </h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/jiu0821/p/4493497.html">
+                                1. 石子合并问题（直线版）(32)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/jiu0821/p/5641600.html">
+                                2. HTTP请求报文和HTTP响应报文(22)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/jiu0821/p/4606639.html">
+                                3. MFC常用函数总结(19)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/jiu0821/p/6707912.html">
+                                4. 在Linux中使用线程(14)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/jiu0821/p/6275685.html">
+                                5. python实现文件下载的方法总结(13)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div></div><div id="sidebar_recentcomments" class="sidebar-block"><div class="catListComment">
+<h3 class="catListTitle"><a href="https://www.cnblogs.com/jiu0821/comments" class="sidebar-card-title-a">最新评论</a></h3>
+    <div class="RecentCommentBlock">
+        <ul>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/jiu0821/p/11406029.html">1. Re:FFmpeg 被声明为已否决 deprecated（2018 精）</a></li>
+                <li class="recent_comment_body"><p>取消SDL检查操作起来比较简单，二者有啥区别吗？</p>
+</li>
+                <li class="recent_comment_author">--jzdcf</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/jiu0821/p/11837046.html">2. Re:hyper-v显示分辨率如何自动调整</a></li>
+                <li class="recent_comment_body"><p>请问大神，windows11系统hyper-v上安装好kali之后，最大只能设置成1920x1080, 如何设置成2160x1440啊？</p>
+</li>
+                <li class="recent_comment_author">--rocrocpeng</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/jiu0821/p/4598352.html">3. Re:X.509证书的编码及解析：程序解析以及winhex模板解析</a></li>
+                <li class="recent_comment_body"><p>居然是电子科大的校友，哈哈。</p>
+<p>另外，你这个用c++编译器才能编过，c编不过。</p>
+</li>
+                <li class="recent_comment_author">--编程小小鸟</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/jiu0821/p/5946062.html">4. Re:安装VMWare tools，以及解决安装后/mnt中有hgfs但没共享文件的方法</a></li>
+                <li class="recent_comment_body">文章写得特别好，时过但境永远是相同的。路过，顺便补充一下我的做法，我的账号是 useracc，以此为例，我把文章补全一下。 做法一： 把账号口令放在 /home/useracc的mypasswd.tx...</li>
+                <li class="recent_comment_author">--Mongnewer</li>
+                <li class="recent_comment_title"><a href="https://www.cnblogs.com/jiu0821/p/12264259.html">5. Re:安装VMware Tools选项显示灰色的正确解决办法</a></li>
+                <li class="recent_comment_body"><p>正解，网上那些让单独下载 vmtools的都太麻烦了</p>
+</li>
+                <li class="recent_comment_author">--巡拜千年</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+
+</div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright © 2023 jiu~
+<br><span id="poweredby">Powered by .NET 7.0 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+
+    <div id="page_end_html">
+        <script language="javascript" type="text/javascript">
+// 生成目录索引列表
+// ref: http://www.cnblogs.com/wangqiguo/p/4355032.html
+// modified by: zzq
+function GenerateContentList()
+{
+    var mainContent = $('#cnblogs_post_body');
+    var h2_list = $('#cnblogs_post_body h2');//如果你的章节标题不是h2,只需要将这里的h2换掉即可
+
+    if(mainContent.length < 1)
+        return;
+ 
+    if(h2_list.length>0)
+    {
+        var content = '<a rel="nofollow noopener"  name="_labelTop"></a>';
+        content += '<div id="navCategory" style="color:#152e97;">';
+        content += '<p style="font-size:18px;"><b>目录</b></p>';
+        content += '<ul>';
+        for(var i=0; i<h2_list.length; i++)
+        {
+            var go_to_top = '<div style="text-align: right;"><a rel="nofollow noopener"  href="#_labelTop" style="color:#f68a33">Top</a><a rel="nofollow noopener"  name="_label' + i + '"></a></div>';
+            $(h2_list[i]).before(go_to_top);
+            
+            var h3_list = $(h2_list[i]).nextAll("h3");
+            var li3_content = '';
+            for(var j=0; j<h3_list.length; j++)
+            {
+                var tmp = $(h3_list[j]).prevAll('h2').first();
+                if(!tmp.is(h2_list[i]))
+                    break;
+                var li3_anchor = '<a rel="nofollow noopener"  name="_label' + i + '_' + j + '"></a>';
+                $(h3_list[j]).before(li3_anchor);
+                li3_content += '<li><a rel="nofollow noopener"  href="#_label' + i + '_' + j + '">' + $(h3_list[j]).text() + '</a></li>';
+            }
+            
+            var li2_content = '';
+            if(li3_content.length > 0)
+                li2_content = '<li><a rel="nofollow noopener"  href="#_label' + i + '">' + $(h2_list[i]).text() + '</a><ul>' + li3_content + '</ul></li>';
+            else
+                li2_content = '<li><a rel="nofollow noopener"  href="#_label' + i + '">' + $(h2_list[i]).text() + '</a></li>';
+            content += li2_content;
+        }
+        content += '</ul>';
+        content += '</div><p>&nbsp;</p>';
+        content += '<hr style="height:1px;border:none;border-top:1px dashed #0066CC;"/>';
+        if($('#cnblogs_post_body').length != 0 )
+        {
+            $($('#cnblogs_post_body')[0]).prepend(content);
+        }
+    }   
+}
+
+GenerateContentList();
+</script>
+    </div>
+
+    <input type="hidden" id="antiforgery_token" value="CfDJ8GXQNXLgcs5PrnWvMs4xAGN3Rxx4fOS-0ob1nm-urTFidZ3bvXQJFO7N3DQFgSBaw2djjxRGAr88sE5raW1-rWbANUb0jHNk-AdSj7ncJICV0sRF8270jj-qPPaHYx7eZ2b8djv9PQ5e0eobA6y29sA">
+    <script async="" src="./裸函数naked解析 - jiu_ - 博客园_files/js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var kv = getGACustom();
+    if (kv) {
+        gtag('set', kv);
+    }
+    gtag('config', 'UA-476124-1');
+</script>
+<script defer="" src="./裸函数naked解析 - jiu_ - 博客园_files/hm.js.下载"></script><iframe src="./裸函数naked解析 - jiu_ - 博客园_files/container.html" style="visibility: hidden; display: none;"></iframe>
+
+</body></html>
