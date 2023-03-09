@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://brieflyx.me/2017/binary-analysis/intel-pin-intro/ -->
+<html lang="Chinese" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="BrieflyX&#39;s Base">
+    <title>Intel Pin基本用法 - BrieflyX's Base</title>
+    <meta name="author" content="BrieflyX">
+    
+        <link rel="icon" href="http://brieflyx.me/assets/images/favicon.ico">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="http://brieflyx.me/atom.xml">
+    
+    <meta name="description" content="Intel Pin是Intel推出的一款二进制程序的插桩分析工具，目前已经到3.4版本。虽然已经推出很久了不过进行开发更多的还是要参考其用户手册与API文档。最近也在看这方面的用法，正好稍微梳理一下常用的一些函数和功能。">
+<meta name="keywords" content="binary analysis,instrumentation,reverse">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Intel Pin基本用法">
+<meta property="og:url" content="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/index.html">
+<meta property="og:site_name" content="BrieflyX&#39;s Base">
+<meta property="og:description" content="Intel Pin是Intel推出的一款二进制程序的插桩分析工具，目前已经到3.4版本。虽然已经推出很久了不过进行开发更多的还是要参考其用户手册与API文档。最近也在看这方面的用法，正好稍微梳理一下常用的一些函数和功能。">
+<meta property="og:locale" content="Chinese">
+<meta property="og:updated_time" content="2019-08-18T04:59:10.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Intel Pin基本用法">
+<meta name="twitter:description" content="Intel Pin是Intel推出的一款二进制程序的插桩分析工具，目前已经到3.4版本。虽然已经推出很久了不过进行开发更多的还是要参考其用户手册与API文档。最近也在看这方面的用法，正好稍微梳理一下常用的一些函数和功能。">
+    
+    
+    
+        <meta property="og:image" content="/assets/images/hibari.png">
+    
+    
+        <meta property="og:image" content="/2017/binary-analysis/intel-pin-intro/https:/software.intel.com/sites/default/files/m/3/f/7/cutout.jpg">
+        <meta class="swiftype" name="image" data-type="enum" content="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/https://software.intel.com/sites/default/files/m/3/f/7/cutout.jpg">
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/style.min.css">
+    <!--STYLES END-->
+    
+    <script async="" defer="" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/launchpad.bundle.js.下载"></script><script type="text/javascript" async="" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/ga.js.下载"></script><script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-65013572-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+<script type="text/javascript" async="" src="http://brieflyx.disqus.com/embed.js"></script><style type="text/css">.fancybox-margin{margin-right:17px;}</style><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.2330dfe9833fc6fa82fa0ffee36e8c21.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.4ba4d839a8c58443b0a3c9c44262d3b7.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.944405f46b741461538725b083516e4d.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><script async="" id="dsq_recs_scr" src="https://brieflyx.disqus.com/recommendations.js"></script><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/recommendations/styles/recommendations.10022a97346f1c6e3798931bbd8e4bb5.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/recommendations/common.bundle.ee9c33b24a56672a5987fadb46fbba34.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/recommendations/recommendations.bundle.bb3216316047d5c61d9dafa6240fbf39.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><script src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/launchpad-liveramp.js.下载" async="" charset="UTF-8"></script></head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="3" class="header-up">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="http://brieflyx.me/">BrieflyX's Base</a>
+    </h1>
+    
+        
+            <a class="header-right-picture " href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#about">
+        
+        
+            <img class="header-picture" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/hibari.png">
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="http://brieflyx.me/#about">
+                    <img class="sidebar-profile-picture" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/hibari.png">
+            </a>
+            <span class="sidebar-profile-name">BrieflyX</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">Home</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/presentation">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-delicious"></i>
+                    <span class="sidebar-button-desc">Presentations</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/all-categories">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">Categories</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/all-tags">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">Tags</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/all-archives">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">Archives</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link st-search-show-outputs" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#search">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">Search</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/links">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-link"></i>
+                    <span class="sidebar-button-desc">Links</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/about">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">About</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="https://github.com/BrieflyX" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">Github</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="mailto:brieflyx@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">Mail</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a class="sidebar-button-link " href="http://brieflyx.me/atom.xml">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3" class="hasCoverMetaIn">
+                
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Intel Pin基本用法
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri Oct 27 2017 16:18:00 GMT+0000">
+	
+		    Oct 27, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="http://brieflyx.me/categories/Binary-Analysis/">Binary Analysis</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <blockquote>
+<p>Intel Pin是Intel推出的一款二进制程序的插桩分析工具，目前已经到3.4版本。虽然已经推出很久了不过进行开发更多的还是要参考其用户手册与API文档。最近也在看这方面的用法，正好稍微梳理一下常用的一些函数和功能。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="安装Pin"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E5%AE%89%E8%A3%85Pin" class="headerlink" title="安装Pin"></a>安装Pin</h1><p>这里就以64位的Linux为例来说明，可以在官网上下载3.4版本的Pin，<a href="http://software.intel.com/sites/landingpage/pintool/downloads/pin-3.4-97438-gf90d1f746-gcc-linux.tar.gz" target="_blank" rel="noopener">下载地址</a>。3.x之后Pin似乎实现了一个自己的CRT，所以之前的一些基于pin开发的工具在应用于3.x的时候可能会遇到一些困难，不过这个还没有详细研究。</p>
+<p>在这里我们不去深入讨论pin这个工具具体的实现细节和架构，只是介绍一点基本的使用方法。</p>
+<h1 id="Pin与Pintool"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#Pin%E4%B8%8EPintool" class="headerlink" title="Pin与Pintool"></a>Pin与Pintool</h1><p>在3.4的<a href="https://software.intel.com/sites/landingpage/pintool/docs/97438/Pin/html/" target="_blank" rel="noopener">Manual</a>中有很多的例子，基本涵盖了各个模块的基本用法，可以首先尝试例子程序。</p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="keyword">source</span>/tools/ManualExamples</span><br><span class="line"><span class="keyword">make</span> <span class="keyword">all</span> TARGET=intel64</span><br></pre></td></tr></tbody></table></figure>
+
+<p>要构建单独的例子程序，可以</p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="keyword">source</span>/tools/ManualExamples</span><br><span class="line"><span class="keyword">make</span> obj-intel64/inscount0.<span class="keyword">so</span> TARGET=intel64</span><br></pre></td></tr></tbody></table></figure>
+
+<p>例如<code>inscount0.cpp</code>最终会生成<code>inscount0.so</code>这个库，这个so即成为pintool，pin的主程序可以利用这个pintool中的代码来对程序进行插桩分析，运行</p>
+<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../../../pin -t obj-intel64/inscount0<span class="selector-class">.so</span> -o inscount0<span class="selector-class">.log</span> -- /bin/ls</span><br></pre></td></tr></tbody></table></figure>
+
+<p>则可以对<code>/bin/ls</code>这个程序使用inscount0.so这个pintool进行分析，最后输出结果，pin的使用方式为</p>
+<figure class="highlight fsharp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pin [OPTION] [-t &lt;tool&gt; <span class="meta">[&lt;toolargs&gt;]</span>] -- &lt;command line&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>-t</code>之后接pintool的so文件，之后接传递给pintool的参数，在<code>--</code>之后接需要进行分析的程序以及它的参数。</p>
+<h1 id="插桩分析基本流程"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%8F%92%E6%A1%A9%E5%88%86%E6%9E%90%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B" class="headerlink" title="插桩分析基本流程"></a>插桩分析基本流程</h1><p>插桩(Instrumentation)就是在程序运行时在程序自身代码中插入一定分析代码的过程，在Manual提到从概念上来说插桩的流程包含两个部分：</p>
+<ul>
+<li>确定需要插桩的代码的机制</li>
+<li>插桩之后需要执行的分析代码</li>
+</ul>
+<h2 id="最基础的例子：程序计数"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%9C%80%E5%9F%BA%E7%A1%80%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0" class="headerlink" title="最基础的例子：程序计数"></a>最基础的例子：程序计数</h2><p>我们可以看一下<code>inscount0.cpp</code>这个程序的内容</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pin.H"</span></span></span><br><span class="line"></span><br><span class="line">ofstream OutFile;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The running count of instructions is kept here</span></span><br><span class="line"><span class="comment">// make it static to help the compiler optimize docount</span></span><br><span class="line"><span class="keyword">static</span> UINT64 icount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This function is called before every instruction is executed</span></span><br><span class="line"><span class="function">VOID <span class="title">docount</span><span class="params">()</span> </span>{ icount++; }</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pin calls this function every time a new instruction is encountered</span></span><br><span class="line"><span class="function">VOID <span class="title">Instruction</span><span class="params">(INS ins, VOID *v)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="comment">// Insert a call to docount before every instruction, no arguments are passed</span></span><br><span class="line">    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)docount, IARG_END);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">KNOB&lt;<span class="built_in">string</span>&gt; KnobOutputFile(KNOB_MODE_WRITEONCE, <span class="string">"pintool"</span>,</span><br><span class="line">    <span class="string">"o"</span>, <span class="string">"inscount.out"</span>, <span class="string">"specify output file name"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This function is called when the application exits</span></span><br><span class="line"><span class="function">VOID <span class="title">Fini</span><span class="params">(INT32 code, VOID *v)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="comment">// Write to a file since cout and cerr maybe closed by the application</span></span><br><span class="line">    OutFile.setf(ios::showbase);</span><br><span class="line">    OutFile &lt;&lt; <span class="string">"Count "</span> &lt;&lt; icount &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    OutFile.close();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ===================================================================== */</span></span><br><span class="line"><span class="comment">/* Print Help Message                                                    */</span></span><br><span class="line"><span class="comment">/* ===================================================================== */</span></span><br><span class="line"></span><br><span class="line"><span class="function">INT32 <span class="title">Usage</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">cerr</span> &lt;&lt; <span class="string">"This tool counts the number of dynamic instructions executed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cerr</span> &lt;&lt; <span class="built_in">endl</span> &lt;&lt; KNOB_BASE::StringKnobSummary() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ===================================================================== */</span></span><br><span class="line"><span class="comment">/* Main                                                                  */</span></span><br><span class="line"><span class="comment">/* ===================================================================== */</span></span><br><span class="line"><span class="comment">/*   argc, argv are the entire command line: pin -t &lt;toolname&gt; -- ...    */</span></span><br><span class="line"><span class="comment">/* ===================================================================== */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="comment">// Initialize pin</span></span><br><span class="line">    <span class="keyword">if</span> (PIN_Init(argc, argv)) <span class="keyword">return</span> Usage();</span><br><span class="line"></span><br><span class="line">    OutFile.open(KnobOutputFile.Value().c_str());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Register Instruction to be called to instrument instructions</span></span><br><span class="line">    INS_AddInstrumentFunction(Instruction, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Register Fini to be called when the application exits</span></span><br><span class="line">    PIN_AddFiniFunction(Fini, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start the program, never returns</span></span><br><span class="line">    PIN_StartProgram();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这个程序给出了一般pintool的基本框架，在main函数中首先调用<code>PIN_Init</code>初始化，之后就可以使用<code>INS_AddInstrumentFunction</code>注册一个插桩函数，在原始程序的每条指令被执行前，都会进入<code>Instruction</code>这个函数中，其第2个参数为一个额外传递给Instruction的参数，即对应<code>VOID *v</code>这个参数，这里没有使用。而Instruction接受的第一个参数为<code>INS</code>结构，用来表示一条指令。</p>
+<p>最后又注册了一个程序退出时的函数<code>Fini</code>，接着就可以使用<code>PIN_StartProgram</code>启动程序了。</p>
+<h2 id="回调函数模式"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E6%A8%A1%E5%BC%8F" class="headerlink" title="回调函数模式"></a>回调函数模式</h2><p>可以看到，上面<code>inscount0.cpp</code>这个pintool插桩的对象就是所有指令。pintool在编写中将比较多的使用回调函数的机制，譬如在每条指令之前回调<code>Instruction</code>函数。而在<code>Instruction</code>函数的内部又使用<code>INS_InsertCall</code>注册了一个函数<code>docount</code>，意为在指令执行之前插入一个对<code>docount</code>函数的调用。注意<code>INS_InsertCall</code>是一个变参函数，前3个参数分别为指令，插入的时机（这里<code>IPOINT_BEFORE</code>表示之前）以及函数指针（转为<code>AFUNPTR</code>类型），在之后就可以指定传给函数的参数，并以<code>IARG_END</code>结尾，这里没有指定参数，直接调用。而<code>docount</code>的作用即是将一个全局变量加1，以达到统计执行指令条数的目的。</p>
+<p>故此处插桩的分析代码即是将指令数加1.</p>
+<h1 id="指令-Instruction-级别的插桩"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%8C%87%E4%BB%A4-Instruction-%E7%BA%A7%E5%88%AB%E7%9A%84%E6%8F%92%E6%A1%A9" class="headerlink" title="指令(Instruction)级别的插桩"></a>指令(Instruction)级别的插桩</h1><p>我们可以在<code>inscount0</code>的基础上，慢慢扩展出更加复杂的插桩分析程序</p>
+<h2 id="指定插桩的位置"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%8C%87%E5%AE%9A%E6%8F%92%E6%A1%A9%E7%9A%84%E4%BD%8D%E7%BD%AE" class="headerlink" title="指定插桩的位置"></a>指定插桩的位置</h2><p>最简单的情况是直接针对所有指令插桩，INS模块中提供了很多API来判断当前指令的类型</p>
+<figure class="highlight mipsasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INS_IsMemoryRead </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsMemoryWrite </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsLea </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsNop </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsBranch </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsDirectBranch </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsDirectCall </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsDirectBranchOrCall </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsBranchOrCall </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsCall </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">INS_IsRet </span>(<span class="keyword">INS </span><span class="keyword">ins)</span></span><br><span class="line"><span class="keyword">...</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>一般看到API的名字就可以明白其作用了，如果有不明白则可以去查API的手册，或者还有种更加直接、具体的方法</p>
+<figure class="highlight lisp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (<span class="name">INS_Opcode</span>(<span class="name">ins</span>) == XED_ICLASS_MOV <span class="symbol">&amp;&amp;</span></span><br><span class="line">    INS_IsMemoryRead(<span class="name">ins</span>) <span class="symbol">&amp;&amp;</span></span><br><span class="line">    INS_OperandIsReg(<span class="name">ins</span>, <span class="number">0</span>) <span class="symbol">&amp;&amp;</span></span><br><span class="line">    INS_OperandIsMemory(<span class="name">ins</span>, <span class="number">1</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上面的代码来自<code>safecopy.cpp</code>，直接通过Opcode来识别<code>mov</code>指令，并且是一条内存读指令，并且指令的第一个操作数是寄存器，并且指令的第二个操作数是内存。通过组合这些API就可以非常精确地筛选出想要插桩的指令了。</p>
+<h2 id="插桩分析代码"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%8F%92%E6%A1%A9%E5%88%86%E6%9E%90%E4%BB%A3%E7%A0%81" class="headerlink" title="插桩分析代码"></a>插桩分析代码</h2><p><code>inscount0</code>中的分析代码写的非常简略，再之后还有一个例子<code>itrace</code></p>
+<figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This function is called before every instruction is executed</span></span><br><span class="line"><span class="comment">// and prints the IP</span></span><br><span class="line"><span class="keyword">VOID</span> printip(<span class="keyword">VOID</span> *ip) { fprintf(trace, <span class="string">"%p\n"</span>, ip); }</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pin calls this function every time a new instruction is encountered</span></span><br><span class="line"><span class="keyword">VOID</span> Instruction(INS ins, <span class="keyword">VOID</span> *v)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Insert a call to printip before every instruction, and pass it the IP</span></span><br><span class="line">    INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)printip, IARG_INST_PTR, IARG_END);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在这里传递给<code>printip</code>的是一个<code>IARG_INST_PTR</code>参数，实际对应的类型是<code>VOID *</code>，指示了当前指令的位置，而<code>printip</code>则是把它输出出来，所以<code>itrace</code>的作用即是输出所有指令的地址。</p>
+<p>实际来说<a href="https://software.intel.com/sites/landingpage/pintool/docs/97438/Pin/html/group__INST__ARGS.html" target="_blank" rel="noopener">Instrumentation arguments</a>中给出了很多可以传递给回调函数的参数，包括当前指令读取的有效内存地址、相关寄存器的值等等，能够对程序的运行状态有很全面的描述，便于回调函数的进一步分析。</p>
+<h1 id="程序运行状态监控-amp-修改"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%E7%9B%91%E6%8E%A7-amp-%E4%BF%AE%E6%94%B9" class="headerlink" title="程序运行状态监控 &amp; 修改"></a>程序运行状态监控 &amp; 修改</h1><h2 id="寄存器"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E5%AF%84%E5%AD%98%E5%99%A8" class="headerlink" title="寄存器"></a>寄存器</h2><p>想要获得当前某个寄存器的值，可以传递<code>...IARG_REG_VALUE, REG_RAX...</code>参数，实际对应的类型是<code>ADDRINT</code>，将寄存器当前的值传给回调函数。或者可以通过<code>INS_OperandReg</code>函数首先提取出指令中的寄存器操作数，然后再用<code>IARG_REG_VALUE</code>传递给回调函数。</p>
+<p>想要修改寄存器的值，可以传递<code>...IARG_REG_REFERENCE, REG_RAX...</code>这种参数，实际对应的类型是<code>PIN_REGISTER *</code>指针，指向一个表示寄存器值的union类型，在64位中，可以使用<code>reg-&gt;qword[0]</code>来访问<code>RAX</code>，<code>reg-&gt;dword[0]</code>来访问<code>EAX</code>，以达到修改寄存器值的目的。</p>
+<h2 id="内存"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E5%86%85%E5%AD%98" class="headerlink" title="内存"></a>内存</h2><p>关于内存数据的获取和写入，可以参考<code>safecopy</code>，其中使用到了<code>PIN_SafeCopy</code>函数</p>
+<figure class="highlight stata"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=======================================================</span></span><br><span class="line"><span class="comment">//  Analysis routines</span></span><br><span class="line"><span class="comment">//=======================================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Move from memory to register</span></span><br><span class="line">ADDRINT DoLoad(<span class="keyword">REG</span> <span class="keyword">reg</span>, ADDRINT * addr)</span><br><span class="line">{</span><br><span class="line"><span class="comment">    *out &lt;&lt; "Emulate loading from addr " &lt;&lt; addr &lt;&lt; " to " &lt;&lt; REG_StringShort(reg) &lt;&lt; endl;</span></span><br><span class="line">    ADDRINT value;</span><br><span class="line">    PIN_SafeCopy(&amp;value, addr, sizeof(ADDRINT));</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//=======================================================</span></span><br><span class="line"><span class="comment">// Instrumentation routines</span></span><br><span class="line"><span class="comment">//=======================================================</span></span><br><span class="line"></span><br><span class="line">VOID EmulateLoad(<span class="keyword">INS</span> <span class="keyword">ins</span>, VOID* v)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">// Find the instructions that move a value from memory to a register</span></span><br><span class="line">    <span class="keyword">if</span> (INS_Opcode(<span class="keyword">ins</span>) == XED_ICLASS_MOV &amp;&amp;</span><br><span class="line">        INS_IsMemoryRead(<span class="keyword">ins</span>) &amp;&amp;</span><br><span class="line">        INS_OperandIsReg(<span class="keyword">ins</span>, 0) &amp;&amp;</span><br><span class="line">        INS_OperandIsMemory(<span class="keyword">ins</span>, 1))</span><br><span class="line">    {</span><br><span class="line">        <span class="comment">// op0 &lt;- *op1</span></span><br><span class="line">        INS_InsertCall(<span class="keyword">ins</span>,</span><br><span class="line">                       IPOINT_BEFORE,</span><br><span class="line">                       AFUNPTR(DoLoad),</span><br><span class="line">                       IARG_UINT32,</span><br><span class="line">                       <span class="keyword">REG</span>(INS_OperandReg(<span class="keyword">ins</span>, 0)),</span><br><span class="line">                       IARG_MEMORYREAD_EA,</span><br><span class="line">                       IARG_RETURN_REGS,</span><br><span class="line">                       INS_OperandReg(<span class="keyword">ins</span>, 0),</span><br><span class="line">                       IARG_END);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Delete the instruction</span></span><br><span class="line">        INS_Delete(<span class="keyword">ins</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>safecopy</code>实际模拟了<code>mov</code>指令内存读的过程，将寄存器和指令操作的内存地址传递给分析函数<code>DoLoad</code>，并在最后用<code>IARG_RETURN_REGS</code>指定将分析函数的返回值写入到指令的操作寄存器中，实际指令的语义没有改变。</p>
+<p>而在<code>DoLoad</code>函数中，实际调用了<code>PIN_SafeCopy(&amp;value, addr, sizeof(ADDRINT));</code>将对应地址的内容模拟装载并返回。由此就可以看出在程序实际运行时pintool和原始程序位于同一地址空间，因而<code>PIN_SafeCopy</code>既可以从内存中读取数据，亦可以写入数据。</p>
+<h1 id="更粗粒度的插桩"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E6%9B%B4%E7%B2%97%E7%B2%92%E5%BA%A6%E7%9A%84%E6%8F%92%E6%A1%A9" class="headerlink" title="更粗粒度的插桩"></a>更粗粒度的插桩</h1><p>有时我们并不需要在指令级的插桩，pin也可以实现基于Basic Block，Routine或Image的插桩函数，以例子中的<code>malloctrace</code>来说</p>
+<figure class="highlight irpf90"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">VOID Image(IMG img, VOID *v)</span><br><span class="line">{</span><br><span class="line">    // Instrument the malloc() and <span class="keyword">free</span>() functions.  <span class="built_in">Print</span> the input argument</span><br><span class="line">    // of each malloc() or <span class="keyword">free</span>(), and the <span class="keyword">return</span> <span class="keyword">value</span> of malloc().</span><br><span class="line">    //</span><br><span class="line">    //  Find the malloc() <span class="function"><span class="keyword">function</span>.</span></span><br><span class="line">    RTN mallocRtn = RTN_FindByName(img, MALLOC);</span><br><span class="line">    <span class="keyword">if</span> (RTN_Valid(mallocRtn))</span><br><span class="line">    {</span><br><span class="line">        RTN_Open(mallocRtn);</span><br><span class="line"></span><br><span class="line">        // Instrument malloc() to <span class="built_in">print</span> the input argument <span class="keyword">value</span> and the <span class="keyword">return</span> <span class="keyword">value</span>.</span><br><span class="line">        RTN_InsertCall(mallocRtn, IPOINT_BEFORE, (AFUNPTR)Arg1Before,</span><br><span class="line">                       IARG_ADDRINT, MALLOC,</span><br><span class="line">                       IARG_FUNCARG_ENTRYPOINT_VALUE, <span class="number">0</span>,</span><br><span class="line">                       IARG_END);</span><br><span class="line">        RTN_InsertCall(mallocRtn, IPOINT_AFTER, (AFUNPTR)MallocAfter,</span><br><span class="line">                       IARG_FUNCRET_EXITPOINT_VALUE, IARG_END);</span><br><span class="line"></span><br><span class="line">        RTN_Close(mallocRtn);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    // Find the <span class="keyword">free</span>() <span class="function"><span class="keyword">function</span>.</span></span><br><span class="line">    RTN freeRtn = RTN_FindByName(img, <span class="keyword">FREE</span>);</span><br><span class="line">    <span class="keyword">if</span> (RTN_Valid(freeRtn))</span><br><span class="line">    {</span><br><span class="line">        RTN_Open(freeRtn);</span><br><span class="line">        // Instrument <span class="keyword">free</span>() to <span class="built_in">print</span> the input argument <span class="keyword">value</span>.</span><br><span class="line">        RTN_InsertCall(freeRtn, IPOINT_BEFORE, (AFUNPTR)Arg1Before,</span><br><span class="line">                       IARG_ADDRINT, <span class="keyword">FREE</span>,</span><br><span class="line">                       IARG_FUNCARG_ENTRYPOINT_VALUE, <span class="number">0</span>,</span><br><span class="line">                       IARG_END);</span><br><span class="line">        RTN_Close(freeRtn);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用<code>IMG_AddInstrumentFunction</code>来注册一个在Image载入时插桩的函数，随后在<code>Image</code>里面使用<code>RTN_FindByName</code>来找到模块里的malloc和free两个符号，注意在pintool开头除了<code>PIN_Init</code>之外还要用<code>PIN_InitSymbols</code>来初始化symbol manager。在找到相应的函数之后，可以使用<code>RTN_InsertCall</code>来插入分析代码<code>Arg1Before</code>，并将此时函数的参数传递给分析函数。最后这个pintool完成的作用就是追踪malloc/free的调用，并输出它们的参数与返回值。</p>
+<h1 id="小结"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#%E5%B0%8F%E7%BB%93" class="headerlink" title="小结"></a>小结</h1><p>使用Pin工具需要首先理解二进制程序插桩的过程和整体思路，之后编写pintool就是套用例子就可以了，如果有需要的功能可以直接查手册或者自己去尝试。Pin还有很多功能没有研究，之后可能还会进一步了解一下。</p>
+<h1 id="Reference"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool" target="_blank" rel="noopener">Intel Pin Home</a><br><a href="https://software.intel.com/sites/landingpage/pintool/docs/97438/Pin/html/" target="_blank" rel="noopener">Pin 3.4 User Guide</a><br><a href="https://software.intel.com/sites/landingpage/pintool/docs/97438/Pin/html/group__API__REF.html" target="_blank" rel="noopener">API Reference</a></p>
+<h1 id="Pin系列索引"><a href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#Pin%E7%B3%BB%E5%88%97%E7%B4%A2%E5%BC%95" class="headerlink" title="Pin系列索引"></a>Pin系列索引</h1><p><a href="http://brieflyx.me/2019/binary-analysis/intel-pin-ii/">Intel Pin II - 编译和运行时环境</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="http://brieflyx.me/tags/binary-analysis/">binary analysis</a> <a class="tag tag--primary tag--small t-link" href="http://brieflyx.me/tags/instrumentation/">instrumentation</a> <a class="tag tag--primary tag--small t-link" href="http://brieflyx.me/tags/reverse/">reverse</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="http://brieflyx.me/2017/ctf-writeups/seccon-2017-online-candy-store/" data-tooltip="SECCON 2017 Quals - Online Candy Store">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="http://brieflyx.me/2017/ctf-writeups/hacklu-2017-pwn/" data-tooltip="Hack.lu CTF 2017 部分Pwn小结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_recommendations" style="margin-bottom: 12px;"><iframe id="dsq-app1167" name="dsq-app1167" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 270px !important; display: inline !important; box-sizing: border-box !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div><div id="disqus_thread"><iframe id="dsq-app6480" name="dsq-app6480" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/saved_resource(1).html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 375px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights © 2023 BrieflyX. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3" style="display: block;">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="http://brieflyx.me/2017/ctf-writeups/seccon-2017-online-candy-store/" data-tooltip="SECCON 2017 Quals - Online Candy Store">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="http://brieflyx.me/2017/ctf-writeups/hacklu-2017-pwn/" data-tooltip="Hack.lu CTF 2017 部分Pwn小结">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="http://brieflyx.me/2017/binary-analysis/intel-pin-intro/#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://brieflyx.me/2017/binary-analysis/intel-pin-intro/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/hibari.png">
+        
+            <h4 id="about-card-name">BrieflyX</h4>
+        
+            <h5 id="about-card-bio"><p>Previous CTFer</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>Security Researcher</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br>
+                Beijing, China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url(&#39;/assets/images/cover.jpg&#39;);"></div>
+    
+    
+<script src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/script.min.js.下载"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'brieflyx';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+
+<iframe style="display: none;" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/saved_resource(2).html"></iframe><iframe style="display: none;" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/saved_resource(3).html"></iframe><iframe name="__launchpadLocator" style="display: none;" src="./Intel Pin基本用法 - BrieflyX&#39;s Base_files/saved_resource(4).html"></iframe></body><!--SCRIPTS--></html>
