@@ -3,10 +3,11 @@
 ## Artical List
 ### 技术贴
 
-| 文章Link | 添加日期 | 是否已读 |
+| 文章Link |  是否已读 |
 |------|------|------|
-| [AFL二三事 —— 源码分析 1](https://cvjark.github.io/My-Save-Pages/技术贴/AFL%E4%BA%8C%E4%B8%89%E4%BA%8B%20--%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%201.html)| 2022.09.04 | ing |
-| [Linux进程间通信（一）：信号 signal()、sigaction()](https://cvjark.github.io/My-Save-Pages/%E6%8A%80%E6%9C%AF%E8%B4%B4/Linux%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BF%A1%E5%8F%B7%20signal()%E3%80%81sigaction().html) | 2022.09.14 | ing |
+| [AFL二三事 —— 源码分析 1](https://cvjark.github.io/My-Save-Pages/技术贴/AFL%E4%BA%8C%E4%B8%89%E4%BA%8B%20--%20%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%201.html)| ed |
+| [Linux进程间通信（一）：信号 signal()、sigaction()](https://cvjark.github.io/My-Save-Pages/%E6%8A%80%E6%9C%AF%E8%B4%B4/Linux%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BF%A1%E5%8F%B7%20signal()%E3%80%81sigaction().html) | ed |
+|[CTF_PHP特性汇总-安全客 - 安全资讯平台.html](https://cvjark.github.io/My-Save-Pages/%E6%8A%80%E6%9C%AF%E8%B4%B4/CTF_PHP%E7%89%B9%E6%80%A7%E6%B1%87%E6%80%BB-%E5%AE%89%E5%85%A8%E5%AE%A2%20-%20%E5%AE%89%E5%85%A8%E8%B5%84%E8%AE%AF%E5%B9%B3%E5%8F%B0.html)| ed|
 
 
 
