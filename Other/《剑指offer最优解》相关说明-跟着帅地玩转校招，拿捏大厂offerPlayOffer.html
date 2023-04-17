@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://www.playoffer.cn/1186.html -->
+<html lang="zh-CN" style="transform: none;"><script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/hm.js.下载"></script><script id="allow-copy_script">(function agent() {
+    let unlock = false
+    document.addEventListener('allow_copy', (event) => {
+      unlock = event.detail.unlock
+    })
+
+    const copyEvents = [
+      'copy',
+      'cut',
+      'contextmenu',
+      'selectstart',
+      'mousedown',
+      'mouseup',
+      'mousemove',
+      'keydown',
+      'keypress',
+      'keyup',
+    ]
+    const rejectOtherHandlers = (e) => {
+      if (unlock) {
+        e.stopPropagation()
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation()
+      }
+    }
+    copyEvents.forEach((evt) => {
+      document.documentElement.addEventListener(evt, rejectOtherHandlers, {
+        capture: true,
+      })
+    })
+  })()</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>@keyframes pulsate{0%,to{opacity:1}50%{opacity:.2}}#spotlight{position:fixed;top:-1px;bottom:-1px;width:100%;z-index:99999;color:#fff;background-color:#000;opacity:0;overflow:hidden;-webkit-user-select:none;-ms-user-select:none;user-select:none;transition:opacity .2s ease-out;font-family:Arial,sans-serif;font-size:16px;font-weight:400;contain:strict;touch-action:none;pointer-events:none}#spotlight.show{opacity:1;transition:none;pointer-events:auto}#spotlight.white{color:#212529;background-color:#fff}#spotlight.white .spl-next,#spotlight.white .spl-page~*,#spotlight.white .spl-prev,#spotlight.white .spl-spinner{filter:invert(1)}#spotlight.white .spl-progress{background-color:rgba(0,0,0,.35)}#spotlight.white .spl-footer,#spotlight.white .spl-header{background-color:rgba(255,255,255,.65)}#spotlight.white .spl-button{background:#212529;color:#fff}.spl-footer,.spl-header{background-color:rgba(0,0,0,.45)}#spotlight .contain,#spotlight .cover{object-fit:cover;height:100%;width:100%}#spotlight .contain{object-fit:contain}#spotlight .autofit{object-fit:none;width:auto;height:auto;max-height:none;max-width:none;transition:none}.spl-scene,.spl-spinner,.spl-track{width:100%;height:100%;position:absolute}.spl-track{contain:strict}.spl-spinner{background-position:center;background-repeat:no-repeat;background-size:42px;opacity:0}.spl-spinner.spin{background-image:url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAzOCAzOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBzdHJva2U9IiNmZmYiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2Utb3BhY2l0eT0iLjY1Ij48Y2lyY2xlIHN0cm9rZS1vcGFjaXR5PSIuMTUiIGN4PSIxOCIgY3k9IjE4IiByPSIxOCIvPjxwYXRoIGQ9Ik0zNiAxOGMwLTkuOTQtOC4wNi0xOC0xOC0xOCI+PGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIGZyb209IjAgMTggMTgiIHRvPSIzNjAgMTggMTgiIGR1cj0iMXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+PC9wYXRoPjwvZz48L2c+PC9zdmc+);transition:opacity .2s linear .25s;opacity:1}.spl-spinner.error{background-image:url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMyIiB3aWR0aD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMTYsMUExNSwxNSwwLDEsMCwzMSwxNiwxNSwxNSwwLDAsMCwxNiwxWm0wLDJhMTMsMTMsMCwwLDEsOC40NSwzLjE0TDYuMTQsMjQuNDVBMTMsMTMsMCwwLDEsMTYsM1ptMCwyNmExMywxMywwLDAsMS04LjQ1LTMuMTRMMjUuODYsNy41NUExMywxMywwLDAsMSwxNiwyOVoiIGlkPSJiYW5fc2lnbl9jcm9zc2VkX2NpcmNsZSIvPjwvc3ZnPg==);background-size:128px;transition:none;opacity:.5}.spl-scene{transition:transform .65s cubic-bezier(.1,1,.1,1);contain:layout size;will-change:transform}.spl-pane>*{position:absolute;width:auto;height:auto;max-width:100%;max-height:100%;left:50%;top:50%;margin:0;padding:0;border:0;transform:translate(-50%,-50%) scale(1);transition:transform .65s cubic-bezier(.3,1,.3,1),opacity .65s ease;contain:layout style;will-change:transform,opacity;visibility:hidden}.spl-header,.spl-pane,.spl-progress{position:absolute;top:0}.spl-pane{width:100%;height:100%;transition:transform .65s cubic-bezier(.3,1,.3,1);contain:layout size;will-change:transform,contents}.spl-header{width:100%;height:50px;text-align:right;transform:translateY(-100px);transition:transform .35s ease;overflow:hidden;will-change:transform}#spotlight.menu .spl-footer,#spotlight.menu .spl-header,.spl-footer:hover,.spl-header:hover{transform:translateY(0)}.spl-header div{display:inline-block;vertical-align:middle;white-space:nowrap;width:50px;height:50px;opacity:.5}.spl-progress{width:100%;height:3px;background-color:rgba(255,255,255,.45);transform:translateX(-100%);transition:transform linear}.spl-footer,.spl-next,.spl-prev{position:absolute;transition:transform .35s ease;will-change:transform}.spl-footer{left:0;right:0;bottom:0;line-height:20px;padding:20px 20px 0;padding-bottom:env(safe-area-inset-bottom,0);text-align:left;font-size:15px;font-weight:400;transform:translateY(100%)}.spl-title{font-size:22px}.spl-button,.spl-description,.spl-title{margin-bottom:20px}.spl-button{display:inline-block;background:#fff;color:#000;border-radius:5px;padding:10px 20px;cursor:pointer}.spl-next,.spl-page~*,.spl-prev{background-position:center;background-repeat:no-repeat}.spl-page{float:left;width:auto;line-height:50px}.spl-page~*{background-size:21px;float:right}.spl-fullscreen{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyLjUiIHZpZXdCb3g9Ii0xIC0xIDI2IDI2IiB3aWR0aD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTggM0g1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00zIDE2djNhMiAyIDAgMCAwIDIgMmgzIi8+PC9zdmc+)}.spl-fullscreen.on{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyLjUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik04IDN2M2EyIDIgMCAwIDEtMiAySDNtMTggMGgtM2EyIDIgMCAwIDEtMi0yVjNtMCAxOHYtM2EyIDIgMCAwIDEgMi0yaDNNMyAxNmgzYTIgMiAwIDAgMSAyIDJ2MyIvPjwvc3ZnPg==)}.spl-autofit{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBoZWlnaHQ9Ijk2cHgiIHZpZXdCb3g9IjAgMCA5NiA5NiIgd2lkdGg9Ijk2cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoOTAgNTAgNTApIiBmaWxsPSIjZmZmIiBkPSJNNzEuMzExLDgwQzY5LjY3LDg0LjY2LDY1LjIzLDg4LDYwLDg4SDIwYy02LjYzLDAtMTItNS4zNy0xMi0xMlYzNmMwLTUuMjMsMy4zNC05LjY3LDgtMTEuMzExVjc2YzAsMi4yMSwxLjc5LDQsNCw0SDcxLjMxMSAgeiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDkwIDUwIDUwKSIgZmlsbD0iI2ZmZiIgZD0iTTc2LDhIMzZjLTYuNjMsMC0xMiw1LjM3LTEyLDEydjQwYzAsNi42Myw1LjM3LDEyLDEyLDEyaDQwYzYuNjMsMCwxMi01LjM3LDEyLTEyVjIwQzg4LDEzLjM3LDgyLjYzLDgsNzYsOHogTTgwLDYwICBjMCwyLjIxLTEuNzksNC00LDRIMzZjLTIuMjEsMC00LTEuNzktNC00VjIwYzAtMi4yMSwxLjc5LTQsNC00aDQwYzIuMjEsMCw0LDEuNzksNCw0VjYweiIvPjwvc3ZnPg==)}.spl-zoom-in,.spl-zoom-out{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ii8+PGxpbmUgeDE9IjIxIiB4Mj0iMTYuNjUiIHkxPSIyMSIgeTI9IjE2LjY1Ii8+PGxpbmUgeDE9IjgiIHgyPSIxNCIgeTE9IjExIiB5Mj0iMTEiLz48L3N2Zz4=);background-size:22px}.spl-zoom-in{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI4Ii8+PGxpbmUgeDE9IjIxIiB4Mj0iMTYuNjUiIHkxPSIyMSIgeTI9IjE2LjY1Ii8+PGxpbmUgeDE9IjExIiB4Mj0iMTEiIHkxPSI4IiB5Mj0iMTQiLz48bGluZSB4MT0iOCIgeDI9IjE0IiB5MT0iMTEiIHkyPSIxMSIvPjwvc3ZnPg==)}.spl-download{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSIxNDEuNzMycHgiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDE0MS43MzIgMTQxLjczMiIgd2lkdGg9IjE0MS43MzJweCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIwLjY3NCwxMjUuMTM4SDIwLjc5M3YxNi41OTRoOTkuODgxVjEyNS4xMzh6IE0xMTkuMDE5LDU4Ljc3NmMtMi41NjEtMi41NjItNi43MTYtMi41NjItOS4yNzUsMEw3Ny4yMSw5MS4zMTJWNi41NjIgICBDNzcuMjEsMi45MzYsNzQuMjY5LDAsNzAuNjQ4LDBjLTMuNjI0LDAtNi41NiwyLjkzNy02LjU2LDYuNTYzdjg0Ljc1TDMxLjk5Miw1OS4yMThjLTIuNTYyLTIuNTY0LTYuNzE1LTIuNTY0LTkuMjc3LDAgICBjLTIuNTY1LDIuNTYyLTIuNTY1LDYuNzE2LDAsOS4yNzlsNDMuMjk0LDQzLjI5M2MwLjE1LDAuMTU0LDAuMzE0LDAuMjk5LDAuNDgxLDAuNDM4YzAuMDc2LDAuMDYyLDAuMTU1LDAuMTEzLDAuMjM0LDAuMTc2ICAgYzAuMDk0LDAuMDY1LDAuMTg2LDAuMTQyLDAuMjc5LDAuMjA2YzAuMDk3LDAuMDYzLDAuMTkyLDAuMTE0LDAuMjg2LDAuMTc0YzAuMDg4LDAuMDU0LDAuMTc0LDAuMTA1LDAuMjY1LDAuMTUzICAgYzAuMSwwLjA1NiwwLjE5OSwwLjEsMC4yOTgsMC4xNDdjMC4wOTcsMC4wNDUsMC4xOSwwLjA5MSwwLjI4MywwLjEzMmMwLjA5OCwwLjA0LDAuMTk2LDAuMDcyLDAuMjk1LDAuMTA1ICAgYzAuMTA0LDAuMDM4LDAuMjA3LDAuMDc4LDAuMzEyLDAuMTA5YzAuMTAxLDAuMDMsMC4xOTcsMC4wNTIsMC4yOTcsMC4wNzdjMC4xMDgsMC4wMjMsMC4yMTQsMC4wNTgsMC4zMjQsMC4wNzggICBjMC4xMTUsMC4wMjEsMC4yMzEsMC4wMzMsMC4zNDYsMC4wNTRjMC4wOTcsMC4wMTUsMC4xOTIsMC4wMzIsMC4yODksMC4wNDJjMC40MywwLjA0MiwwLjg2NSwwLjA0MiwxLjI5NSwwICAgYzAuMS0wLjAxLDAuMTkxLTAuMDI3LDAuMjg5LTAuMDQyYzAuMTE0LTAuMDIxLDAuMjMzLTAuMDI5LDAuMzQ0LTAuMDU0YzAuMTA5LTAuMDIxLDAuMjE3LTAuMDU1LDAuMzI0LTAuMDc4ICAgYzAuMTAyLTAuMDI1LDAuMTk5LTAuMDQ3LDAuMjk5LTAuMDc3YzAuMTA1LTAuMDMxLDAuMjA3LTAuMDcxLDAuMzEyLTAuMTA5YzAuMTAyLTAuMDMsMC4xOTUtMC4wNjIsMC4yOTUtMC4xMDUgICBjMC4wOTYtMC4wNDEsMC4xOTEtMC4wODcsMC4yODMtMC4xMzJjMC4xLTAuMDQ4LDAuMTk5LTAuMDkyLDAuMjk3LTAuMTQ3YzAuMDkxLTAuMDQ4LDAuMTc3LTAuMTA0LDAuMjY0LTAuMTUzICAgYzAuMDk4LTAuMDYsMC4xOTMtMC4xMSwwLjI4Ny0wLjE3NGMwLjA5Ni0wLjA2NCwwLjE4OS0wLjE0MSwwLjI4MS0wLjIwNmMwLjA3Ni0wLjA2MiwwLjE1Ni0wLjExMywwLjIzMy0wLjE3NiAgIGMwLjI0OS0wLjIwNCwwLjQ3OS0wLjQzNywwLjY5NC0wLjY3YzAuMDc2LTAuMDY3LDAuMTU0LTAuMTMxLDAuMjI5LTAuMjAzbDQzLjI5NC00My4yOTYgICBDMTIxLjU4MSw2NS40OTEsMTIxLjU4MSw2MS4zMzcsMTE5LjAxOSw1OC43NzYiLz48L2c+PC9zdmc+);background-size:20px}.spl-theme{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBoZWlnaHQ9IjI0cHgiIHZlcnNpb249IjEuMiIgdmlld0JveD0iMiAyIDIwIDIwIiB3aWR0aD0iMjRweCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmZmIj48cGF0aCBkPSJNMTIsNGMtNC40MTgsMC04LDMuNTgyLTgsOHMzLjU4Miw4LDgsOHM4LTMuNTgyLDgtOFMxNi40MTgsNCwxMiw0eiBNMTIsMThjLTMuMzE0LDAtNi0yLjY4Ni02LTZzMi42ODYtNiw2LTZzNiwyLjY4Niw2LDYgUzE1LjMxNCwxOCwxMiwxOHoiLz48cGF0aCBkPSJNMTIsN3YxMGMyLjc1NywwLDUtMi4yNDMsNS01UzE0Ljc1Nyw3LDEyLDd6Ii8+PC9nPjwvc3ZnPg==)}.spl-play{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSItMC41IC0wLjUgMjUgMjUiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwb2x5Z29uIGZpbGw9IiNmZmYiIHBvaW50cz0iMTAgOCAxNiAxMiAxMCAxNiAxMCA4Ii8+PC9zdmc+)}.spl-play.on{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSItMC41IC0wLjUgMjUgMjUiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxsaW5lIHgxPSIxMCIgeDI9IjEwIiB5MT0iMTUiIHkyPSI5Ii8+PGxpbmUgeDE9IjE0IiB4Mj0iMTQiIHkxPSIxNSIgeTI9IjkiLz48L3N2Zz4=);animation:pulsate 1s ease infinite}.spl-close{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSIyIDIgMjAgMjAiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48bGluZSB4MT0iMTgiIHgyPSI2IiB5MT0iNiIgeTI9IjE4Ii8+PGxpbmUgeDE9IjYiIHgyPSIxOCIgeTE9IjYiIHkyPSIxOCIvPjwvc3ZnPg==)}.spl-next,.spl-prev{top:50%;width:50px;height:50px;opacity:.65;background-color:rgba(0,0,0,.45);border-radius:100%;cursor:pointer;margin-top:-25px;transform:translateX(-100px);background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjI0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cG9seWxpbmUgcG9pbnRzPSIxNSAxOCA5IDEyIDE1IDYiLz48L3N2Zz4=);background-size:30px}.spl-prev{left:20px}.spl-next{left:auto;right:20px;transform:translateX(100px) scaleX(-1)}#spotlight.menu .spl-prev{transform:translateX(0)}#spotlight.menu .spl-next{transform:translateX(0) scaleX(-1)}@media (hover:hover){.spl-page~div{cursor:pointer;transition:opacity .2s ease}.spl-next:hover,.spl-page~div:hover,.spl-prev:hover{opacity:1}}@media (max-width:500px){.spl-header div{width:44px}.spl-footer .spl-title{font-size:20px}.spl-footer{font-size:14px}.spl-next,.spl-prev{width:35px;height:35px;margin-top:-17.5px;background-size:15px 15px}.spl-spinner{background-size:30px 30px}}.hide-scrollbars{overflow:hidden!important}</style>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<title>《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer</title>
+<meta name="robots" content="max-image-preview:large">
+<meta name="keywords" content="剑指offer最优解,">
+<meta name="description" content="本系列题解讲解的是《剑指offer》第二版的题解，并且按照顺序给出了题解。 对于刷题，本人是建议大家尽量找出最优解，而不是 AC 了就完事，所以本系列的讲解，每道题都会讲解最优解代码。 由于网站播放视频可能没有 B 站好，所以本系列的讲解视">
+<meta property="og:title" content="《剑指offer最优解》相关说明">
+<meta property="og:description" content="本系列题解讲解的是《剑指offer》第二版的题解，并且按照顺序给出了题解。 对于刷题，本人是建议大家尽量找出最优解，而不是 AC 了就完事，所以本系列的讲解，每道题都会讲解最优解代码。 由于网站播放视频可能没有 B 站好，所以本系列的讲解视">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.playoffer.cn/1186.html">
+<meta property="og:site_name" content="PlayOffer">
+<meta property="og:image" content="https://www.playoffer.cn/wp-content/uploads/2022/05/3--300x200.jpg">
+<link href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/playoffer图标.png" rel="icon">
+<style id="global-styles-inline-css">
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<link rel="stylesheet" id="Katex-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/katex.min.css" media="all">
+<link rel="stylesheet" id="Emojify.js-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/emojify.min.css" media="all">
+<link rel="stylesheet" id="prism-theme-default-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism.css" media="all">
+<link rel="stylesheet" id="prism-plugin-toolbar-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-toolbar.css" media="all">
+<link rel="stylesheet" id="prism-plugin-line-numbers-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-line-numbers.css" media="all">
+<link rel="stylesheet" id="ez-toc-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/screen.min.css" media="all">
+<style id="ez-toc-inline-css">
+div#ez-toc-container p.ez-toc-title {font-size: 120%;}div#ez-toc-container p.ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}div#ez-toc-container nav ul ul li ul li {font-size: 90%!important;}
+.ez-toc-container-direction {direction: ltr;}.ez-toc-counter ul{counter-reset: item;}.ez-toc-counter nav ul li a::before {content: counters(item, ".", decimal) ". ";display: inline-block;counter-increment: item;flex-grow: 0;flex-shrink: 0;margin-right: .2em; float: left;}.ez-toc-widget-direction {direction: ltr;}.ez-toc-widget-container ul{counter-reset: item;}.ez-toc-widget-container nav ul li a::before {content: counters(item, ".", decimal) ". ";display: inline-block;counter-increment: item;flex-grow: 0;flex-shrink: 0;margin-right: .2em; float: left;}
+</style>
+<link rel="stylesheet" id="bootstrap-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/bootstrap.min.css" media="all">
+<link rel="stylesheet" id="csf-fa5-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/all.min.css" media="all">
+<link rel="stylesheet" id="csf-fa5-v4-shims-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/v4-shims.min.css" media="all">
+<link rel="stylesheet" id="plugins-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/plugins.css" media="all">
+<link rel="stylesheet" id="app-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/app.css" media="all">
+<link rel="stylesheet" id="dark-css" href="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/dark.css" media="all">
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/jquery.min.js.下载" id="jquery-js"></script>
+<script id="ez-toc-scroll-scriptjs-js-after">
+jQuery(document).ready(function(){document.querySelectorAll(".ez-toc-section").forEach(t=>{t.setAttribute("ez-toc-data-id","#"+decodeURI(t.getAttribute("id")))}),jQuery("a.ez-toc-link").click(function(){let t=jQuery(this).attr("href"),e=jQuery("#wpadminbar"),i=0;30>30&&(i=30),e.length&&(i+=e.height()),jQuery('[ez-toc-data-id="'+decodeURI(t)+'"]').length>0&&(i=jQuery('[ez-toc-data-id="'+decodeURI(t)+'"]').offset().top-i),jQuery("html, body").animate({scrollTop:i},500)})});
+</script>
+<link rel="canonical" href="https://www.playoffer.cn/1186.html">
+<link rel="shortlink" href="https://www.playoffer.cn/?p=1186">
+<style id="theia-sticky-sidebar-stylesheet-TSS">.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+<body class="post-template-default single single-post postid-1186 single-format-standard wide-screen navbar-sticky pagination-numeric no-off-canvas sidebar-right" style="transform: none;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-dark-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 0.49803921568627"></fefuncr><fefuncg type="table" tableValues="0 0.49803921568627"></fefuncg><fefuncb type="table" tableValues="0 0.49803921568627"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-grayscale"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.54901960784314 0.98823529411765"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0.71764705882353 0.25490196078431"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-red"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 0.27843137254902"></fefuncg><fefuncb type="table" tableValues="0.5921568627451 0.27843137254902"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-midnight"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0 0"></fefuncr><fefuncg type="table" tableValues="0 0.64705882352941"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-magenta-yellow"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.78039215686275 1"></fefuncr><fefuncg type="table" tableValues="0 0.94901960784314"></fefuncg><fefuncb type="table" tableValues="0.35294117647059 0.47058823529412"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-purple-green"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.65098039215686 0.40392156862745"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0.44705882352941 0.4"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;"><defs><filter id="wp-duotone-blue-orange"><fecolormatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "></fecolormatrix><fecomponenttransfer color-interpolation-filters="sRGB"><fefuncr type="table" tableValues="0.098039215686275 1"></fefuncr><fefuncg type="table" tableValues="0 0.66274509803922"></fefuncg><fefuncb type="table" tableValues="0.84705882352941 0.41960784313725"></fefuncb><fefunca type="table" tableValues="1 1"></fefunca></fecomponenttransfer><fecomposite in2="SourceGraphic" operator="in"></fecomposite></filter></defs></svg><div id="app" class="site" style="transform: none;">
+	
+<header class="site-header">
+    <div class="container">
+	    <div class="navbar">
+			  <div class="logo-wrapper">
+          <a href="https://www.playoffer.cn/">
+        <img class="logo regular" src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/playoffer图标.png" alt="PlayOffer">
+      </a>
+    
+  </div> 			
+			<div class="sep"></div>
+			
+			<nav class="main-menu d-none d-lg-block">
+			<ul id="menu-%e9%a1%b6%e9%83%a8%e8%8f%9c%e5%8d%95" class="nav-list u-plain-list"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://www.playoffer.cn/">教程导航</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/recent_daka">最新打卡动态</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/1377.html">走近帅地</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/question">打卡</a></li>
+</ul>			</nav>
+			
+			<div class="actions">
+				
+								<span class="btn btn-sm search-open navbar-button ml-2" rel="nofollow noopener noreferrer" data-action="omnisearch-open" data-target="#omnisearch" title="搜索"><i class="fas fa-search"></i></span>
+				
+								<span class="btn btn-sm toggle-notify navbar-button ml-2" rel="nofollow noopener noreferrer" title="公告"><i class="fa fa-bell-o"></i></span>
+				
+						        <span class="btn btn-sm toggle-dark navbar-button ml-2" rel="nofollow noopener noreferrer" title="夜间模式"><i class="fa fa-moon-o"></i></span>
+                                
+				<!-- user navbar dropdown  -->
+		        				<a class="login-btn navbar-button ml-2" rel="nofollow noopener noreferrer" href="https://www.playoffer.cn/1186.html#"><i class="fa fa-user mr-1"></i>登录</a>
+								<!-- user navbar dropdown -->
+
+                
+		        <div class="burger"></div>
+
+		        
+		    </div>
+		    
+	    </div>
+    </div>
+</header>
+
+<div class="header-gap"></div>
+
+	<main id="main" role="main" class="site-content" style="transform: none;">
+<div class="container" style="transform: none;">
+	<div class="row" style="transform: none;">
+		<div class="content-column col-lg-9" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+			
+			
+		<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><div class="content-area">
+			    
+			
+				<article id="post-1186" class="article-content post-1186 post type-post status-publish format-standard hentry category-algo-offer">
+
+  <div class="container">
+        <div class="article-crumb"><ol class="breadcrumb">当前位置：<li class="home"><i class="fa fa-home"></i> <a href="https://www.playoffer.cn/">首页</a></li><li><a href="https://www.playoffer.cn/algo-offer">剑指offer最优解</a></li><li class="active">正文</li></ol></div>
+    
+    <header class="entry-header">
+<h1 class="entry-title">《剑指offer最优解》相关说明</h1>          <div class="entry-meta">
+            
+                          <span class="meta-author">
+                <a href="https://www.playoffer.cn/author/shuaidi" title="shuaidi"><img alt="" data-src="//www.playoffer.cn/wp-content/uploads/1234/01/avatar-1.png" class="avatar avatar-96 photo ls-is-cached lazyloaded" height="96" width="96" src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/avatar-1.png">                </a>
+              </span>
+                          <span class="meta-category">
+                <a href="https://www.playoffer.cn/algo-offer" rel="category">剑指offer最优解</a>
+              </span>
+                          <span class="meta-date">
+                  <time datetime="2022-10-22T14:39:42+08:00">
+                    <i class="fa fa-clock-o"></i>
+                    6月前                  </time>
+              </span>
+                            <span class="meta-favnum"><i class="far fa-star"></i> 0</span>
+                            <span class="meta-views"><i class="fa fa-eye"></i> 1.2K</span>
+                            <span class="meta-edit"></span>
+            
+
+          </div>
+        </header>
+
+    <div class="pt-0 d-none d-block d-xl-none d-lg-none"><aside id="header-widget-shop-down" class="widget-area"><p></p></aside></div>  
+    <div class="entry-wrapper">
+            <div class="entry-content u-text-format u-clearfix">
+        <p>本系列题解讲解的是《剑指offer》第二版的题解，并且按照顺序给出了题解。</p>
+<p>对于刷题，本人是建议大家尽量找出最优解，而不是 AC 了就完事，所以本系列的讲解，每道题都会讲解最优解代码。</p>
+<p>由于网站播放视频可能没有 B 站好，所以本系列的讲解视频，也同步到了 B 站，直达链接：<a class="wp-editor-md-post-content-link" href="https://www.bilibili.com/video/BV1KP411L7VH/">完美撒花！剑指offer题解合集(完结)｜有字幕+动画+现场手撕代码｜Java实现</a></p>
+<p>由于 B 站不方便放代码以及问题描述等，所以你可以在本站看视频中的代码以及问题描述，并且每一道题，也会有链接索引到 B 站到视频讲解</p>
+<h3>PDF 版本获取</h3>
+<p>另外，本站的这些代码内容也整理成了 PDF，如果你想要获取 PDF 版本，可以关注帅地的微信公众号「<strong>帅地玩编程</strong>」，之后回复「<strong>剑指offer</strong>」即可获取</p>
+
+<div class="entry-share">
+	<div class="row">
+		<div class="col d-none d-lg-block">
+            
+                            <a class="share-author" href="https://www.playoffer.cn/author/shuaidi">
+                    <img alt="" data-src="//www.playoffer.cn/wp-content/uploads/1234/01/avatar-1.png" class="avatar avatar-50 photo ls-is-cached lazyloaded" height="50" width="50" src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/avatar-1.png">shuaidi<span class="badge badge-danger-lighten" "="">永久会员</span>                </a>
+            			
+		</div>
+		<div class="col-auto mb-3 mb-lg-0">
+
+            
+			<button class="go-star-btn btn btn-sm btn-white" data-id="1186"><i class="far fa-star"></i> 收藏</button>            
+			                <button class="share-poster btn btn-sm btn-white" data-id="1186" title="文章封面图"><i class="fa fa-share-alt"></i> 海报挣佣金</button>
+                        
+            <button class="go-copy btn btn-sm btn-white" data-toggle="tooltip" data-placement="top" title="" data-clipboard-text="https://www.playoffer.cn/1186.html" data-original-title="点击复制链接"><i class="fas fa-link"></i> 推广链接</button>
+		</div>
+	</div>
+</div>
+
+      </div>
+          </div>
+    
+
+  </div>
+</article>
+
+
+
+<div id="comments" class="entry-comments">
+    	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">发表回复 <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://www.playoffer.cn/1186.html#respond" style="display:none;">取消回复</a></small></h3><div class="comment-form"><div class="comment-must-login">您需要登录后才可以发表评论...</div><div class="form-submit"><div class="form-submit-text float-left"><a class="login-btn" href="javascript:;">登录...</a> 后才能评论</div> <input name="submit" type="submit" id="must-submit" class="submit disabled" value="发表" disabled=""></div></div>	</div><!-- #respond -->
+		</div>
+				
+			</div></div></div>
+		
+					<div class="sidebar-column col-lg-3" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+				
+
+
+    <!--展示文章目录-->
+
+
+<!--展示分类下的其他文章-->
+
+
+
+
+
+
+				
+			<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none;"><aside id="secondary" class="widget-area">
+	</aside><br><div class="widget_diy widget_ui_posts_diy" style="padding: 2px;margin: 0;display: block; background:#ffffff">
+    <div style="font-size: 1.3em;display: block; border-bottom: 1px solid #efefef; background:#ffffff">
+        剑指offer最优解系列教程    </div>
+            <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=1186" equal="" style="font-weight: blod; line-height: 20px;background-color: #f1e6df;text-decoration: none;display: block;padding: 6px;border-bottom: 2px solid #efefef;color: #000;font-size:0.8em" title="《剑指offer最优解》相关说明"> 0. 《剑指offer最优解》相关说明        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=497" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 03. 数组中重复的数字"> 1. 剑指 Offer 03. 数组中重复的数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=500" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 04. 二维数组中的查找"> 2. 剑指 Offer 04. 二维数组中的查找        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=502" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 05. 替换空格"> 3. 剑指 Offer 05. 替换空格        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=479" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 06. 从尾到头打印链表"> 4. 剑指 Offer 06. 从尾到头打印链表        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=506" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 07. 重建二叉树"> 5. 剑指 Offer 07. 重建二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=508" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 09. 用两个栈实现队列"> 6. 剑指 Offer 09. 用两个栈实现队列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=510" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 10- I. 斐波那契数列"> 7. 剑指 Offer 10- I. 斐波那契数列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=512" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 10- II. 青蛙跳台阶问题"> 8. 剑指 Offer 10- II. 青蛙跳台阶问题        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=514" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 11. 旋转数组的最小数字"> 9. 剑指 Offer 11. 旋转数组的最小数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=516" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 12. 矩阵中的路径"> 10. 剑指 Offer 12. 矩阵中的路径        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=518" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 13. 机器人的运动范围"> 11. 剑指 Offer 13. 机器人的运动范围        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=520" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 14- I. 剪绳子"> 12. 剑指 Offer 14- I. 剪绳子        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=522" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 14- II. 剪绳子 II"> 13. 剑指 Offer 14- II. 剪绳子 II        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=524" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 15. 二进制中1的个数"> 14. 剑指 Offer 15. 二进制中1的个数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=526" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 16. 数值的整数次方"> 15. 剑指 Offer 16. 数值的整数次方        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=528" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 17. 打印从1到最大的n位"> 16. 剑指 Offer 17. 打印从1到最大的n位        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=440" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 18. 删除链表的节点"> 17. 剑指 Offer 18. 删除链表的节点        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=532" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 19. 正则表达式匹配"> 18. 剑指 Offer 19. 正则表达式匹配        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=534" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 20. 表示数值的字符串"> 19. 剑指 Offer 20. 表示数值的字符串        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=536" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 21. 调整数组顺序使奇数位于偶数前面"> 20. 剑指 Offer 21. 调整数组顺序使奇数位于偶数前面        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=442" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 22. 链表中倒数第k个节点"> 21. 剑指 Offer 22. 链表中倒数第k个节点        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=540" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 24. 反转链表"> 22. 剑指 Offer 24. 反转链表        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=481" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 24. 反转链表"> 23. 剑指 Offer 24. 反转链表        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=544" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 26. 树的子结构"> 24. 剑指 Offer 26. 树的子结构        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=444" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 25. 合并两个排序的链表"> 25. 剑指 Offer 25. 合并两个排序的链表        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=546" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 27. 二叉树的镜像"> 26. 剑指 Offer 27. 二叉树的镜像        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=548" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 28. 对称的二叉树"> 27. 剑指 Offer 28. 对称的二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=550" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 29. 顺时针打印矩阵"> 28. 剑指 Offer 29. 顺时针打印矩阵        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=552" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 30. 包含min函数的栈"> 29. 剑指 Offer 30. 包含min函数的栈        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=554" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 31. 栈的压入、弹出序列"> 30. 剑指 Offer 31. 栈的压入、弹出序列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=556" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 32 - I. 从上到下打印二叉树"> 31. 剑指 Offer 32 - I. 从上到下打印二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=558" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 32 - II. 从上到下打印二叉树"> 32. 剑指 Offer 32 - II. 从上到下打印二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=566" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 32 - III. 从上到下打印二叉树"> 33. 剑指 Offer 32 - III. 从上到下打印二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=568" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 33. 二叉搜索树的后序遍历序列"> 34. 剑指 Offer 33. 二叉搜索树的后序遍历序列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=570" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 34. 二叉树中和为某一值的路径"> 35. 剑指 Offer 34. 二叉树中和为某一值的路径        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=572" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 35. 复杂链表的复制"> 36. 剑指 Offer 35. 复杂链表的复制        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=574" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 36. 二叉搜索树与双向链表"> 37. 剑指 Offer 36. 二叉搜索树与双向链表        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=576" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 37. 序列化二叉树"> 38. 剑指 Offer 37. 序列化二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=578" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 38. 字符串的排列"> 39. 剑指 Offer 38. 字符串的排列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=580" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 39. 数组中出现次数超过一半的数字"> 40. 剑指 Offer 39. 数组中出现次数超过一半的数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=582" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 40. 最小的k个数"> 41. 剑指 Offer 40. 最小的k个数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=584" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 41. 数据流中的中位数"> 42. 剑指 Offer 41. 数据流中的中位数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=586" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 42. 连续子数组的最大和"> 43. 剑指 Offer 42. 连续子数组的最大和        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=588" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 43. 1～n 整数中 1 出现的次数"> 44. 剑指 Offer 43. 1～n 整数中 1 出现的次数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=590" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 44. 数字序列中某一位的数字"> 45. 剑指 Offer 44. 数字序列中某一位的数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=592" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 45. 把数组排成最小的数"> 46. 剑指 Offer 45. 把数组排成最小的数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=594" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 46. 把数字翻译成字符串"> 47. 剑指 Offer 46. 把数字翻译成字符串        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=596" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 47. 礼物的最大价值"> 48. 剑指 Offer 47. 礼物的最大价值        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=598" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 48. 最长不含重复字符的子字符串"> 49. 剑指 Offer 48. 最长不含重复字符的子字符串        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=600" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 49. 丑数"> 50. 剑指 Offer 49. 丑数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=602" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 50. 第一个只出现一次的字符"> 51. 剑指 Offer 50. 第一个只出现一次的字符        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=446" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 52. 两个链表的第一个公共点"> 52. 剑指 Offer 52. 两个链表的第一个公共点        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=604" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 51. 数组中的逆序对"> 53. 剑指 Offer 51. 数组中的逆序对        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=608" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 53 - I. 在排序数组中查找"> 54. 剑指 Offer 53 - I. 在排序数组中查找        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=610" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 53 - II. 0～n-1中缺失的数字"> 55. 剑指 Offer 53 - II. 0～n-1中缺失的数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=612" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 54. 二叉搜索树的第k大节点"> 56. 剑指 Offer 54. 二叉搜索树的第k大节点        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=614" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 55 - I. 二叉树的深度"> 57. 剑指 Offer 55 - I. 二叉树的深度        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=616" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 55 - II. 平衡二叉树"> 58. 剑指 Offer 55 - II. 平衡二叉树        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=618" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 56 - I. 数组中数字出现的次数"> 59. 剑指 Offer 56 - I. 数组中数字出现的次数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=621" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 56 - II. 数组中数字出现的次数 II"> 60. 剑指 Offer 56 - II. 数组中数字出现的次数 II        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=623" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 57. 和为s的两个数字"> 61. 剑指 Offer 57. 和为s的两个数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=625" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 57 - II. 和为s的连续正数序列"> 62. 剑指 Offer 57 - II. 和为s的连续正数序列        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=627" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 58 - I. 翻转单词顺序"> 63. 剑指 Offer 58 - I. 翻转单词顺序        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=629" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 58 - II. 左旋转字符串"> 64. 剑指 Offer 58 - II. 左旋转字符串        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=631" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 59 - I. 滑动窗口的最大值"> 65. 剑指 Offer 59 - I. 滑动窗口的最大值        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=633" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 60. n个骰子的点数"> 66. 剑指 Offer 60. n个骰子的点数        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=635" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 61. 扑克牌中的顺子"> 67. 剑指 Offer 61. 扑克牌中的顺子        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=637" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 62. 圆圈中最后剩下的数字"> 68. 剑指 Offer 62. 圆圈中最后剩下的数字        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=639" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 63. 股票的最大利润"> 69. 剑指 Offer 63. 股票的最大利润        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=641" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 64. 求1+2+…+n"> 70. 剑指 Offer 64. 求1+2+…+n        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=643" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 68 - I. 二叉搜索树的最近公共祖先"> 71. 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先        </a>       
+    </div>
+                <div style="margin:2px">
+        <a class="widget_width_diy" href="https://www.playoffer.cn/?p=483" style="display: block;padding: 2px;border-bottom: 2px solid #d5f0de; font-size:0.8em" title="剑指 Offer 35. 复杂链表的复制"> 72. 剑指 Offer 35. 复杂链表的复制        </a>       
+    </div>
+                <br>
+
+</div></div></div>
+			</div>
+</div>
+	</main><!-- #main -->
+	
+	<footer class="site-footer">
+		<div class="footer-widget d-none d-lg-block">
+    <div class="container">
+	    <div class="row">
+	        <div class="col-lg-3 col-md">
+	            <div class="footer-info">
+	                <div class="logo mb-2">
+	                    <img class="logo" src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/playoffer图标.png" alt="PlayOffer">
+	                </div>
+	                <p class="desc mb-0">本站致力于所有与校招面试以及在校生学习相关的编程内容，力求让你少走弯路！</p>
+	            </div>
+	        </div>
+	        <div class="col-lg-9 col-auto widget-warp">
+	        	<div class="d-flex justify-content-xl-between">
+	            		        	</div>
+	        </div>
+	    </div>
+   </div>
+</div>
+		<div class="footer-copyright d-flex text-center">
+			<div class="container">
+							    <p class="m-0 small">
+			    	Copyright © 2021 <a href="https://www.playoffer.cn/">帅地玩offer</a> 版权所有<a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer nofollow">粤ICP备2022113723号</a>				</p>
+								
+							</div>
+		</div>
+
+	</footer><!-- #footer -->
+
+</div><!-- #page -->
+
+<div class="rollbar">
+		<ul class="actions">
+			<li>
+						<a href="https://www.playoffer.cn/" rel="nofollow noopener noreferrer" data-toggle="tooltip" data-html="true" data-placement="left" title="" data-original-title="首页"><i class="fas fa-home"></i></a>
+		</li>
+				<li>
+						<a href="https://www.playoffer.cn/user?action=vip" rel="nofollow noopener noreferrer" data-toggle="tooltip" data-html="true" data-placement="left" title="" data-original-title="VIP会员"><i class="fa fa-diamond"></i></a>
+		</li>
+				<li>
+						<a href="https://www.playoffer.cn/user" rel="nofollow noopener noreferrer" data-toggle="tooltip" data-html="true" data-placement="left" title="" data-original-title="个人中心"><i class="far fa-user"></i></a>
+		</li>
+			</ul>
+		<div class="rollbar-item back-to-top">
+		<i class="fas fa-chevron-up"></i>
+	</div>
+</div>
+<div class="m-menubar">
+	</div>
+<div id="omnisearch" class="omnisearch">
+    <div class="container">
+        <form class="omnisearch-form" method="get" action="https://www.playoffer.cn/">
+            <div class="form-group">
+                <div class="input-group input-group-merge input-group-flush">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+
+					<div class="input-group-prepend d-flex align-items-center" style=" max-width: 35%; ">
+                    <div class="dropdown bootstrap-select"><select name="cat" id="omnisearch-cat" class="selectpicker" tabindex="-98">
+	<option value="">全部</option>
+	<option class="level-0" value="38">VIP_训练营</option>
+	<option class="level-0" value="32">书籍推荐与阅读系列</option>
+	<option class="level-0" value="29">八股文</option>
+	<option class="level-0" value="7">其他</option>
+	<option class="level-0" value="8">剑指offer</option>
+	<option class="level-0" value="19">剑指offer刷题第二期</option>
+	<option class="level-0" value="23" selected="selected">剑指offer最优解</option>
+	<option class="level-0" value="41">原创资料</option>
+	<option class="level-0" value="35">大学之路</option>
+	<option class="level-0" value="4">学习路线</option>
+	<option class="level-0" value="30">帅地问答</option>
+	<option class="level-0" value="26">常见算法思想讲解</option>
+	<option class="level-0" value="44">拿捏算法面试</option>
+	<option class="level-0" value="40">排序算法</option>
+	<option class="level-0" value="25">数据结构与算法入门</option>
+	<option class="level-0" value="33">校招与求职系列</option>
+	<option class="level-0" value="28">经典算法题讲解</option>
+	<option class="level-0" value="34">计算机基础</option>
+	<option class="level-0" value="43">计算机网络相关</option>
+	<option class="level-0" value="15">课程说明</option>
+	<option class="level-0" value="14">项目</option>
+</select><button type="button" class="btn dropdown-toggle btn-white" data-toggle="dropdown" role="button" data-id="omnisearch-cat" title="剑指offer最优解"><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">剑指offer最优解</div></div> </div></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+				  	</div>
+                    <input type="text" class="search-ajax-input form-control" name="s" value="" placeholder="输入关键词 回车搜索..." autocomplete="off">
+
+                </div>
+            </div>
+        </form>
+        <div class="omnisearch-suggestions">
+            <div class="search-keywords">
+                <a href="https://www.playoffer.cn/vip_%e8%ae%ad%e7%bb%83%e8%90%a5" class="tag-cloud-link tag-link-38 tag-link-position-1" style="font-size: 14px;">VIP_训练营</a>
+<a href="https://www.playoffer.cn/read-book" class="tag-cloud-link tag-link-32 tag-link-position-2" style="font-size: 14px;">书籍推荐与阅读系列</a>
+<a href="https://www.playoffer.cn/%e5%85%ab%e8%82%a1%e6%96%87" class="tag-cloud-link tag-link-29 tag-link-position-3" style="font-size: 14px;">八股文</a>
+<a href="https://www.playoffer.cn/%e5%85%b6%e4%bb%96" class="tag-cloud-link tag-link-7 tag-link-position-4" style="font-size: 14px;">其他</a>
+<a href="https://www.playoffer.cn/algo-offer" class="tag-cloud-link tag-link-23 tag-link-position-5" style="font-size: 14px;">剑指offer最优解</a>
+<a href="https://www.playoffer.cn/tag/%e5%89%91%e6%8c%87offer%e9%a2%98%e8%a7%a3" class="tag-cloud-link tag-link-24 tag-link-position-6" style="font-size: 14px;">剑指offer题解</a>
+<a href="https://www.playoffer.cn/%e5%a4%a7%e5%ad%a6%e4%b9%8b%e8%b7%af" class="tag-cloud-link tag-link-35 tag-link-position-7" style="font-size: 14px;">大学之路</a>
+<a href="https://www.playoffer.cn/%e5%ad%a6%e4%b9%a0%e8%b7%af%e7%ba%bf" class="tag-cloud-link tag-link-4 tag-link-position-8" style="font-size: 14px;">学习路线</a>
+<a href="https://www.playoffer.cn/tag/%e5%b8%85%e5%9c%b0%e9%97%ae%e7%ad%94" class="tag-cloud-link tag-link-31 tag-link-position-9" style="font-size: 14px;">帅地问答</a>
+<a href="https://www.playoffer.cn/shuaidi-answer" class="tag-cloud-link tag-link-30 tag-link-position-10" style="font-size: 14px;">帅地问答</a>
+<a href="https://www.playoffer.cn/%e5%b8%b8%e8%a7%81%e7%ae%97%e6%b3%95%e6%80%9d%e6%83%b3%e8%ae%b2%e8%a7%a3" class="tag-cloud-link tag-link-26 tag-link-position-11" style="font-size: 14px;">常见算法思想讲解</a>
+<a href="https://www.playoffer.cn/algo_interview" class="tag-cloud-link tag-link-44 tag-link-position-12" style="font-size: 14px;">拿捏算法面试</a>
+<a href="https://www.playoffer.cn/algo_sort" class="tag-cloud-link tag-link-40 tag-link-position-13" style="font-size: 14px;">排序算法</a>
+<a href="https://www.playoffer.cn/algo-stru" class="tag-cloud-link tag-link-25 tag-link-position-14" style="font-size: 14px;">数据结构与算法入门</a>
+<a href="https://www.playoffer.cn/gei-me-offer" class="tag-cloud-link tag-link-33 tag-link-position-15" style="font-size: 14px;">校招与求职系列</a>
+<a href="https://www.playoffer.cn/tag/%e7%ae%97%e6%b3%95" class="tag-cloud-link tag-link-9 tag-link-position-16" style="font-size: 14px;">算法</a>
+<a href="https://www.playoffer.cn/%e7%bb%8f%e5%85%b8%e7%ae%97%e6%b3%95%e9%a2%98%e8%ae%b2%e8%a7%a3" class="tag-cloud-link tag-link-28 tag-link-position-17" style="font-size: 14px;">经典算法题讲解</a>
+<a href="https://www.playoffer.cn/%e8%af%be%e7%a8%8b%e8%af%b4%e6%98%8e" class="tag-cloud-link tag-link-15 tag-link-position-18" style="font-size: 14px;">课程说明</a>            </div>
+                    </div>
+    </div>
+</div>
+
+<div class="dimmer"></div>
+
+<div class="off-canvas">
+  <div class="canvas-close"><i class="fas fa-times"></i></div>
+  <div class="mobile-menu d-block d-xl-none d-lg-none"><div class="slicknav_menu"><a href="https://www.playoffer.cn/1186.html#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style=""><span class="slicknav_menutxt"></span><span class="slicknav_icon slicknav_no-text"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" style="display: none;" aria-hidden="true" role="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://www.playoffer.cn/" role="menuitem" tabindex="-1">教程导航</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/recent_daka" role="menuitem" tabindex="-1">最新打卡动态</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/1377.html" role="menuitem" tabindex="-1">走近帅地</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.playoffer.cn/question" role="menuitem" tabindex="-1">打卡</a></li>
+</ul></div></div>
+</div>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/jquery.min.js(1).下载" id="jQuery-CDN-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/katex.min.js.下载" id="Katex-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/emojify.min.js.下载" id="Emojify.js-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/clipboard.min.js.下载" id="copy-clipboard-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-core.min.js.下载" id="prism-core-js-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-autoloader.min.js.下载" id="prism-plugin-autoloader-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-toolbar.min.js.下载" id="prism-plugin-toolbar-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-line-numbers.min.js.下载" id="prism-plugin-line-numbers-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-show-language.min.js.下载" id="prism-plugin-show-language-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/prism-copy-to-clipboard.min.js.下载" id="prism-plugin-copy-to-clipboard-js"></script>
+<script id="Front_Style-js-extra">
+var FrontStyle = {"openLinkInNewTab":"on"};
+</script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/frontstyle.min.js.下载" id="Front_Style-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/popper.min.js.下载" id="popper-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/bootstrap.min.js.下载" id="bootstrap-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/plugins.js.下载" id="plugins-js"></script>
+<script id="app-js-extra">
+var riprov2 = {"home_url":"https:\/\/www.playoffer.cn","admin_url":"https:\/\/www.playoffer.cn\/wp-admin\/admin-ajax.php","is_qq_captcha":"0","is_single_gallery":"1","comment_list_order":"desc","infinite_load":"\u52a0\u8f7d\u66f4\u591a","infinite_loading":"\u52a0\u8f7d\u4e2d...","site_notice":{"is":"1","auto":"1","color":"#1e73be","html":"<div class=\"notify-content\"><h3><i class=\"fa fa-bell-o mr-2\"><\/i>\u5173\u4e8e\u672c\u7ad9\u7684\u4e00\u4e9b\u8bf4\u660e<\/h3><div>\u5927\u5bb6\u597d\uff0c\u8fd9\u662f\u5e05\u5730\u672a\u6765\u4f1a\u5168\u529b\u7ef4\u62a4\u597d\u7684\u6821\u62db\u7f51\u7ad9\u3002<\/br><\/br>\r\n\r\n\u6240\u6709\u5185\u5bb9\uff0c\u90fd\u662f\u5173\u4e4e\u6821\u62db\u4e0e\u9762\u8bd5\uff1b\u6240\u6709\u5185\u5bb9\uff0c\u90fd\u662f\u5e05\u5730\u4e25\u683c\u7b5b\u9009\u548c\u539f\u521b\uff1b\u6240\u6709\u5185\u5bb9\uff0c\u90fd\u4f1a\u5982\u5b9e\u63cf\u8ff0\u5b83\u7684\u4f5c\u7528\u3002<\/br><\/br>\r\n\r\n\u6240\u4ee5\u5728\u672a\u6765\uff0c90% \u7684\u5185\u5bb9\uff0c\u90fd\u662f\u79ef\u5206\u5236\u67e5\u770b\uff0c\u4f60\u4e5f\u53ef\u4ee5\u7b7e\u5230\u9886\u53d6\u79ef\u5206\u54e6\u3002<\/br><\/br>\r\n\r\n\u5e05\u5730\u7684\u76ee\u6807\u5c31\u662f\uff0c\u6253\u9020\u4e00\u4e2a\u9ad8\u8d28\u91cf\u7684\u6821\u62db\u5b66\u4e60\u7f51\u7ad9\uff0c\u800c\u4e0d\u662f\u7f51\u4e0a\u4e00\u5806\u5927\u6742\u4e71\u3002<\/div><\/div>"},"site_js_text":{"login_txt":"\u8bf7\u70b9\u51fb\u5b89\u5168\u9a8c\u8bc1","reg1_txt":"\u90ae\u7bb1\u683c\u5f0f\u9519\u8bef","reg2_txt":"\u8bf7\u70b9\u51fb\u5b89\u5168\u9a8c\u8bc1","pass_txt":"\u8bf7\u70b9\u51fb\u5b89\u5168\u9a8c\u8bc1","bind_txt":"\u8bf7\u70b9\u51fb\u9a8c\u8bc1\u6309\u94ae\u8fdb\u884c\u9a8c\u8bc1","copy_txt":" \u590d\u5236\u6210\u529f","poster_txt":"\u6d77\u62a5\u52a0\u8f7d\u5f02\u5e38","mpwx1_txt":"\u8bf7\u4f7f\u7528\u5fae\u4fe1\u626b\u7801\u767b\u5f55","mpwx2_txt":"\u5173\u6ce8\u516c\u4f17\u53f7\u5373\u53ef\u767b\u5f55<\/br>\u4e8c\u7ef4\u7801\u6709\u6548\u671f3\u5206\u949f","pay1_txt":"\u652f\u4ed8\u5b8c\u6210","pay2_txt":"\u53d6\u6d88\u652f\u4ed8","pay3_txt":"\u652f\u4ed8\u6210\u529f","capt_txt":"\u9a8c\u8bc1\u4e2d","capt1_txt":"\u9a8c\u8bc1\u901a\u8fc7","capt2_txt":"\u9a8c\u8bc1\u5931\u8d25","prompt_txt":"\u8bf7\u8f93\u5165\u56fe\u7247URL\u5730\u5740","comment_txt":"\u63d0\u4ea4\u4e2d....","comment1_txt":"\u63d0\u4ea4\u6210\u529f"},"jquey":"1","pay_type_html":{"html":"<div class=\"pay-button-box\"><div class=\"pay-item\" id=\"weixinpay\" data-type=\"2\"><i class=\"weixinpay\"><\/i><span>\u5fae\u4fe1\u652f\u4ed8<\/span><\/div><\/div>","alipay":0,"weixinpay":2,"paypal":0,"iconpay":0},"singular_id":"1186"};
+</script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/app.js.下载" id="app-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/spotlight.bundle.js.下载" id="spotlight-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/jarallax.min.js.下载" id="jarallax-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/jarallax-video.min.js.下载" id="jarallax-video-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/comment-reply.min.js.下载" id="comment-reply-js"></script>
+<script src="./《剑指offer最优解》相关说明-跟着帅地玩转校招，拿捏大厂offerPlayOffer_files/clipboard.min.js(1).下载" id="clipboard-js"></script>
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $(".katex.math.inline").each(function () {
+                        var parent = $(this).parent()[0];
+                        if (parent.localName !== "code") {
+                            var texTxt = $(this).text();
+                            var el = $(this).get(0);
+                            try {
+                                katex.render(texTxt, el);
+                            } catch (err) {
+                                $(this).html("<span class=\"err\">" + err);
+                            }
+                        } else {
+                            $(this).parent().text($(this).parent().text());
+                        }
+                    });
+                    $(".katex.math.multi-line").each(function () {
+                        var texTxt = $(this).text();
+                        var el = $(this).get(0);
+                        try {
+                            katex.render(texTxt, el, {displayMode: true})
+                        } catch (err) {
+                            $(this).html("<span class=\"err\">" + err)
+                        }
+                    });
+                })
+            })(jQuery);
+        </script>
+                <script type="text/javascript">
+            window.onload = function () {
+                emojify.setConfig({
+                    img_dir: "https://www.playoffer.cn/wp-content/plugins/wp-editormd/assets/Emojify.js/images/basic",//前端emoji资源地址
+                    blacklist: {
+                        "ids": [],
+                        "classes": ["no-emojify"],
+                        "elements": ["^script$", "^textarea$", "^pre$", "^code$"]
+                    }
+                });
+                emojify.run();
+            }
+        </script>
+                <script type="text/javascript">
+            Prism.plugins.autoloader.languages_path = "https://www.playoffer.cn/wp-content/plugins/wp-editormd/assets/Prism.js/components/";
+        </script>
+        
+<!-- 自定义js代码 统计代码 -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3550fce340a8b29ccc919ea2cc73d013";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- 自定义js代码 统计代码 END -->
+<script language="javascript">
+// function stop(){
+// clear();
+// return false;
+// }
+// document.oncontextmenu=stop;
+// function clear(){
+// //window.location.reload();
+// }
+// document.onkeydown =document.onkeyup = document.onkeypress=function(){
+// clear();
+// return(false);
+// }
+
+// document.onselectstart=new Function('event.returnValue=false;');
+</script>
+
+
+</body></html>

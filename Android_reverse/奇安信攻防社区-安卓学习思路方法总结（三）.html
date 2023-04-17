@@ -1,0 +1,3093 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)https://forum.butian.net/share/505 -->
+<html><script id="allow-copy_script">(function agent() {
+    let unlock = false
+    document.addEventListener('allow_copy', (event) => {
+      unlock = event.detail.unlock
+    })
+
+    const copyEvents = [
+      'copy',
+      'cut',
+      'contextmenu',
+      'selectstart',
+      'mousedown',
+      'mouseup',
+      'mousemove',
+      'keydown',
+      'keypress',
+      'keyup',
+    ]
+    const rejectOtherHandlers = (e) => {
+      if (unlock) {
+        e.stopPropagation()
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation()
+      }
+    }
+    copyEvents.forEach((evt) => {
+      document.documentElement.addEventListener(evt, rejectOtherHandlers, {
+        capture: true,
+      })
+    })
+  })()</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="5KNv6nElBWADKy018hzjJkPvLXWadMT7p2ISctLo">
+    <title>奇安信攻防社区-安卓学习思路方法总结（三）</title>
+    <meta name="keywords" content="奇安信,天眼,补天,漏洞,情报,攻防,安全">
+    <meta name="description" content="奇安信攻防社区-安卓学习思路方法总结（三）">
+    <meta name="author" content="QIANXIN Team">
+    <meta name="copyright" content="2021 QIANXIN.com">
+    <link rel="icon" href="https://forum.butian.net/ico.png">
+
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/community.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/font-awesome.min.css" rel="stylesheet">
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/global.css" rel="stylesheet">
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/default.css" rel="stylesheet">
+    <link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/editor-butian-forum-light.min.css" rel="stylesheet">
+    <style>
+        #md_view{
+            padding: 0 20px;
+        }
+        #toc {
+            margin-top: 15px;
+            width: 100%;
+            border: none;
+            background: #fff;
+        }
+        #toc.tocFixed{
+            position: fixed;
+            top: 50px;
+            height: auto;
+            max-height: calc(100vh - 80px)
+        }
+        .toc-mobile{
+            height: auto;
+            position: fixed;
+            min-width: calc(100vw - 32px) !important;
+            max-height: calc(100vh - 135px);
+            width: calc(100vw - 32px) !important;
+            display: none;
+            z-index: 2147483647;
+            border: 1px solid rgb(238, 238, 238);
+            box-shadow: rgb(181 181 181) 0px 0px 32px -4px;
+            background: white;
+            margin: 16px 16px 0;
+            left: 0;
+            top: 56px;
+        }
+        .fixed-toc-button{
+            position: fixed;
+            right: 18px;
+            bottom: 10%;
+            z-index: 21474836453;
+            cursor: pointer;
+            border: none;
+            border: 1px solid rgb(238, 238, 238);
+            box-shadow: rgb(181 181 181) 0px 0px 32px -4px;
+        }
+        .second-comment-reply{
+            cursor: pointer;
+        }
+        .widget-comments{
+            margin-bottom: 30px;
+        }
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/static/js/html5shiv.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+<link rel="stylesheet" href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/layer.css" id="layuicss-skinlayercss"><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script><script charset="UTF-8" async="" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/gettype.php"></script><script charset="UTF-8" async="" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/fullpage.9.1.4.js.下载"></script><script charset="UTF-8" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/get.php"></script><link href="./奇安信攻防社区-安卓学习思路方法总结（三）_files/style_https.1.5.8.css" rel="stylesheet"></head>
+<body>
+<div class="global-nav mb-50">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container nav">
+            <div class="visible-xs header-response">
+                <a href="https://forum.butian.net/search/show" style="display:block"><i class="fa fa-search" aria-hidden="true"></i></a>
+                <div class="m-header-logo m-header-logo-response"><h1><a href="https://forum.butian.net/" style="height:34px; background-size: auto 44px;"></a></h1></div>
+                                    <a href="https://forum.butian.net/login" class="pull-right login-btn"><i class="fa fa-user" aria-hidden="true"></i></a>
+                                <div class="bottom-nav">
+                    <div class="opts">
+                        
+                        <a class="opts-group " href="https://forum.butian.net/questions"><i class="fa fa-question-circle" aria-hidden="true"></i><span>问答</span></a>
+                        <div class="opts-group">
+                            <div class="btn-group dropup">
+                                <i class="fa fa-plus dropdown hoverDropdown" data-toggle="dropdown" aria-hidden="true" aria-expanded="false"><span>发起</span></i>
+                                <ul class="dropdown-menu">
+                                    <li><a href="https://forum.butian.net/question/create">提问</a></li>
+                                    <li><a href="https://forum.butian.net/share/create">文章</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="opts-group " href="https://forum.butian.net/community"><i class="fa fa-newspaper-o" aria-hidden="true"></i><span>攻防</span></a>
+                        <a class="opts-group " href="https://forum.butian.net/movable">
+                            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                            <span>活动</span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row hidden-xs">
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#global-navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="logo"><a class="navbar-brand logo" href="https://forum.butian.net/"></a></div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="global-navbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="https://forum.butian.net/">首页 <span class="sr-only">(current)</span></a></li>
+                            
+                                
+                            
+                            <li><a href="https://forum.butian.net/questions">问答</a></li>
+                            
+                                
+                            
+                            <li><a href="https://forum.butian.net/shop">商城</a></li>
+                            
+                            <li><a href="https://forum.butian.net/community">实战攻防技术</a></li>
+                            <li><a href="https://forum.butian.net/movable">活动</a></li>
+                            <li><a href="https://forum.butian.net/questions/Play">摸鱼办</a>
+                                <span class="hot">HOT</span>
+                            </li>
+                        </ul>
+                        <form role="search" id="top-search-form" action="https://forum.butian.net/search" method="GET" class="navbar-form hidden-sm hidden-xs pull-right">
+                            <span class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></span>
+                            <input type="text" name="word" id="searchBox" class="form-control" placeholder="">
+                        </form>
+                </div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 text-right" id="template">
+                                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="a_unLogin_ty" href="https://forum.butian.net/login">登录</a></li>
+                            <li><a class="a_unRegister_ty" href="https://user.skyeye.qianxin.com/user/register?next=http://forum.butian.net/btlogin">注册</a></li>
+                        </ul>
+                                    </div>
+                </div>
+        </div>
+    </nav>
+</div>
+<div class="top-alert mt-60 clearfix text-center">
+    <!--[if lt IE 9]>
+    <div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说
+        <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a>
+    </div>
+    <![endif]-->
+
+    
+
+    </div>
+
+<div class="wrap">
+            <div class="container">
+            <div class="row mt-10">
+        <div class="col-xs-12 col-md-9 main">
+            <div class="widget-article">
+                <h3 class="title word-wrap">安卓学习思路方法总结（三）</h3>
+                                    <ul class="taglist-inline">
+                                                    <li class="tagPopup"><a class="tag" href="https://forum.butian.net/topic/50">移动安全</a></li>
+                                            </ul>
+                                <div class="content mt-10">
+                    <div class="quote mb-20">
+                         分享者才是学习中最大的受益者
+                    </div>
+                    <textarea id="md_view_content" style="display:none;">这是第三篇
+
+[安卓学习(一)](https://forum.butian.net/share/321)
+
+[安卓学习思路方法总结（二）](https://forum.butian.net/share/332)
+
+我们继续
+
+Dalvik指令集
+---------
+
+前言
+--
+
+基础字节码---名称后缀/字节码后缀
+
+目的寄存器 源寄存
+
+1、名称后缀是wide，表示数据宽度为64位
+
+2、字节码后缀是from16，表示源寄存器为16位
+
+3、move-wide/from16 vAA，vBBBB
+
+分析一下：这里AA是目的寄存器没表示出来
+
+BBBB，因为一个字母是4位，4个B就表示源寄存器为16位
+
+### 整体分析：
+
+```php
+move为基础字节码，即 opcode。
+wide为名称后缀标识指令操作的数据宽度为64位。
+from16为字节码后缀，标识源为一个16位的寄存器引用变量
+
+vAA为目的寄存器，它始终在源的前面，取值范围为v~V255。
+VBBBB为源寄存器，取值范围为v0~v65535
+Dalvik指令集中大多数指令用到了寄存器作为目的操作数或源操作数
+```
+
+其中`A/B/C/D/E/F/G/H`代表一个4位的数值，
+
+`AA/BB/CC/DD/EE/FF/GG/HH`代表8位的数值
+
+`AAAA/BBBB/…HHH`则代表一个16位的数值
+
+Dalvik指令使用
+----------
+
+### 空操作指令
+
+空操作指令的助记符为nop
+
+它的值为00，通常nop指令被用来作对齐代码之用，无实际操作！
+
+### 返回指令
+
+```php
+1、"return-void"：表示函数从一个vod方法返回，返回值为空。
+2、"return vAA"：表示函数返回一个32位非对象类型的值返回值寄存器为8位的寄存器vAA
+3、"return-wide vAA"：表示函数返回一个64位非对象类型的值，返回值为8位的寄存器对vAA
+4、"return-object vAA"：这里面出现了 object，表示函数返回一个对象类型的值。返回值为8位的寄存器vAA
+```
+
+### 数据定义指令
+
+可以参考这里：
+
+```php
+https://blog.csdn.net/u010164190/article/details/52089794
+```
+
+![image-20210731112649310](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-3063264992641e440eb0a6efad271fc30970211f.png)
+
+数据定义指令用来定义程序中用到的常量，字符串，类等数据。
+
+```php
+1)"const/4 vA,#+B"：将数值符号扩展为32位后赋给寄存器vA。
+2)"const/16 vAA,#+BBBB"：将数据符号扩展为32位后赋给寄存器
+3)"const vAA，#+ BBBBBBBE"：将数值赋给寄存器vAA。
+4)"const/high16 vAA,#+BBBB0O000"：将数值右边零扩展为32位后赋给寄存器vAA。
+5)"const-string vAA,string@BBBB"：通过字符串索引构造一个字符串并赋给寄存器vAA。
+6)"const-string/jumbo vAA,string@BBBBBBBB"：通过字符串索引
+(较大)构造一个字符串并赋给寄存器vAA。
+7)"const-class vAA,type@BBBB"：通过类型索引获取一个类引用并赋给寄存器vAA。
+8)"const-class/jumbo vAAAA,type@BBBBBBBB"：通过给定的类型索引获取一个类引用并赋给寄存器 VAAAA
+(这条指令占用两个字节值为0xoof(Android4.0中新增的指令))。
+```
+
+![image-20210731112701446](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f4d46427f230c19acd3c9110cacde039a72c806e.png)
+
+![image-20210731112712349](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4343ec89ff91c0092ab331f3cb5c961ffd693613.png)
+
+### 跳转指令
+
+跳转指令用于从当前地址跳转到指定的偏移处。
+
+跳转指令
+
+```php
+(1)、goto：无条件跳转
+(2)、switch：分支跳转
+(3)、packed-switch：有规律跳转
+(4)、sparse-switch：无规律跳转
+(5)、if：条件跳转
+
+if-eq：等于/if-ne：不等于
+if-lt：小于/if-le：小于等于
+if-gt：大于/if-ge：大于等于
+if-eqz：等于0/if-nez：不等于0
+if-1tz：小于0/if-1ez：小于等于0
+if-gtz：大于0/if-gez：大于等于0
+```
+
+### 实例操作指令
+
+#### 1、"check-cast vAA,type@BBBB"
+
+check-cast vO将vAA寄存器中的对象引用转换成指定的类型。如果失败会报出 Class CastException异常。  
+如果类型B指定的是基本类型，对于非基本类型的A来说，运行时始终会失败
+
+#### 2、"instance-of vA,vB"
+
+判断vB寄存器中的对象引用是否可以转换成指定的类型。
+
+如果可以vA寄存器赋值为1，否则vA寄存器赋值为0
+
+#### 3、"new-instance vAA,type@BBBB"
+
+构造一个指定类型对象的新实例，并将对象引用赋值给vAA寄存器。
+
+类型符type指定的类型不能是数组类。
+
+### 数组操作类型
+
+数组操作包括获取数组长度，新建数组，数组赋值，数组元素取值与赋值等操作。
+
+#### 1、array-length vA，vB"
+
+获取给定vB寄存器中数组的长度并将值赋给A寄存器。  
+数组长度指的是数组的条目个数。
+
+#### 2、"new-array vA,vB,type@CCCC"：
+
+构造指定类型(type@CCCC)与大小(vB)的数组，并将值赋给vA寄存器
+
+### 异常指令
+
+"throw vAA"：抛出vAA寄存器中指定类型的异常
+
+### 比较指令(cmp)
+
+比较指令用于对两个寄存器的值(浮点型或长整型)进行比较
+
+大于(1)/等于(0)/小于(-1)--&amp;gt;cmpg、cmp
+
+大于(-1)/等于(0)/小于(1)---&amp;gt;cmpl
+
+### 字段操作指令
+
+字段是成员变量
+
+#### 普通字段
+
+iget读 iput写
+
+iget读是从后往前走  
+iput写是从前往后走
+
+#### 静态字段
+
+sget读 sput写
+
+### 方法调用指令
+
+根据方法类型不同，共有5条方法调用指令
+
+```php
+1、invoke-virtua|：调用实例的虚方法(普通方法)
+2、invoke-super：调用实例的父类/基类方法
+3、invoke-direct：调用实例的直接方法
+4、invoke-static：调用实例的静态方法
+5、invoke-interface：调用实例的接口方法
+```
+
+### 数据转换指令
+
+数据转换指令用于将一种类型的数值转换成另一种类型。  
+它的格式为`opcode VA，vB`
+
+vB寄存器存放需要转换的数据，转换后的结果保存在vA寄存器中
+
+neg---数据类型---&amp;gt;求补
+
+not---数据类型---&amp;gt;求反  
+数据类型1-to-数据类型2---&amp;gt;将数据类型1转换为数据类型2
+
+APK快速上手小技巧
+----------
+
+### 1、快速定位关键代码
+
+#### 搜索特征字符串
+
+比如购买、VIP、支付取消、余额不足等
+
+#### 搜索关键api
+
+支付宝、微信......关键字
+
+#### 通过方法名来判断方法的功能
+
+比如方法的名称，每个程序都有自己的规范等！
+
+#### 反编译APK程序
+
+`AndroidMainfest.xml`--&amp;gt;包名/系统版本/组件
+
+#### 程序的主 activity(程序入口界面)
+
+每个 Android程序有且只有一个主 Activity分析程序的执行流程
+
+#### 需重点关注的 application
+
+```php
+1.application执行时间
+2.授权验证
+```
+
+### 2、定位关键代码的技巧
+
+#### 1)信息反馈法(资源id/字符串)
+
+比如支付成功，支付失败等！
+
+#### 2)特征函数法
+
+比如api函数
+
+#### 3)顺序查看法
+
+进行分析程序执行流程/病毒分析
+
+#### 4)代码注入法
+
+动态调式/插入log查看 logcat/分析加解密
+
+#### 5)栈跟踪法
+
+动态调式/函数调用流程
+
+使用IDA进行分析
+
+#### 6)Method Profiling
+
+方法剖析--&amp;gt;动态调式/热点分析/函数调用流程
+
+### 3、关键词
+
+#### 方法名和游戏方法名
+
+```php
+onResult，onchinabilling，resulton，Paycenter，Callback
+```
+
+#### 爱游戏方法名
+
+```php
+paySuccess（成功）payFailed（失败）payCancel（成功）
+```
+
+#### 沃游戏方法名
+
+```php
+OnPayResult，PyaResulton，Activity，result，callback
+```
+
+#### 4399游戏方法名
+
+```php
+notifydelivergoods
+```
+
+#### 支付宝和银行卡方法名
+
+```php
+handle，message
+```
+
+#### 移动MM方法名
+
+```php
+onBillingFinish，Billing，CallBack
+```
+
+#### 360支付
+
+```php
+onfnished on Activityresult
+```
+
+#### 支付宝搜索字符串：9000
+
+#### 咪咕游戏搜索常量：onresult
+
+#### 发送短信权
+
+```php
+android.permission.SEND_SMS
+```
+
+#### 锁定支付模式关键字符串：CHINA TELECOM
+
+#### 支付上限
+
+```php
+carrier_pay_out limit，no_propriate_pay_method
+```
+
+#### 谷歌广告
+
+```php
+Missing internet permission in AndroidManifest.xml
+```
+
+#### 运营商网络特征码备注
+
+```php
+中国移动46000、46002、46007、46020return 0 getMobile Type中国联通46001、46006、46010return 2 getOperatorType中国电信46003、46005、46011return 1 getSimType
+```
+
+实操一：单地斗地主
+---------
+
+用单机斗地主来学习
+
+### 前言
+
+![image-20210731121609941](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-87cb1d9d7aef4b5c7dd76e236e5933a7d0aa9bae.png)
+
+也是有多人对战的
+
+![image-20210731121650990](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-27764addac1b7f01d6841c0cfaf7970e9a35edfb.png)
+
+![image-20210731121755310](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-53bfec85f3a08bdd74cf9cb64aa640bac970a51a.png)
+
+![image-20210731121825636](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-35f086d6c01b9a9cf9500e0fe96e52f48d4efc87.png)
+
+![image-20210731122025190](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-7695b33e5a0561d279a47b6f7ed80e487118682c.png)
+
+![image-20210731122035714](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8488b9d04c80229bf9618c31eb3491d7e870ea5d.png)
+
+我们的目标是：跳过这个支付宝支付，购买该程序软件内容呢
+
+采用Android Killer和jadx-gui两个软件的混合使用
+
+### jadx-gui查看Java代码
+
+把APK丢到jadx-gui中
+
+我们要点击这个`搜索类`
+
+![image-20210731122650743](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b1fabc6e4a18a40bd3bddebffb5dfbc3c6ff4d93.png)
+
+APK才算反编译完成
+
+我们知道的在支付宝中搜索的字符串：9000(支付成功)
+
+进行搜索
+
+```php
+"9000"
+```
+
+![image-20210731125305607](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f9b5ff74af309c16c77af0ef2aaf26030fb929a1.png)
+
+双击搜索内容 进来之后看到了 Java代码
+
+![image-20210731125408567](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-eb51fedc3a7cd076be0a033ae366164d187b91a1.png)
+
+```php
+public void a(String str) {    String a2 = new e(str).a();
+```
+
+理解一下：public void方法里传入了一个 String，String a2 new了一个string
+
+我们再去看看方法a里面写了什么
+
+![](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4506ea20f0004ee31ff8c3f2992d1666c1be41bb.png)
+
+```php
+public String a() {        return this.f554a;    }
+```
+
+这个方法最终会返回一个方法：f554a
+
+继续向下分析
+
+![image-20210731131427774](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-ba94418f4a4d264ae2b6efe51557afe2e548f333.png)
+
+几个if语句进行判断
+
+成功的话进入UMGameAgent.pay这个 商品选择阶段
+
+前面是天数 后面是金额
+
+![image-20210731131839550](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1cd13ca4ad9e5f5baf4f3094b95ca72a50798daa.png)
+
+那么这里的思路：
+
+思路一：如果把30天20块钱的代码放入2天2块钱的代码替换后，是不是可以买30天的记牌器只用花2块钱  
+思路二：8000是支付成功和9000是支付失败，那么调换位置呢
+
+我们继续往上看
+
+![image-20210731133606965](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8714d3dbbc818184c905e375490f1a0b90cdd9ac.png)
+
+看看`w`方法的调用
+
+选中w之后 右键查找用例
+
+![image-20210731133705286](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-10ccf9234f1b2462f9dfd29cf90d4a001602f9b0.png)
+
+进行查看
+
+![image-20210731133855934](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-79246b4307a527c2ce0d51fae9a4085005ddb5d3.png)
+
+同样是if判断，这里是采用了赋值操作
+
+可以看到传入两个int参数`i`和`i2`，string也进入记牌器
+
+然后判断`2==i`、`7==i`、`30==i`
+
+然后赋值d2
+
+那么思路三：可以将此处20改为0吗
+
+### Android Killer进行查看smali代码
+
+把APK丢到Android Killer中
+
+![image-20210731124924546](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f64fa6cac824059d802e779ca208463cfd67f87b.png)
+
+然后去搜索字符串：9000(支付成功)
+
+![image-20210731125631487](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-ab00a929927d1545b2160b03363f01fb820f1d04.png)
+
+进行逻辑分析
+
+![image-20210731125817537](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-cb4f45a0739ca317eb1b037a6b4690f11482cf4e.png)
+
+很好理解的
+
+const-string v1：把v1定义为9000(支付成功)
+
+equals：v0和v1进行了个比较，返回结果放到v1里面
+
+if-eqz：如果v1等于0跳到cond\_4
+
+那么去看看cond\_4
+
+![image-20210731130120060](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b2a9fa20b9631c759515d69eb4e3205b1c6f0591.png)
+
+继续进行逻辑分析
+
+const-string v1：把v1定义为8000(支付失败)
+
+invoke-static：是方法调用指令中的：调用实例的静态方法 建议回头去看一下
+
+equals：v0和v1进行了个比较，返回结果放到v0里面
+
+if-eqz：如果v0等于0跳到cond\_1
+
+那么我们继续 去看看cond\_1
+
+![image-20210731130523588](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b1834a5b3d6924cc2107a50bfabf26adedf10329.png)
+
+goto是跳转指令中的：无条件跳转
+
+return-void：就是结束了
+
+那么最简单的一个方法：
+
+`if-eqz v1, :cond_4`改为`if-nez v1, :cond_4`
+
+支付失败 执行支付成功
+
+![image-20210731141550040](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-5d6e336a22a48ec44fb5e386dcf5e6bb1ee9ff47.png)
+
+保存之后 编译输出
+
+![image-20210731141815327](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a644c470fc2679414d97a86f7a7b92d10441182d.png)
+
+进行查看
+
+![image-20210731142113524](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-011702a6bfc42ff652b64471ee576ce4de510706.png)
+
+可以看到我们其实 是支付失败的 但是因为执行的是支付成功
+
+所以依然可以使用
+
+是不是蛮简单的？但是其实并不是 我感觉要多加练习，你要抓住那个点，多加练习才可以
+
+继续加油
+
+再来一个实操
+
+实操二：卧龙影视
+--------
+
+以卧龙影视进行演示
+
+### 前言
+
+![image-20210731142736299](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-5ed640c4ca70b9fbbe6d3caaee65cb456f7bb4fb.png)
+
+当我们点击之后 它会加载广告
+
+![image-20210731142610317](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-039a44b79bd454df27556d21ee88f7e06293207e.png)
+
+那么我们使用之前的方法安卓(一)是不是可以删掉第一个跳转的界面 进行去广告操作呢 是可以的
+
+小伙伴们可以去尝试一波
+
+![image-20210731142922092](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-71e949717ef09d34fe6da25f14565140bca0fe0d.png)
+
+今天破解的就是它的Vip功能
+
+如上操作
+
+### jadx-gui查看Java代码
+
+要破解Vip，这里大部分所有APK的环境下都是搜索getVip
+
+这里要注意：
+
+1、搜索勾选代码
+
+2、我们要破解的是用户的Vip
+
+![image-20210731144516338](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-77b7bf2c269fdabd076b089f28cdbadc70f7a9ee.png)
+
+![image-20210731144549975](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1d67ba9ec5df1a5c2fbe88ba91808d3fe8eac44f.png)
+
+往上翻 针对UserVip
+
+![image-20210731144625436](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-fe0a622eb166c7d710c585f5c4a919e577051696.png)
+
+右键查找用例
+
+![image-20210731144717459](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8afc3e88a49ba7afd61f01795ff98526db1cdafc.png)
+
+![image-20210731144811658](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-da9d20742c76c6bd0a234c22a61b5681c0dd45dc.png)
+
+这是一个实体类
+
+分析一下
+
+is vip(是否是Vip)、
+
+End(vip结束时间)、Start(vip开始时间)
+
+那么继续针对getIsVip进行查找用例
+
+![image-20210731145545602](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a20ef3a695b832e2812d2464b30e906c732bc88e.png)
+
+![image-20210731150207512](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-59f83a91fc0fa1fbdf24c54ef4d76b8c9ae3676e.png)
+
+那么我们这里：**让 getVip返回值不为空**
+
+### Android Killer进行查看smali代码
+
+根据包package 在Android Killer中找对应目录
+
+![image-20210731145626591](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-cc5a818d9409d0bb85d7cf94f5728a332e8f9cc8.png)
+
+注意这里是：`smali_classes2`
+
+![image-20210731145845850](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e88a9e114d0de3023c0dd5d817d3d3f01273db08.png)
+
+![image-20210731150046100](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-314be0045823107d38a25c1e0808ffd8625d0600.png)
+
+我们要改的smali代码就是`UserVip.smali`
+
+然后找到`public getVip()`
+
+![image-20210731150429470](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e0f9bad6cc5f6ff605bf663c77827e685f4a63c3.png)
+
+进行分析
+
+这个方法使用到`locals 1`—个寄存器
+
+iget读取字段，v0是我们的寄存器，p0是从之前用户判断过来的值，这里就是用户去读取v0
+
+如果p0是Vip那么v0就是Vip，如果p0不是Vip那么v0肯定不是Vip
+
+最后`return v0`寄存器
+
+我们的目标是：让getvip返回值不为空就行
+
+```php
+const v0,0x1
+```
+
+![image-20210731151039656](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c8e7910c10f313a4799b563309589457b2af53b0.png)
+
+回编译成功
+
+![image-20210731151811587](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c4bd79210ef830ebb87490bd8e485c55327f634b.png)
+
+### 关于回编译失败问题：
+
+#### 1、APKTOOL版本问题
+
+![image-20210731151903070](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-424c2f2434d23b1b67e923d8b1987612004f70e5.png)
+
+#### 2、Java环境问题
+
+![image-20210731152010219](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-132f3ad0c55defa257cbbf1e79298ed987b8dd22.png)
+
+![image-20210731152028309](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d718118eac634024e1d6854ecc921e885c16f846.png)
+
+然后我们继续 去查看一下
+
+当我们注册登录之后 成功拿到Vip
+
+![image-20210731152458569](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-3f1696dacb0d3e5a6efe26af5d328294964bd85b.png)
+
+实操三：起名软件
+--------
+
+### 前言
+
+点开这个软件
+
+![image-20210731152859081](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e5d2a76f447f8ba5b509a813cd1c5b0ad748df0a.png)
+
+![image-20210731153021196](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f81a346e05e7ceb5d6b31d3186053db50c8d5c39.png)
+
+![image-20210731153033009](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-31dc46a322b4f18bfb3d1bd5911df37e6525c760.png)
+
+需要Vip会员
+
+如上操作
+
+### jadx-gui查看Java代码
+
+针对关键字
+
+```php
+可以选择五行
+```
+
+![image-20210731153500131](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-65284adfcfefb9af26cd076dd377fecb0898c3ea.png)
+
+![image-20210731153532010](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-330d646485512a675f3eb2c702e5517d12c390b2.png)
+
+只要和Vip相关 就离不开GetVip
+
+进行分析：
+
+达到这个switch中的`group.getCheckedRadioButtonId`这个条件
+
+就会进行金木水火士判断执行
+
+### Android Killer进行查看smali代码
+
+根据Java代码中的package找到gsname文件夹
+
+![image-20210731154056151](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4e86a2fafde74f10d61c005fd88e6c78507edfb2.png)
+
+![image-20210731154205496](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-7f2194442b688a8d694627c7015730b1318e4d63.png)
+
+找到
+
+![image-20210731154334341](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-93a00ff08bf4c7c1a1ec146c6cc2ca16b2077f71.png)
+
+可以看到下面有很多的`ChengYuListActivity$*.smali`
+
+![image-20210731154433020](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4a56b36bcb93af228a6d7f7563d82349e75945f1.png)
+
+这是因为把dex反编译成`smali`时候会把所有的内部类、抽象类、接口类等全部都提取出来，用来单独存放
+
+然后就能看到这么多的 Activity
+
+![image-20210731154616981](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b199e70a45edd8eb0157726061313b1f1af9066e.png)
+
+![image-20210731154750992](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d9bc28857c7f64905865145f7299f1458c943a70.png)
+
+```php
+解码："姓不能为空，请输入"
+```
+
+并不是我们要修改的内容
+
+![](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8f433e870afa2c96c4844835b64074b344c5d135.png)
+
+```php
+VIP会员，可以选择五行。VIP会员升级请点击右下角会员专区
+```
+
+![image-20210731155044373](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b9bf84f17550f9edbc4dfa147f4dfc235c280a98.png)
+
+![image-20210731155120286](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b225e86bc2cd030684ead5c329bfae8f1e0ed524.png)
+
+我们可以看到结果是在内部类中
+
+总共有两处
+
+先点开第一处
+
+我们进行分析
+
+![image-20210731155313531](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-51343a059d3890224b568bc0c5f760e7cb1bbc56.png)
+
+看到了`setChecked(Z)V`传了个Z
+
+Z就是fase进去，此时是跳转下来的
+
+继续向上看到了`cond_0`这里是从这儿跳转下来的
+
+那么往上看看`cond_0`
+
+![image-20210731155630458](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-278285af9f2795a32df7bab80c4b86eab5da97d3.png)
+
+找到`cond_0`
+
+```php
+if-eqz v1, :cond_0
+```
+
+那么我们把这里一样的`if-eqz：等于0/if-nez：不等于0`
+
+修改为`if-nez` 就可以了
+
+继续看第二处
+
+第二处也是一样的
+
+![image-20210731155943245](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1f0d3beccd1642743a4cd0fffc5de9b2da1f4b20.png)
+
+向上跳转找`cond_0`
+
+![image-20210731160018243](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4ed9f4ba4aa83c624e484719b483a04ce54aa505.png)
+
+```php
+if-eqz v1, :cond_0
+```
+
+改成
+
+```php
+if-nez v1, :cond_0
+```
+
+![image-20210731160112694](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-77fdbdd56af9f035abc8498b9ac984a1f0f36743.png)
+
+保存修改
+
+然后回编译
+
+![image-20210731160253096](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c560648cc260bef5db9434f686778f0ea89dfd48.png)
+
+进行尝试
+
+还是不行
+
+![image-20210731161059720](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c7560e340db901ebce203c8d4b6fac6bc535bb14.png)
+
+换个方式
+
+既然是要Vip 那么就去改GetVip的方法
+
+搜索出来挺多结果的
+
+![image-20210731161256604](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b6e288a1cb104af63ac9d3c20093d67044ba7c0a.png)
+
+但是大部分都是调用的信息 我们要找的是定义的信息
+
+![image-20210731161349247](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d244ed73209de899bd664c0a150fb1872fc72bce.png)
+
+![image-20210731161429895](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-99f3d776aa206de8d64642b301080b43c7ffd14d.png)
+
+那么我们尝试注释掉这个
+
+![image-20210731161736654](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f4364c70524220d7de20a8a01bbfcab054540134.png)
+
+保存之后 回编译 进行尝试
+
+![image-20210731161835770](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d991c79cf6f768c5bef3d8fece226d17381692f1.png)
+
+进行尝试
+
+![image-20210731161958532](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-626325f5aa2633c834567aab6c4d7371cf8ec592.png)
+
+![image-20210731162034615](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-0332eea77c4ef2116c211dac65ee03ece112ed34.png)
+
+是成功的
+
+实操四：RE文件管理器
+-----------
+
+### 前言
+
+进行安装
+
+![image-20210802134423313](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-db14af65878740345054935934e99521f150162e.png)
+
+然后我们打开
+
+可以看到文件权限
+
+![image-20210802134513173](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4d2ecb898cae09fdb50c797fb5674c05a69136a2.png)
+
+当我们点击退出之后 它会弹出广告
+
+![image-20210802134821022](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b274555e18dd7f15022f4b443a82a86fac1bb7c9.png)
+
+然后当我们 点击一个广告之后
+
+![image-20210802134859955](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-6626ddc777047ba504c6b05822f642cdf978fe81.png)
+
+它会把这应用添加到后台进行下载
+
+那么我们的目标就是去掉APK退出时 加载的广告
+
+首先开始adb进行抓这个APP的包
+
+```php
+adb shell dumpsys activity top
+```
+
+然后发现这个类
+
+```php
+com.AddDouDouWall2.WebPageDownLoadMainActivity 676828b pid=2506
+```
+
+![image-20210802135553335](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a966233ed21bbdf708d8bb2aee7c9241e53d81c8.png)
+
+### jadx-gui分析
+
+将APK丢到`jadx-gui`中进行分析
+
+进行反编译
+
+![image-20210802135331824](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-334c875ecbc52cc38191262d2b4c0724daf10b53.png)
+
+进行搜索
+
+```php
+WebPageDownLoadMainActivity
+```
+
+![image-20210802135749904](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-3ceca82029d013a588a30d093742ae5d74fd5f76.png)
+
+点击进来 进行查看
+
+![image-20210802135842479](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-df77c73d5acf26c22abb7e75bfbbc2abacde94dc.png)
+
+一些按钮 true 和 flase
+
+然后 有一个地址
+
+我们进行访问看一下
+
+![image-20210802162320896](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4a0da73823abd177fd0c0eb3741f70b0a409bf18.png)
+
+发现 它就是我们退出时候的那个广告页面
+
+那么 这里 是不是可以放上我们的钓鱼页面呢
+
+继续
+
+![image-20210802142400816](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d1a192f77b64a8d371ac955075e314deee7e7051.png)
+
+```php
+addContentView(this.webView, params);
+```
+
+增加了一个addContentView把这些 webview，params传进去然后
+
+```php
+startService(new Intent(this, DownLoadManagerService.class));
+```
+
+最重要的一点还是这`startService`，我们看看逻辑
+
+![image-20210802142721017](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4b36280a14413ea9942ad8205fca20abc8e0c0b5.png)
+
+可以看到`DownLoadManagerService`去继承了一个Service类，
+
+那么我们不让它去继承 是不是就破解了
+
+继续
+
+查找用例
+
+![image-20210802144037140](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a241c17fe8daa55f7dd94077c76f0524ab44afdb.png)
+
+![image-20210802144126412](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-edd1538fd4a77b8d15e2b5af0f0583d0d11efb75.png)
+
+![image-20210802144154118](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-aa49a8955c96b83cf4421f9fef1b4a44426bb794.png)
+
+```php
+public void onDestroy() {
+ Intent iii;
+ w a2;
+ if (isNetworkAvailable(this)) {
+  startActivity(new Intent(this, WebPageDownLoadMainActivity.class));
+}
+```
+
+看这个onDestroy
+
+isNetworkAvailable查询当前一个网络状况
+
+如果有网络就`startActivity`
+
+继续
+
+![image-20210802144609214](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-2b5bc550dcbceeaa7c241f6269f0bc9b7f549353.png)
+
+### Android Killer分析
+
+将APK丢进来
+
+首先搜索
+
+```php
+WebPageDownLoadMainActivity
+```
+
+![image-20210802140923149](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-3c956144b4777d4a0c2bcfb643a3f534697aaddc.png)
+
+进入`AndroidMainfest.xml` 它是APK的配置文件
+
+![image-20210802141124572](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-be9276e839cf88e46e0c14c955d5f00787684dc4.png)
+
+然后搜索这个网址
+
+![image-20210802140648390](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-bf258b5f24c6bea7cab6ab74d21621860522c5cd.png)
+
+然后我们删掉这个URL 根据第一节 去广告的知识 [安卓学习(一)](https://www.freebuf.com/articles/mobile/280471.html)
+
+**我们知道 删掉这个页面 它就不会加载了 但是依然会有那个白屏的界面**
+
+那么我们如果放上自己的钓鱼页面呢
+
+拿百度进行举例
+
+![image-20210802141717879](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-2a79c7dc642ffae0c2a06fb04a759ac247d3f728.png)
+
+保存 回编译 ![image-20210802141805474](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-381a27861b67b95929d48b8a104b7c03ae2fb1d5.png)
+
+进行查看
+
+当我们继续退出的时候
+
+![image-20210802141940561](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b095b6abb813a139b4cfc6d4d331b549e046b200.png)
+
+成功跳转到百度 说明是可以的
+
+然后继续
+
+搜索`DownLoadManagerService` 我们是要找Web层的
+
+![image-20210802143619723](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-fd6d1001e7a1a778213f7c8d57500ec9ee1297ce.png)
+
+定位`startService`这个方法
+
+v4集合到p0里面 然后就`return-void`退出了
+
+![image-20210802143518451](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a2310ff791ec101e358e59fad8c9005645365e30.png)
+
+然后我们去搜索这个onDestroy方法
+
+根据package
+
+```php
+package com.speedsoftware.rootexplorer;
+```
+
+![image-20210802144919291](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-120abb9d42bb9f532d8f411141cde2dee87d283b.png)
+
+![image-20210802144951025](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-7ae251d3d33044c803e287456cea0567c4d2829e.png)
+
+成功找到
+
+![image-20210802145043288](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-2aeb107daa244a23a2506a6ba1a3099941be90e4.png)
+
+进行分析
+
+找到 onDestroy
+
+isNetworkAvailable进行一个判断
+
+```php
+if-eqz v0, :cond_0
+```
+
+然后返回一个v0有没有网络，如果v0等于0就跳转到`cond_0`
+
+![image-20210802145416843](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-64b4fc8d88a52f7127c1bb911c187ba766f8a3cf.png)
+
+继续向下执行 就跳转到
+
+![image-20210802145525856](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1bf75369e009fa61279d69ee506e914497df77b0.png)
+
+那么我们进行修改就可以了
+
+```php
+if-nez v0, :cond_0
+```
+
+![image-20210802145613444](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a1443880714be149c255106a89b2d05507dc456d.png)
+
+进行回编译
+
+![image-20210802145711922](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-5b266f48f6a7c2105264da58da09bae8ac21892c.png)
+
+进行查看
+
+当我们点击的时候 成功退出了
+
+![image-20210802145854092](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-673e2bef175e3cc177bf121a8508a3ff0119757c.png)
+
+实操五：车来了
+-------
+
+### 前言
+
+进行安装
+
+![image-20210802150137291](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-274a277cb2fb7bebb7b6b487850141afd9bc5234.png)
+
+打开
+
+可以看到 广告
+
+![image-20210802151113781](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-56a734bf12dfac6ef34aa88b8ca85bab76531811.png)
+
+那么我们的目标就是：去掉这些中间的广告
+
+今天这里运用`ddms`
+
+### ddms
+
+进行启动
+
+![image-20210802151423267](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-72ee2c9c71da374365640f2c2df273752963e86d.png)
+
+![image-20210802151715778](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b150b22bdcf88a847e23eba90e56d744b46cd216.png)
+
+![image-20210802151511432](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b7eb85e3bee3a04b1568a1b184204ba71a193757.png)
+
+它可以对栈和堆进行跟踪
+
+ddms基本界面
+
+![image-20210802153027309](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c22f7be333bd8cef6207845c5d8b2025f6b32360.png)
+
+它给我们的一个设备
+
+这个就是 读取目前存活的设备
+
+```php
+adb devices
+```
+
+而
+
+```php
+dumpsys activity top
+```
+
+它是抓取当前顶层的页面信息
+
+![image-20210802153142469](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c36544a511485b57102055f9ce179c34c9bc32d3.png)
+
+这都是相对应的
+
+继续
+
+![image-20210802153347455](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b93c3f36dbdaa2b8bd62022fd24c1fb186f659c9.png)
+
+分别对应package、端口、PID
+
+继续
+
+![image-20210802153520380](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-ad1d91d003c424095bde88747934aea7d8c3624d.png)
+
+这是一个过滤寄存器
+
+![image-20210802153542402](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-28adbb2d6ea9f68b056032e76934a9d2ed9a0f0b.png)
+
+![image-20210802155229239](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-da4486490525df730cf7ca23b909547d0f888be9.png)
+
+一般只用填这两个
+
+继续
+
+存活机器 运行应用之后 会有信息
+
+这里是毫秒输出
+
+![image-20210802154113922](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-7dcf018dbf8c6f24a184e957726f54617d8f5738.png)
+
+然后向右走
+
+![image-20210802155343122](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b80e819c5e748d1af7a27a031356317d76fe8544.png)
+
+这是6个级别
+
+然后我们进行分析
+
+![image-20210802155558255](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a0920a89eccda9afbe025ce092667ed0b01cc93c.png)
+
+这里提示成功发送第三方埋点
+
+还附带了链接
+
+这就是APK中途的一些信息
+
+[http://atrace.chelaile.net.cn/thirdPartyResponse?&amp;amp;amp;traceid=3820bc36-9623-4776-bbfd-fcb593f59c7d\_1627890977521&amp;amp;amp;pid=00&amp;amp;amp;s=android&amp;amp;amp;adid=&amp;amp;amp;jsid=1023075&amp;amp;amp;aid=sdk\_baidu&amp;amp;amp;adStyle=2&amp;amp;amp;req\_time=315&amp;amp;amp;code=200&amp;amp;amp;is\_backup=0&amp;amp;amp;ad\_order=0&amp;amp;amp;ad\_status=1&amp;amp;amp;v=3.68.0&amp;amp;amp;s=android&amp;amp;amp;imei=010305023634174&amp;amp;amp;cityId=027](http://atrace.chelaile.net.cn/thirdPartyResponse?&amp;amp;traceid=3820bc36-9623-4776-bbfd-fcb593f59c7d_1627890977521&amp;amp;pid=00&amp;amp;s=android&amp;amp;adid=&amp;amp;jsid=1023075&amp;amp;aid=sdk_baidu&amp;amp;adStyle=2&amp;amp;req_time=315&amp;amp;code=200&amp;amp;is_backup=0&amp;amp;ad_order=0&amp;amp;ad_status=1&amp;amp;v=3.68.0&amp;amp;s=android&amp;amp;imei=010305023634174&amp;amp;cityId=027)
+
+然后我们右键 选择这个
+
+![image-20210802155821957](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-2dab4fb38df756c1f8100985c948a6a84bd0a16a.png)
+
+找到他的包名
+
+```php
+com.ygkj.chelaile.standard
+```
+
+![image-20210802155906053](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e8efb6844dbb4c231d85609f6ceb5ebfbb894870.png)
+
+添加过滤寄存器
+
+![image-20210802160032864](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b77e9b057c1a7dbf1b77b1bdb534946d0eb793c7.png)
+
+添加之后 就只会有这个包的信息
+
+![image-20210802160128691](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d714ee1c5937b3aba42fe7f7c43a2f1a77b22596.png)
+
+我们继续右键 进行分析
+
+![image-20210802160302994](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d814f6600b16a73b2a5d2a917d6ffb382b20fee1.png)
+
+发现这些广告 都是基于
+
+![image-20210802160337612](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-cd143d05df1ab1cec1874c64d2a708ae6aff10e8.png)
+
+这个域名
+
+```php
+atrace.chelaile.net.cn
+```
+
+那么第一个思路 就是 我们把这个域名替换成
+
+```php
+127.0.0.1
+```
+
+### Android Killer分析
+
+进行搜索
+
+![image-20210802161324954](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-226f40d6536a64107cd5914c3801e6770d4542c6.png)
+
+进行替换
+
+![image-20210802161412676](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-32a1bec0ee209616c0da64ab152dee688051f5b7.png)
+
+进行回编译
+
+![image-20210802161603583](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e0ebfd9bb976cb345c5c46744fcbe465a647a211.png)
+
+进行查看
+
+因为一些原因 换了 模拟器 现在是雷电
+
+![image-20210802161704212](https://gitee.com/work-hard-every-day/test/raw/master/img/202108031653673.png)
+
+可以看到 中间的广告没有了
+
+![image-20210802161839194](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-cec8a07443adee367e4ca09e6332f4209a32f09b.png)
+
+实操六：好搜小说大全
+----------
+
+### 添加injectcode
+
+这里要给Android Killer添加injectcode
+
+原目录
+
+![image-20210802202811744](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-0dcfb2f2cc2eb74d721570c5359b053d5b7591d4.png)
+
+添加后的目录
+
+![image-20210802202849297](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b545bdb8661bf68edf352426254590302b501542.png)
+
+重启AndroidKiller
+
+把好搜小说的APK丢到AndroidKiller中
+
+随意找一个smali代码看看效果
+
+![image-20210802203225801](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-3962d645041453f275cbe58f0db993e59f87c2e2.png)
+
+这里要注意一下
+
+![image-20210802203348297](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a32d14f035ac635166465d2862d95a703cd86547.png)
+
+**一个app程序的入口点比入口界面执行得更早**
+
+![image-20210802203530709](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-dd2d172bcda44643f08c164748843609863c8255.png)
+
+这点一定要记住
+
+### Log信息输出插桩
+
+进入入口点smali代码 进行分析
+
+我们前面在学习Actvity知道 `onCreate()`是最开始的建立的地方
+
+这个可以看在[安卓学习思路方法总结（二）](https://www.freebuf.com/articles/mobile/281426.html)中的图解
+
+我们开始分析`onCreate()`
+
+![image-20210802203809905](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-e21c00cd325ef83c11616940d63592633824a6d3.png)
+
+所以插桩就是在代码开始处进行实现
+
+在下面空白处 右键插入--&amp;gt;代码--&amp;gt;Log信息输出
+
+![image-20210802203852784](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-51f3c28e732238c8b7d2b25bdfbfcf918188d0ef.png)
+
+这里是要输入的文字unicode码
+
+![image-20210802204023527](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-203de3d1fd1b5e6fcc85e9ea69760d00d5ceec99.png)
+
+进行Unicode 转换
+
+![image-20210802204101796](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-575840314aa91a53b49234000ded7d9dc46342e9.png)
+
+```php
+嘻嘻\u563b\u563b\u563b
+```
+
+![image-20210802204141937](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-ba42bfb9ce9213cf2324cff7ebee87cfbbfb1fbb.png)
+
+进行分析
+
+![image-20210802204547619](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-15869dedf2a6d69adb215a5d2eaa68f8aa7108e6.png)
+
+`const-string`在[安卓学习思路方法总结（三）](https://www.freebuf.com/articles/mobile/282950.html)中讲过
+
+它是数据定义指令
+
+![image-20210802204326473](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-06c4bdaabc48ace1a4bded0d0a6085b6dbc3d65d.png)
+
+同样`invoke-stati`也在[安卓学习思路方法总结（三）](https://www.freebuf.com/articles/mobile/282950.html)中讲过
+
+它是方法调用指令，用来调用实例的静态方法
+
+继续
+
+还需要在程序的入口点插入Log信息
+
+查找清单文件：`Application.xml`
+
+![image-20210802205844361](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-df859ba92a3b8506f881984ba786fbbaf936c4e1.png)
+
+进行分析
+
+![image-20210802205938373](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-00411f41fe448af146555629c52e81421b09527b.png)
+
+```php
+android:name="com.reader.ReaderApplication"
+```
+
+后面有路径
+
+那么在工程管理器中
+
+继续查找`com.reader.ReaderApplication`
+
+![image-20210802210307802](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-657678e5c068195d731f7cd72af6cb648829ef00.png)
+
+![image-20210802210337092](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1547543edd4908ed0a5b6b65353e027e9faebadd.png)
+
+进入之后
+
+继续锁定`onCreate()`方法
+
+![image-20210802210428627](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b54c3ce95025fa31a06a33273f7f59e3704b357c.png)
+
+继续在`.prologue`下进行插桩
+
+这次我们插入一个
+
+```php
+哈哈哈\u54c8\u54c8\u54c8
+```
+
+![image-20210802211327532](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b80bf5226e0e484bd745bb2f87f01bdd49c97d65.png)
+
+保存 进行回编译
+
+![image-20210802211503628](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a6d1021486e17fd8dced1ac87e4b8c9b47085544.png)
+
+进行查看
+
+![image-20210802205417666](https://gitee.com/work-hard-every-day/test/raw/master/img/202108031653695.png)
+
+### ddms
+
+这个时候我们进行 ddms抓包
+
+成功连接到设备 并且有信息输出
+
+![image-20210802210944741](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-2252dce6e9b40a6ef08cbd5f58ee9cc165b4f4d5.png)
+
+哈哈哈是入口点
+
+![image-20210802211814654](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-9ab264323f29c2d307e5f3c9333a436d8612004b.png)
+
+嘻嘻嘻是入口界面
+
+![image-20210802211836747](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-b0e1d59f52386b919650a6023b0dcecd1b82d647.png)
+
+两者只有几毫秒的差别
+
+**但是入口点永远比入口界面执行的更早**
+
+### 一些问题解决
+
+#### 一、程序崩溃
+
+中间出现的问题
+
+当我们成功插桩 APK回编译成功
+
+但是在模拟器中
+
+```php
+打开失败 程序崩溃 点击没反应
+```
+
+因为插桩导致寄存器不够用，需要加一些寄存器
+
+进行全局搜索
+
+```php
+locals 0
+```
+
+随意修改
+
+![image-20210802212526851](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-fc4453d3e0f14eca1fa02a9e2bcf1e49c3d1f4a8.png)
+
+修改为 加一些寄存器
+
+```php
+locals 1或locals 2
+```
+
+进行回编译
+
+#### 二、init()
+
+我们也喜欢在`init()`这个方法这里进行插桩
+
+因为init表示这个方法在初始化，在初始化状态下是不会去调用任何寄存器状态，没加载入口点
+
+![image-20210802213127464](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-46078e4dfb979b3a9076484866afa2cce16eab2d.png)
+
+栈跟踪：好搜小说大全
+----------
+
+继续就上一个实操的
+
+APK：好搜小说大全
+
+### 获取当前界面进程
+
+```php
+adb shell dumpsys activity top
+```
+
+```php
+com.qihoo.haosou.subscribe.vertical.book
+```
+
+![image-20210802213440616](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-ebe19260ea50f959f5f26be7c02a12e86f1f9692.png)
+
+### ddms
+
+进入该界面调取程序栈
+
+![image-20210802213606310](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-bbf57ca4cbcf8fc1d0aaa2db4f0cc9a11e343d02.png)
+
+然后进行过滤寄存器的添加
+
+![image-20210802213759196](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-0a579cb44b8c0c8247e715d0c5173027b0e1f2d1.png)
+
+进行查看输出的信息
+
+开始第一个关注点：`System.err`
+
+![image-20210802213942688](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8cba410c3e5ab2563a9352a34c55ad92790fb973.png)
+
+这里要理解一下中间的关系
+
+上层是调用者 下层是被调用者
+
+我们看的时候 应该是**从下往上看**
+
+![image-20210802214248899](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-8f563ce9e5c111ebc55770062a769fb4d44b699a.png)
+
+### StackTrace栈跟踪
+
+然后`StackTrace栈跟踪`的插桩
+
+同样是找到入口点的`smali`代码
+
+然后锁定`loadData()`方法
+
+![image-20210802214535724](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-fd7d49c765b1f20545cb248a7b6589ff768c0e44.png)
+
+![image-20210802214626309](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-7be5f428f511ddf6f3f20f05a4485243d8dc1e54.png)
+
+简单分析一下
+
+我们加入了两个局部变量寄存器v0和v1
+
+程序本身locals也存在两个局部变量寄存器，所以就不需要修改了
+
+然后`print trace`是打印栈
+
+```php
+new-instance v0, Ljava/lang/Exception;    const-string v1, "print trace"    invoke-direct {v0, v1}, Ljava/lang/Exception;-&gt;&lt;init&gt;(Ljava/lang/String;)V    invoke-virtual {v0}, Ljava/lang/Exception;-&gt;printStackTrace()V
+```
+
+![image-20210802214911349](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d6b43c607395c0d01309c3734dd7d7db5e0b435c.png)
+
+然后保存 进行回编译
+
+![image-20210802215142716](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-1690d078dac9eb686d09674bf754589d59c03ee5.png)
+
+模拟器重新安装 进行打开
+
+### ddms2
+
+继续上ddms 进行分析
+
+依然 进行 过滤寄存器的锁定
+
+![image-20210802215938816](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-eb961937de1c657a4acf3344e5c1ecb8a978d9bb.png)
+
+这里没有这个信息的话
+
+可以重启 一下ddms
+
+看到System.err 同时打印了`print.trace`
+
+是从那里开始的
+
+同样是从下往上看
+
+![image-20210802220134887](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4f88a3fcaf50970faec84787e986767c6a118600.png)
+
+然后我们呢 是从`loadData`下插入 `StackTrace栈跟踪` 也续上了
+
+请记住：从下网上看！
+
+![image-20210802221958144](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-9f62b7741fdb76d4a949bc8bdbb3e672c29b584b.png)
+
+然后进行 登录界面的栈跟踪
+
+![image-20210802221910477](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4fe7f929caa5bb2365a75a1b18b87b67f55bc934.png)
+
+![image-20210802221937695](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-0d018558c26b89adc59de92dde8284a490f42e69.png)
+
+然后取ddms中进行：暂停分析栈
+
+当我们随意的选择一个类的时候
+
+![image-20210802220640554](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-f8dbd2ddff7f8b114fad71f6e6c1f555f318768b.png)
+
+菜单栏中的 按钮就可以用了
+
+我圈注的这个是：暂停分析栈
+
+当我们点击它之后
+
+![image-20210802220745795](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-5517a2c954faf823bd1f2d23bd24aefaa6e4b02c.png)
+
+第一个选择是自定过滤
+
+第二个选择是打印所有的
+
+选择第一个 1000就可以
+
+![image-20210802221736166](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-29f5e3b82545502a9668d51ea2eca28163a137be.png)
+
+然后OK 之后
+
+点击进行启动
+
+![image-20210803153954500](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-593259b07335462f581f12f96fb0836d99a131f9.png)
+
+![image-20210803154016503](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-c72e75e31b38e197e1ba83420204e948497eb912.png)
+
+![image-20210803154151321](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-aaab4fab692eeec78619a08e12a5564d747b54ee.png)
+
+然后等待 一会 就会弹出一个窗口
+
+![image-20210803154224104](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-4b4643a4a1b51d80d6bdb18c3c3719ce7a064f60.png)
+
+总共有246个方法
+
+这个取决于点击`立即登录`的速度
+
+进行分析一下节点
+
+![image-20210803154429175](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-41a720a9eda90ea9d0582d4edb70394d27f70e40.png)
+
+Parents：父节点 当前方法的上层调用  
+**如果父节点下面没有节点，就是系统自启动的**
+
+Children：子节点 当前方法的下层调用  
+可以理解 Children以下的都是 Parents子节点
+
+调用的是一个循环体
+
+这里就是：1分支---&amp;gt;0分支---&amp;gt;26分支---&amp;gt;循环体---&amp;gt;0分支---&amp;gt;1分支
+
+然后1分支 又会开始另外的循环
+
+然后参数解读
+
+![image-20210803155515151](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a6ee015b3b207cf2e206ab49a9ae9c28f0d2fb2b.png)
+
+![image-20210803155534353](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-d84dd3585f6c8739d21dcaa22bbfa693363f5cce.png)
+
+![image-20210803155545288](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-a9261536c9018f5083e727ad3420767b7c1cc743.png)
+
+分析：onclick
+
+![image-20210803155809469](https://shs3.b.qianxin.com/attack_forum/2021/12/attach-75fc39dca7f7c9da85c78a3160968055a6c690fe.png)
+
+那么就是 85分支---&amp;gt;84分支---&amp;gt;83分支
+
+这是一个登录逻辑
+
+OK 这篇就到这里 栈跟踪一定要会
+
+**请注意：这里使用的技术仅用于学习知识目的，如果列出的技术用于其他任何目标，我概不负责。**
+
+转载于：&lt;https://www.freebuf.com/articles/mobile/282950.html&gt;</textarea>
+                    <div id="md_view"><div class="markdown-body"><p blockindex="0">这是第三篇</p>
+<p blockindex="1"><a href="https://forum.butian.net/share/321">安卓学习(一)</a></p>
+<p blockindex="2"><a href="https://forum.butian.net/share/332">安卓学习思路方法总结（二）</a></p>
+<p blockindex="3">我们继续</p>
+<h2 blockindex="4">Dalvik指令集</h2>
+<h2 blockindex="5">前言</h2>
+<p blockindex="6">基础字节码---名称后缀/字节码后缀</p>
+<p blockindex="7">目的寄存器 源寄存</p>
+<p blockindex="8">1、名称后缀是wide，表示数据宽度为64位</p>
+<p blockindex="9">2、字节码后缀是from16，表示源寄存器为16位</p>
+<p blockindex="10">3、move-wide/from16 vAA，vBBBB</p>
+<p blockindex="11">分析一下：这里AA是目的寄存器没表示出来</p>
+<p blockindex="12">BBBB，因为一个字母是4位，4个B就表示源寄存器为16位</p>
+<h3 blockindex="13">整体分析：</h3>
+<pre blockindex="14"><code class="hljs language-php">move为基础字节码，即 opcode。
+wide为名称后缀标识指令操作的数据宽度为<span class="hljs-number">64</span>位。
+from16为字节码后缀，标识源为一个<span class="hljs-number">16</span>位的寄存器引用变量
+
+vAA为目的寄存器，它始终在源的前面，取值范围为v~V255。
+VBBBB为源寄存器，取值范围为v0~v65535
+Dalvik指令集中大多数指令用到了寄存器作为目的操作数或源操作数
+</code></pre>
+<p blockindex="15">其中<code>A/B/C/D/E/F/G/H</code>代表一个4位的数值，</p>
+<p blockindex="16"><code>AA/BB/CC/DD/EE/FF/GG/HH</code>代表8位的数值</p>
+<p blockindex="17"><code>AAAA/BBBB/…HHH</code>则代表一个16位的数值</p>
+<h2 blockindex="18">Dalvik指令使用</h2>
+<h3 blockindex="19">空操作指令</h3>
+<p blockindex="20">空操作指令的助记符为nop</p>
+<p blockindex="21">它的值为00，通常nop指令被用来作对齐代码之用，无实际操作！</p>
+<h3 blockindex="22">返回指令</h3>
+<pre blockindex="23"><code class="hljs language-php"><span class="hljs-number">1</span>、<span class="hljs-string">"return-void"</span>：表示函数从一个vod方法返回，返回值为空。
+<span class="hljs-number">2</span>、<span class="hljs-string">"return vAA"</span>：表示函数返回一个<span class="hljs-number">32</span>位非对象类型的值返回值寄存器为<span class="hljs-number">8</span>位的寄存器vAA
+<span class="hljs-number">3</span>、<span class="hljs-string">"return-wide vAA"</span>：表示函数返回一个<span class="hljs-number">64</span>位非对象类型的值，返回值为<span class="hljs-number">8</span>位的寄存器对vAA
+<span class="hljs-number">4</span>、<span class="hljs-string">"return-object vAA"</span>：这里面出现了 <span class="hljs-keyword">object</span>，表示函数返回一个对象类型的值。返回值为<span class="hljs-number">8</span>位的寄存器vAA
+</code></pre>
+<h3 blockindex="24">数据定义指令</h3>
+<p blockindex="25">可以参考这里：</p>
+<pre blockindex="26"><code class="hljs language-php">https:<span class="hljs-comment">//blog.csdn.net/u010164190/article/details/52089794</span>
+</code></pre>
+<p blockindex="27"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-3063264992641e440eb0a6efad271fc30970211f.png" alt="image-20210731112649310" referrerpolicy="no-referrer"></p>
+<p blockindex="28">数据定义指令用来定义程序中用到的常量，字符串，类等数据。</p>
+<pre blockindex="29"><code class="hljs language-php"><span class="hljs-number">1</span>)<span class="hljs-string">"const/4 vA,#+B"</span>：将数值符号扩展为<span class="hljs-number">32</span>位后赋给寄存器vA。
+<span class="hljs-number">2</span>)<span class="hljs-string">"const/16 vAA,#+BBBB"</span>：将数据符号扩展为<span class="hljs-number">32</span>位后赋给寄存器
+<span class="hljs-number">3</span>)<span class="hljs-string">"const vAA，#+ BBBBBBBE"</span>：将数值赋给寄存器vAA。
+<span class="hljs-number">4</span>)<span class="hljs-string">"const/high16 vAA,#+BBBB0O000"</span>：将数值右边零扩展为<span class="hljs-number">32</span>位后赋给寄存器vAA。
+<span class="hljs-number">5</span>)<span class="hljs-string">"const-string vAA,string@BBBB"</span>：通过字符串索引构造一个字符串并赋给寄存器vAA。
+<span class="hljs-number">6</span>)<span class="hljs-string">"const-string/jumbo vAA,string@BBBBBBBB"</span>：通过字符串索引
+(较大)构造一个字符串并赋给寄存器vAA。
+<span class="hljs-number">7</span>)<span class="hljs-string">"const-class vAA,type@BBBB"</span>：通过类型索引获取一个类引用并赋给寄存器vAA。
+<span class="hljs-number">8</span>)<span class="hljs-string">"const-class/jumbo vAAAA,type@BBBBBBBB"</span>：通过给定的类型索引获取一个类引用并赋给寄存器 VAAAA
+(这条指令占用两个字节值为<span class="hljs-number">0</span>xoof(Android4.<span class="hljs-number">0</span>中新增的指令))。
+</code></pre>
+<p blockindex="30"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f4d46427f230c19acd3c9110cacde039a72c806e.png" alt="image-20210731112701446" referrerpolicy="no-referrer"></p>
+<p blockindex="31"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4343ec89ff91c0092ab331f3cb5c961ffd693613.png" alt="image-20210731112712349" referrerpolicy="no-referrer"></p>
+<h3 blockindex="32">跳转指令</h3>
+<p blockindex="33">跳转指令用于从当前地址跳转到指定的偏移处。</p>
+<p blockindex="34">跳转指令</p>
+<pre blockindex="35"><code class="hljs language-php">(<span class="hljs-number">1</span>)、<span class="hljs-keyword">goto</span>：无条件跳转
+(<span class="hljs-number">2</span>)、<span class="hljs-keyword">switch</span>：分支跳转
+(<span class="hljs-number">3</span>)、packed-<span class="hljs-keyword">switch</span>：有规律跳转
+(<span class="hljs-number">4</span>)、sparse-<span class="hljs-keyword">switch</span>：无规律跳转
+(<span class="hljs-number">5</span>)、<span class="hljs-keyword">if</span>：条件跳转
+
+<span class="hljs-keyword">if</span>-eq：等于/<span class="hljs-keyword">if</span>-ne：不等于
+<span class="hljs-keyword">if</span>-lt：小于/<span class="hljs-keyword">if</span>-le：小于等于
+<span class="hljs-keyword">if</span>-gt：大于/<span class="hljs-keyword">if</span>-ge：大于等于
+<span class="hljs-keyword">if</span>-eqz：等于<span class="hljs-number">0</span>/<span class="hljs-keyword">if</span>-nez：不等于<span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span>-<span class="hljs-number">1</span>tz：小于<span class="hljs-number">0</span>/<span class="hljs-keyword">if</span>-<span class="hljs-number">1</span>ez：小于等于<span class="hljs-number">0</span>
+<span class="hljs-keyword">if</span>-gtz：大于<span class="hljs-number">0</span>/<span class="hljs-keyword">if</span>-gez：大于等于<span class="hljs-number">0</span>
+</code></pre>
+<h3 blockindex="36">实例操作指令</h3>
+<h4 blockindex="37">1、"check-cast vAA,type@BBBB"</h4>
+<p blockindex="38">check-cast vO将vAA寄存器中的对象引用转换成指定的类型。如果失败会报出 Class CastException异常。<br>
+如果类型B指定的是基本类型，对于非基本类型的A来说，运行时始终会失败</p>
+<h4 blockindex="39">2、"instance-of vA,vB"</h4>
+<p blockindex="40">判断vB寄存器中的对象引用是否可以转换成指定的类型。</p>
+<p blockindex="41">如果可以vA寄存器赋值为1，否则vA寄存器赋值为0</p>
+<h4 blockindex="42">3、"new-instance vAA,type@BBBB"</h4>
+<p blockindex="43">构造一个指定类型对象的新实例，并将对象引用赋值给vAA寄存器。</p>
+<p blockindex="44">类型符type指定的类型不能是数组类。</p>
+<h3 blockindex="45">数组操作类型</h3>
+<p blockindex="46">数组操作包括获取数组长度，新建数组，数组赋值，数组元素取值与赋值等操作。</p>
+<h4 blockindex="47">1、array-length vA，vB"</h4>
+<p blockindex="48">获取给定vB寄存器中数组的长度并将值赋给A寄存器。<br>
+数组长度指的是数组的条目个数。</p>
+<h4 blockindex="49">2、"new-array vA,vB,type@CCCC"：</h4>
+<p blockindex="50">构造指定类型(type@CCCC)与大小(vB)的数组，并将值赋给vA寄存器</p>
+<h3 blockindex="51">异常指令</h3>
+<p blockindex="52">"throw vAA"：抛出vAA寄存器中指定类型的异常</p>
+<h3 blockindex="53">比较指令(cmp)</h3>
+<p blockindex="54">比较指令用于对两个寄存器的值(浮点型或长整型)进行比较</p>
+<p blockindex="55">大于(1)/等于(0)/小于(-1)--&gt;cmpg、cmp</p>
+<p blockindex="56">大于(-1)/等于(0)/小于(1)---&gt;cmpl</p>
+<h3 blockindex="57">字段操作指令</h3>
+<p blockindex="58">字段是成员变量</p>
+<h4 blockindex="59">普通字段</h4>
+<p blockindex="60">iget读 iput写</p>
+<p blockindex="61">iget读是从后往前走<br>
+iput写是从前往后走</p>
+<h4 blockindex="62">静态字段</h4>
+<p blockindex="63">sget读 sput写</p>
+<h3 blockindex="64">方法调用指令</h3>
+<p blockindex="65">根据方法类型不同，共有5条方法调用指令</p>
+<pre blockindex="66"><code class="hljs language-php"><span class="hljs-number">1</span>、invoke-virtua|：调用实例的虚方法(普通方法)
+<span class="hljs-number">2</span>、invoke-super：调用实例的父类/基类方法
+<span class="hljs-number">3</span>、invoke-direct：调用实例的直接方法
+<span class="hljs-number">4</span>、invoke-<span class="hljs-built_in">static</span>：调用实例的静态方法
+<span class="hljs-number">5</span>、invoke-<span class="hljs-class"><span class="hljs-keyword">interface</span>：调用实例的接口方法
+</span></code></pre>
+<h3 blockindex="67">数据转换指令</h3>
+<p blockindex="68">数据转换指令用于将一种类型的数值转换成另一种类型。<br>
+它的格式为<code>opcode VA，vB</code></p>
+<p blockindex="69">vB寄存器存放需要转换的数据，转换后的结果保存在vA寄存器中</p>
+<p blockindex="70">neg---数据类型---&gt;求补</p>
+<p blockindex="71">not---数据类型---&gt;求反<br>
+数据类型1-to-数据类型2---&gt;将数据类型1转换为数据类型2</p>
+<h2 blockindex="72">APK快速上手小技巧</h2>
+<h3 blockindex="73">1、快速定位关键代码</h3>
+<h4 blockindex="74">搜索特征字符串</h4>
+<p blockindex="75">比如购买、VIP、支付取消、余额不足等</p>
+<h4 blockindex="76">搜索关键api</h4>
+<p blockindex="77">支付宝、微信......关键字</p>
+<h4 blockindex="78">通过方法名来判断方法的功能</h4>
+<p blockindex="79">比如方法的名称，每个程序都有自己的规范等！</p>
+<h4 blockindex="80">反编译APK程序</h4>
+<p blockindex="81"><code>AndroidMainfest.xml</code>--&gt;包名/系统版本/组件</p>
+<h4 blockindex="82">程序的主 activity(程序入口界面)</h4>
+<p blockindex="83">每个 Android程序有且只有一个主 Activity分析程序的执行流程</p>
+<h4 blockindex="84">需重点关注的 application</h4>
+<pre blockindex="85"><code class="hljs language-php"><span class="hljs-number">1</span>.application执行时间
+<span class="hljs-number">2</span>.授权验证
+</code></pre>
+<h3 blockindex="86">2、定位关键代码的技巧</h3>
+<h4 blockindex="87">1)信息反馈法(资源id/字符串)</h4>
+<p blockindex="88">比如支付成功，支付失败等！</p>
+<h4 blockindex="89">2)特征函数法</h4>
+<p blockindex="90">比如api函数</p>
+<h4 blockindex="91">3)顺序查看法</h4>
+<p blockindex="92">进行分析程序执行流程/病毒分析</p>
+<h4 blockindex="93">4)代码注入法</h4>
+<p blockindex="94">动态调式/插入log查看 logcat/分析加解密</p>
+<h4 blockindex="95">5)栈跟踪法</h4>
+<p blockindex="96">动态调式/函数调用流程</p>
+<p blockindex="97">使用IDA进行分析</p>
+<h4 blockindex="98">6)Method Profiling</h4>
+<p blockindex="99">方法剖析--&gt;动态调式/热点分析/函数调用流程</p>
+<h3 blockindex="100">3、关键词</h3>
+<h4 blockindex="101">方法名和游戏方法名</h4>
+<pre blockindex="102"><code class="hljs language-php">onResult，onchinabilling，resulton，Paycenter，Callback
+</code></pre>
+<h4 blockindex="103">爱游戏方法名</h4>
+<pre blockindex="104"><code class="hljs language-php">paySuccess（成功）payFailed（失败）payCancel（成功）
+</code></pre>
+<h4 blockindex="105">沃游戏方法名</h4>
+<pre blockindex="106"><code class="hljs language-php">OnPayResult，PyaResulton，Activity，result，callback
+</code></pre>
+<h4 blockindex="107">4399游戏方法名</h4>
+<pre blockindex="108"><code class="hljs language-php">notifydelivergoods
+</code></pre>
+<h4 blockindex="109">支付宝和银行卡方法名</h4>
+<pre blockindex="110"><code class="hljs language-php">handle，message
+</code></pre>
+<h4 blockindex="111">移动MM方法名</h4>
+<pre blockindex="112"><code class="hljs language-php">onBillingFinish，Billing，CallBack
+</code></pre>
+<h4 blockindex="113">360支付</h4>
+<pre blockindex="114"><code class="hljs language-php">onfnished on Activityresult
+</code></pre>
+<h4 blockindex="115">支付宝搜索字符串：9000</h4>
+<h4 blockindex="116">咪咕游戏搜索常量：onresult</h4>
+<h4 blockindex="117">发送短信权</h4>
+<pre blockindex="118"><code class="hljs language-php">android.permission.SEND_SMS
+</code></pre>
+<h4 blockindex="119">锁定支付模式关键字符串：CHINA TELECOM</h4>
+<h4 blockindex="120">支付上限</h4>
+<pre blockindex="121"><code class="hljs language-php">carrier_pay_out limit，no_propriate_pay_method
+</code></pre>
+<h4 blockindex="122">谷歌广告</h4>
+<pre blockindex="123"><code class="hljs language-php">Missing internet permission in AndroidManifest.xml
+</code></pre>
+<h4 blockindex="124">运营商网络特征码备注</h4>
+<pre blockindex="125"><code class="hljs language-php">中国移动<span class="hljs-number">46000</span>、<span class="hljs-number">46002</span>、<span class="hljs-number">46007</span>、<span class="hljs-number">46020</span><span class="hljs-keyword">return</span> <span class="hljs-number">0</span> getMobile Type中国联通<span class="hljs-number">46001</span>、<span class="hljs-number">46006</span>、<span class="hljs-number">46010</span><span class="hljs-keyword">return</span> <span class="hljs-number">2</span> getOperatorType中国电信<span class="hljs-number">46003</span>、<span class="hljs-number">46005</span>、<span class="hljs-number">46011</span><span class="hljs-keyword">return</span> <span class="hljs-number">1</span> getSimType
+</code></pre>
+<h2 blockindex="126">实操一：单地斗地主</h2>
+<p blockindex="127">用单机斗地主来学习</p>
+<h3 blockindex="128">前言</h3>
+<p blockindex="129"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-87cb1d9d7aef4b5c7dd76e236e5933a7d0aa9bae.png" alt="image-20210731121609941" referrerpolicy="no-referrer"></p>
+<p blockindex="130">也是有多人对战的</p>
+<p blockindex="131"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-27764addac1b7f01d6841c0cfaf7970e9a35edfb.png" alt="image-20210731121650990" referrerpolicy="no-referrer"></p>
+<p blockindex="132"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-53bfec85f3a08bdd74cf9cb64aa640bac970a51a.png" alt="image-20210731121755310" referrerpolicy="no-referrer"></p>
+<p blockindex="133"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-35f086d6c01b9a9cf9500e0fe96e52f48d4efc87.png" alt="image-20210731121825636" referrerpolicy="no-referrer"></p>
+<p blockindex="134"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-7695b33e5a0561d279a47b6f7ed80e487118682c.png" alt="image-20210731122025190" referrerpolicy="no-referrer"></p>
+<p blockindex="135"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8488b9d04c80229bf9618c31eb3491d7e870ea5d.png" alt="image-20210731122035714" referrerpolicy="no-referrer"></p>
+<p blockindex="136">我们的目标是：跳过这个支付宝支付，购买该程序软件内容呢</p>
+<p blockindex="137">采用Android Killer和jadx-gui两个软件的混合使用</p>
+<h3 blockindex="138">jadx-gui查看Java代码</h3>
+<p blockindex="139">把APK丢到jadx-gui中</p>
+<p blockindex="140">我们要点击这个<code>搜索类</code></p>
+<p blockindex="141"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b1fabc6e4a18a40bd3bddebffb5dfbc3c6ff4d93.png" alt="image-20210731122650743" referrerpolicy="no-referrer"></p>
+<p blockindex="142">APK才算反编译完成</p>
+<p blockindex="143">我们知道的在支付宝中搜索的字符串：9000(支付成功)</p>
+<p blockindex="144">进行搜索</p>
+<pre blockindex="145"><code class="hljs language-php"><span class="hljs-string">"9000"</span>
+</code></pre>
+<p blockindex="146"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f9b5ff74af309c16c77af0ef2aaf26030fb929a1.png" alt="image-20210731125305607" referrerpolicy="no-referrer"></p>
+<p blockindex="147">双击搜索内容 进来之后看到了 Java代码</p>
+<p blockindex="148"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-eb51fedc3a7cd076be0a033ae366164d187b91a1.png" alt="image-20210731125408567" referrerpolicy="no-referrer"></p>
+<pre blockindex="149"><code class="hljs language-php"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> a(<span class="hljs-keyword">String</span> str) {    <span class="hljs-keyword">String</span> a2 = <span class="hljs-keyword">new</span> e(str).a();
+</code></pre>
+<p blockindex="150">理解一下：public void方法里传入了一个 String，String a2 new了一个string</p>
+<p blockindex="151">我们再去看看方法a里面写了什么</p>
+<p blockindex="152"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4506ea20f0004ee31ff8c3f2992d1666c1be41bb.png" alt="" referrerpolicy="no-referrer"></p>
+<pre blockindex="153"><code class="hljs language-php"><span class="hljs-keyword">public</span> <span class="hljs-keyword">String</span> a() {        <span class="hljs-keyword">return</span> this.f554a;    }
+</code></pre>
+<p blockindex="154">这个方法最终会返回一个方法：f554a</p>
+<p blockindex="155">继续向下分析</p>
+<p blockindex="156"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-ba94418f4a4d264ae2b6efe51557afe2e548f333.png" alt="image-20210731131427774" referrerpolicy="no-referrer"></p>
+<p blockindex="157">几个if语句进行判断</p>
+<p blockindex="158">成功的话进入UMGameAgent.pay这个 商品选择阶段</p>
+<p blockindex="159">前面是天数 后面是金额</p>
+<p blockindex="160"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1cd13ca4ad9e5f5baf4f3094b95ca72a50798daa.png" alt="image-20210731131839550" referrerpolicy="no-referrer"></p>
+<p blockindex="161">那么这里的思路：</p>
+<p blockindex="162">思路一：如果把30天20块钱的代码放入2天2块钱的代码替换后，是不是可以买30天的记牌器只用花2块钱<br>
+思路二：8000是支付成功和9000是支付失败，那么调换位置呢</p>
+<p blockindex="163">我们继续往上看</p>
+<p blockindex="164"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8714d3dbbc818184c905e375490f1a0b90cdd9ac.png" alt="image-20210731133606965" referrerpolicy="no-referrer"></p>
+<p blockindex="165">看看<code>w</code>方法的调用</p>
+<p blockindex="166">选中w之后 右键查找用例</p>
+<p blockindex="167"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-10ccf9234f1b2462f9dfd29cf90d4a001602f9b0.png" alt="image-20210731133705286" referrerpolicy="no-referrer"></p>
+<p blockindex="168">进行查看</p>
+<p blockindex="169"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-79246b4307a527c2ce0d51fae9a4085005ddb5d3.png" alt="image-20210731133855934" referrerpolicy="no-referrer"></p>
+<p blockindex="170">同样是if判断，这里是采用了赋值操作</p>
+<p blockindex="171">可以看到传入两个int参数<code>i</code>和<code>i2</code>，string也进入记牌器</p>
+<p blockindex="172">然后判断<code>2==i</code>、<code>7==i</code>、<code>30==i</code></p>
+<p blockindex="173">然后赋值d2</p>
+<p blockindex="174">那么思路三：可以将此处20改为0吗</p>
+<h3 blockindex="175">Android Killer进行查看smali代码</h3>
+<p blockindex="176">把APK丢到Android Killer中</p>
+<p blockindex="177"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f64fa6cac824059d802e779ca208463cfd67f87b.png" alt="image-20210731124924546" referrerpolicy="no-referrer"></p>
+<p blockindex="178">然后去搜索字符串：9000(支付成功)</p>
+<p blockindex="179"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-ab00a929927d1545b2160b03363f01fb820f1d04.png" alt="image-20210731125631487" referrerpolicy="no-referrer"></p>
+<p blockindex="180">进行逻辑分析</p>
+<p blockindex="181"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-cb4f45a0739ca317eb1b037a6b4690f11482cf4e.png" alt="image-20210731125817537" referrerpolicy="no-referrer"></p>
+<p blockindex="182">很好理解的</p>
+<p blockindex="183">const-string v1：把v1定义为9000(支付成功)</p>
+<p blockindex="184">equals：v0和v1进行了个比较，返回结果放到v1里面</p>
+<p blockindex="185">if-eqz：如果v1等于0跳到cond_4</p>
+<p blockindex="186">那么去看看cond_4</p>
+<p blockindex="187"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b2a9fa20b9631c759515d69eb4e3205b1c6f0591.png" alt="image-20210731130120060" referrerpolicy="no-referrer"></p>
+<p blockindex="188">继续进行逻辑分析</p>
+<p blockindex="189">const-string v1：把v1定义为8000(支付失败)</p>
+<p blockindex="190">invoke-static：是方法调用指令中的：调用实例的静态方法 建议回头去看一下</p>
+<p blockindex="191">equals：v0和v1进行了个比较，返回结果放到v0里面</p>
+<p blockindex="192">if-eqz：如果v0等于0跳到cond_1</p>
+<p blockindex="193">那么我们继续 去看看cond_1</p>
+<p blockindex="194"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b1834a5b3d6924cc2107a50bfabf26adedf10329.png" alt="image-20210731130523588" referrerpolicy="no-referrer"></p>
+<p blockindex="195">goto是跳转指令中的：无条件跳转</p>
+<p blockindex="196">return-void：就是结束了</p>
+<p blockindex="197">那么最简单的一个方法：</p>
+<p blockindex="198"><code>if-eqz v1, :cond_4</code>改为<code>if-nez v1, :cond_4</code></p>
+<p blockindex="199">支付失败 执行支付成功</p>
+<p blockindex="200"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-5d6e336a22a48ec44fb5e386dcf5e6bb1ee9ff47.png" alt="image-20210731141550040" referrerpolicy="no-referrer"></p>
+<p blockindex="201">保存之后 编译输出</p>
+<p blockindex="202"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a644c470fc2679414d97a86f7a7b92d10441182d.png" alt="image-20210731141815327" referrerpolicy="no-referrer"></p>
+<p blockindex="203">进行查看</p>
+<p blockindex="204"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-011702a6bfc42ff652b64471ee576ce4de510706.png" alt="image-20210731142113524" referrerpolicy="no-referrer"></p>
+<p blockindex="205">可以看到我们其实 是支付失败的 但是因为执行的是支付成功</p>
+<p blockindex="206">所以依然可以使用</p>
+<p blockindex="207">是不是蛮简单的？但是其实并不是 我感觉要多加练习，你要抓住那个点，多加练习才可以</p>
+<p blockindex="208">继续加油</p>
+<p blockindex="209">再来一个实操</p>
+<h2 blockindex="210">实操二：卧龙影视</h2>
+<p blockindex="211">以卧龙影视进行演示</p>
+<h3 blockindex="212">前言</h3>
+<p blockindex="213"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-5ed640c4ca70b9fbbe6d3caaee65cb456f7bb4fb.png" alt="image-20210731142736299" referrerpolicy="no-referrer"></p>
+<p blockindex="214">当我们点击之后 它会加载广告</p>
+<p blockindex="215"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-039a44b79bd454df27556d21ee88f7e06293207e.png" alt="image-20210731142610317" referrerpolicy="no-referrer"></p>
+<p blockindex="216">那么我们使用之前的方法安卓(一)是不是可以删掉第一个跳转的界面 进行去广告操作呢 是可以的</p>
+<p blockindex="217">小伙伴们可以去尝试一波</p>
+<p blockindex="218"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-71e949717ef09d34fe6da25f14565140bca0fe0d.png" alt="image-20210731142922092" referrerpolicy="no-referrer"></p>
+<p blockindex="219">今天破解的就是它的Vip功能</p>
+<p blockindex="220">如上操作</p>
+<h3 blockindex="221">jadx-gui查看Java代码</h3>
+<p blockindex="222">要破解Vip，这里大部分所有APK的环境下都是搜索getVip</p>
+<p blockindex="223">这里要注意：</p>
+<p blockindex="224">1、搜索勾选代码</p>
+<p blockindex="225">2、我们要破解的是用户的Vip</p>
+<p blockindex="226"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-77b7bf2c269fdabd076b089f28cdbadc70f7a9ee.png" alt="image-20210731144516338" referrerpolicy="no-referrer"></p>
+<p blockindex="227"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1d67ba9ec5df1a5c2fbe88ba91808d3fe8eac44f.png" alt="image-20210731144549975" referrerpolicy="no-referrer"></p>
+<p blockindex="228">往上翻 针对UserVip</p>
+<p blockindex="229"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-fe0a622eb166c7d710c585f5c4a919e577051696.png" alt="image-20210731144625436" referrerpolicy="no-referrer"></p>
+<p blockindex="230">右键查找用例</p>
+<p blockindex="231"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8afc3e88a49ba7afd61f01795ff98526db1cdafc.png" alt="image-20210731144717459" referrerpolicy="no-referrer"></p>
+<p blockindex="232"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-da9d20742c76c6bd0a234c22a61b5681c0dd45dc.png" alt="image-20210731144811658" referrerpolicy="no-referrer"></p>
+<p blockindex="233">这是一个实体类</p>
+<p blockindex="234">分析一下</p>
+<p blockindex="235">is vip(是否是Vip)、</p>
+<p blockindex="236">End(vip结束时间)、Start(vip开始时间)</p>
+<p blockindex="237">那么继续针对getIsVip进行查找用例</p>
+<p blockindex="238"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a20ef3a695b832e2812d2464b30e906c732bc88e.png" alt="image-20210731145545602" referrerpolicy="no-referrer"></p>
+<p blockindex="239"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-59f83a91fc0fa1fbdf24c54ef4d76b8c9ae3676e.png" alt="image-20210731150207512" referrerpolicy="no-referrer"></p>
+<p blockindex="240">那么我们这里：<strong>让 getVip返回值不为空</strong></p>
+<h3 blockindex="241">Android Killer进行查看smali代码</h3>
+<p blockindex="242">根据包package 在Android Killer中找对应目录</p>
+<p blockindex="243"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-cc5a818d9409d0bb85d7cf94f5728a332e8f9cc8.png" alt="image-20210731145626591" referrerpolicy="no-referrer"></p>
+<p blockindex="244">注意这里是：<code>smali_classes2</code></p>
+<p blockindex="245"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e88a9e114d0de3023c0dd5d817d3d3f01273db08.png" alt="image-20210731145845850" referrerpolicy="no-referrer"></p>
+<p blockindex="246"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-314be0045823107d38a25c1e0808ffd8625d0600.png" alt="image-20210731150046100" referrerpolicy="no-referrer"></p>
+<p blockindex="247">我们要改的smali代码就是<code>UserVip.smali</code></p>
+<p blockindex="248">然后找到<code>public getVip()</code></p>
+<p blockindex="249"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e0f9bad6cc5f6ff605bf663c77827e685f4a63c3.png" alt="image-20210731150429470" referrerpolicy="no-referrer"></p>
+<p blockindex="250">进行分析</p>
+<p blockindex="251">这个方法使用到<code>locals 1</code>—个寄存器</p>
+<p blockindex="252">iget读取字段，v0是我们的寄存器，p0是从之前用户判断过来的值，这里就是用户去读取v0</p>
+<p blockindex="253">如果p0是Vip那么v0就是Vip，如果p0不是Vip那么v0肯定不是Vip</p>
+<p blockindex="254">最后<code>return v0</code>寄存器</p>
+<p blockindex="255">我们的目标是：让getvip返回值不为空就行</p>
+<pre blockindex="256"><code class="hljs language-php"><span class="hljs-keyword">const</span> v0,<span class="hljs-number">0x1</span>
+</code></pre>
+<p blockindex="257"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c8e7910c10f313a4799b563309589457b2af53b0.png" alt="image-20210731151039656" referrerpolicy="no-referrer"></p>
+<p blockindex="258">回编译成功</p>
+<p blockindex="259"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c4bd79210ef830ebb87490bd8e485c55327f634b.png" alt="image-20210731151811587" referrerpolicy="no-referrer"></p>
+<h3 blockindex="260">关于回编译失败问题：</h3>
+<h4 blockindex="261">1、APKTOOL版本问题</h4>
+<p blockindex="262"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-424c2f2434d23b1b67e923d8b1987612004f70e5.png" alt="image-20210731151903070" referrerpolicy="no-referrer"></p>
+<h4 blockindex="263">2、Java环境问题</h4>
+<p blockindex="264"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-132f3ad0c55defa257cbbf1e79298ed987b8dd22.png" alt="image-20210731152010219" referrerpolicy="no-referrer"></p>
+<p blockindex="265"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d718118eac634024e1d6854ecc921e885c16f846.png" alt="image-20210731152028309" referrerpolicy="no-referrer"></p>
+<p blockindex="266">然后我们继续 去查看一下</p>
+<p blockindex="267">当我们注册登录之后 成功拿到Vip</p>
+<p blockindex="268"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-3f1696dacb0d3e5a6efe26af5d328294964bd85b.png" alt="image-20210731152458569" referrerpolicy="no-referrer"></p>
+<h2 blockindex="269">实操三：起名软件</h2>
+<h3 blockindex="270">前言</h3>
+<p blockindex="271">点开这个软件</p>
+<p blockindex="272"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e5d2a76f447f8ba5b509a813cd1c5b0ad748df0a.png" alt="image-20210731152859081" referrerpolicy="no-referrer"></p>
+<p blockindex="273"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f81a346e05e7ceb5d6b31d3186053db50c8d5c39.png" alt="image-20210731153021196" referrerpolicy="no-referrer"></p>
+<p blockindex="274"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-31dc46a322b4f18bfb3d1bd5911df37e6525c760.png" alt="image-20210731153033009" referrerpolicy="no-referrer"></p>
+<p blockindex="275">需要Vip会员</p>
+<p blockindex="276">如上操作</p>
+<h3 blockindex="277">jadx-gui查看Java代码</h3>
+<p blockindex="278">针对关键字</p>
+<pre blockindex="279"><code class="hljs language-php">可以选择五行
+</code></pre>
+<p blockindex="280"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-65284adfcfefb9af26cd076dd377fecb0898c3ea.png" alt="image-20210731153500131" referrerpolicy="no-referrer"></p>
+<p blockindex="281"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-330d646485512a675f3eb2c702e5517d12c390b2.png" alt="image-20210731153532010" referrerpolicy="no-referrer"></p>
+<p blockindex="282">只要和Vip相关 就离不开GetVip</p>
+<p blockindex="283">进行分析：</p>
+<p blockindex="284">达到这个switch中的<code>group.getCheckedRadioButtonId</code>这个条件</p>
+<p blockindex="285">就会进行金木水火士判断执行</p>
+<h3 blockindex="286">Android Killer进行查看smali代码</h3>
+<p blockindex="287">根据Java代码中的package找到gsname文件夹</p>
+<p blockindex="288"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4e86a2fafde74f10d61c005fd88e6c78507edfb2.png" alt="image-20210731154056151" referrerpolicy="no-referrer"></p>
+<p blockindex="289"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-7f2194442b688a8d694627c7015730b1318e4d63.png" alt="image-20210731154205496" referrerpolicy="no-referrer"></p>
+<p blockindex="290">找到</p>
+<p blockindex="291"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-93a00ff08bf4c7c1a1ec146c6cc2ca16b2077f71.png" alt="image-20210731154334341" referrerpolicy="no-referrer"></p>
+<p blockindex="292">可以看到下面有很多的<code>ChengYuListActivity$*.smali</code></p>
+<p blockindex="293"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4a56b36bcb93af228a6d7f7563d82349e75945f1.png" alt="image-20210731154433020" referrerpolicy="no-referrer"></p>
+<p blockindex="294">这是因为把dex反编译成<code>smali</code>时候会把所有的内部类、抽象类、接口类等全部都提取出来，用来单独存放</p>
+<p blockindex="295">然后就能看到这么多的 Activity</p>
+<p blockindex="296"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b199e70a45edd8eb0157726061313b1f1af9066e.png" alt="image-20210731154616981" referrerpolicy="no-referrer"></p>
+<p blockindex="297"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d9bc28857c7f64905865145f7299f1458c943a70.png" alt="image-20210731154750992" referrerpolicy="no-referrer"></p>
+<pre blockindex="298"><code class="hljs language-php">解码：<span class="hljs-string">"姓不能为空，请输入"</span>
+</code></pre>
+<p blockindex="299">并不是我们要修改的内容</p>
+<p blockindex="300"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8f433e870afa2c96c4844835b64074b344c5d135.png" alt="" referrerpolicy="no-referrer"></p>
+<pre blockindex="301"><code class="hljs language-php">VIP会员，可以选择五行。VIP会员升级请点击右下角会员专区
+</code></pre>
+<p blockindex="302"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b9bf84f17550f9edbc4dfa147f4dfc235c280a98.png" alt="image-20210731155044373" referrerpolicy="no-referrer"></p>
+<p blockindex="303"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b225e86bc2cd030684ead5c329bfae8f1e0ed524.png" alt="image-20210731155120286" referrerpolicy="no-referrer"></p>
+<p blockindex="304">我们可以看到结果是在内部类中</p>
+<p blockindex="305">总共有两处</p>
+<p blockindex="306">先点开第一处</p>
+<p blockindex="307">我们进行分析</p>
+<p blockindex="308"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-51343a059d3890224b568bc0c5f760e7cb1bbc56.png" alt="image-20210731155313531" referrerpolicy="no-referrer"></p>
+<p blockindex="309">看到了<code>setChecked(Z)V</code>传了个Z</p>
+<p blockindex="310">Z就是fase进去，此时是跳转下来的</p>
+<p blockindex="311">继续向上看到了<code>cond_0</code>这里是从这儿跳转下来的</p>
+<p blockindex="312">那么往上看看<code>cond_0</code></p>
+<p blockindex="313"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-278285af9f2795a32df7bab80c4b86eab5da97d3.png" alt="image-20210731155630458" referrerpolicy="no-referrer"></p>
+<p blockindex="314">找到<code>cond_0</code></p>
+<pre blockindex="315"><code class="hljs language-php"><span class="hljs-keyword">if</span>-eqz v1, :cond_0
+</code></pre>
+<p blockindex="316">那么我们把这里一样的<code>if-eqz：等于0/if-nez：不等于0</code></p>
+<p blockindex="317">修改为<code>if-nez</code> 就可以了</p>
+<p blockindex="318">继续看第二处</p>
+<p blockindex="319">第二处也是一样的</p>
+<p blockindex="320"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1f0d3beccd1642743a4cd0fffc5de9b2da1f4b20.png" alt="image-20210731155943245" referrerpolicy="no-referrer"></p>
+<p blockindex="321">向上跳转找<code>cond_0</code></p>
+<p blockindex="322"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4ed9f4ba4aa83c624e484719b483a04ce54aa505.png" alt="image-20210731160018243" referrerpolicy="no-referrer"></p>
+<pre blockindex="323"><code class="hljs language-php"><span class="hljs-keyword">if</span>-eqz v1, :cond_0
+</code></pre>
+<p blockindex="324">改成</p>
+<pre blockindex="325"><code class="hljs language-php"><span class="hljs-keyword">if</span>-nez v1, :cond_0
+</code></pre>
+<p blockindex="326"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-77fdbdd56af9f035abc8498b9ac984a1f0f36743.png" alt="image-20210731160112694" referrerpolicy="no-referrer"></p>
+<p blockindex="327">保存修改</p>
+<p blockindex="328">然后回编译</p>
+<p blockindex="329"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c560648cc260bef5db9434f686778f0ea89dfd48.png" alt="image-20210731160253096" referrerpolicy="no-referrer"></p>
+<p blockindex="330">进行尝试</p>
+<p blockindex="331">还是不行</p>
+<p blockindex="332"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c7560e340db901ebce203c8d4b6fac6bc535bb14.png" alt="image-20210731161059720" referrerpolicy="no-referrer"></p>
+<p blockindex="333">换个方式</p>
+<p blockindex="334">既然是要Vip 那么就去改GetVip的方法</p>
+<p blockindex="335">搜索出来挺多结果的</p>
+<p blockindex="336"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b6e288a1cb104af63ac9d3c20093d67044ba7c0a.png" alt="image-20210731161256604" referrerpolicy="no-referrer"></p>
+<p blockindex="337">但是大部分都是调用的信息 我们要找的是定义的信息</p>
+<p blockindex="338"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d244ed73209de899bd664c0a150fb1872fc72bce.png" alt="image-20210731161349247" referrerpolicy="no-referrer"></p>
+<p blockindex="339"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-99f3d776aa206de8d64642b301080b43c7ffd14d.png" alt="image-20210731161429895" referrerpolicy="no-referrer"></p>
+<p blockindex="340">那么我们尝试注释掉这个</p>
+<p blockindex="341"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f4364c70524220d7de20a8a01bbfcab054540134.png" alt="image-20210731161736654" referrerpolicy="no-referrer"></p>
+<p blockindex="342">保存之后 回编译 进行尝试</p>
+<p blockindex="343"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d991c79cf6f768c5bef3d8fece226d17381692f1.png" alt="image-20210731161835770" referrerpolicy="no-referrer"></p>
+<p blockindex="344">进行尝试</p>
+<p blockindex="345"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-626325f5aa2633c834567aab6c4d7371cf8ec592.png" alt="image-20210731161958532" referrerpolicy="no-referrer"></p>
+<p blockindex="346"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-0332eea77c4ef2116c211dac65ee03ece112ed34.png" alt="image-20210731162034615" referrerpolicy="no-referrer"></p>
+<p blockindex="347">是成功的</p>
+<h2 blockindex="348">实操四：RE文件管理器</h2>
+<h3 blockindex="349">前言</h3>
+<p blockindex="350">进行安装</p>
+<p blockindex="351"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-db14af65878740345054935934e99521f150162e.png" alt="image-20210802134423313" referrerpolicy="no-referrer"></p>
+<p blockindex="352">然后我们打开</p>
+<p blockindex="353">可以看到文件权限</p>
+<p blockindex="354"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4d2ecb898cae09fdb50c797fb5674c05a69136a2.png" alt="image-20210802134513173" referrerpolicy="no-referrer"></p>
+<p blockindex="355">当我们点击退出之后 它会弹出广告</p>
+<p blockindex="356"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b274555e18dd7f15022f4b443a82a86fac1bb7c9.png" alt="image-20210802134821022" referrerpolicy="no-referrer"></p>
+<p blockindex="357">然后当我们 点击一个广告之后</p>
+<p blockindex="358"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-6626ddc777047ba504c6b05822f642cdf978fe81.png" alt="image-20210802134859955" referrerpolicy="no-referrer"></p>
+<p blockindex="359">它会把这应用添加到后台进行下载</p>
+<p blockindex="360">那么我们的目标就是去掉APK退出时 加载的广告</p>
+<p blockindex="361">首先开始adb进行抓这个APP的包</p>
+<pre blockindex="362"><code class="hljs language-php">adb shell dumpsys activity top
+</code></pre>
+<p blockindex="363">然后发现这个类</p>
+<pre blockindex="364"><code class="hljs language-php">com.AddDouDouWall2.WebPageDownLoadMainActivity <span class="hljs-number">676828</span>b pid=<span class="hljs-number">2506</span>
+</code></pre>
+<p blockindex="365"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a966233ed21bbdf708d8bb2aee7c9241e53d81c8.png" alt="image-20210802135553335" referrerpolicy="no-referrer"></p>
+<h3 blockindex="366">jadx-gui分析</h3>
+<p blockindex="367">将APK丢到<code>jadx-gui</code>中进行分析</p>
+<p blockindex="368">进行反编译</p>
+<p blockindex="369"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-334c875ecbc52cc38191262d2b4c0724daf10b53.png" alt="image-20210802135331824" referrerpolicy="no-referrer"></p>
+<p blockindex="370">进行搜索</p>
+<pre blockindex="371"><code class="hljs language-php">WebPageDownLoadMainActivity
+</code></pre>
+<p blockindex="372"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-3ceca82029d013a588a30d093742ae5d74fd5f76.png" alt="image-20210802135749904" referrerpolicy="no-referrer"></p>
+<p blockindex="373">点击进来 进行查看</p>
+<p blockindex="374"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-df77c73d5acf26c22abb7e75bfbbc2abacde94dc.png" alt="image-20210802135842479" referrerpolicy="no-referrer"></p>
+<p blockindex="375">一些按钮 true 和 flase</p>
+<p blockindex="376">然后 有一个地址</p>
+<p blockindex="377">我们进行访问看一下</p>
+<p blockindex="378"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4a0da73823abd177fd0c0eb3741f70b0a409bf18.png" alt="image-20210802162320896" referrerpolicy="no-referrer"></p>
+<p blockindex="379">发现 它就是我们退出时候的那个广告页面</p>
+<p blockindex="380">那么 这里 是不是可以放上我们的钓鱼页面呢</p>
+<p blockindex="381">继续</p>
+<p blockindex="382"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d1a192f77b64a8d371ac955075e314deee7e7051.png" alt="image-20210802142400816" referrerpolicy="no-referrer"></p>
+<pre blockindex="383"><code class="hljs language-php">addContentView(this.webView, params);
+</code></pre>
+<p blockindex="384">增加了一个addContentView把这些 webview，params传进去然后</p>
+<pre blockindex="385"><code class="hljs language-php">startService(<span class="hljs-keyword">new</span> Intent(this, DownLoadManagerService.<span class="hljs-keyword">class</span>));
+</code></pre>
+<p blockindex="386">最重要的一点还是这<code>startService</code>，我们看看逻辑</p>
+<p blockindex="387"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4b36280a14413ea9942ad8205fca20abc8e0c0b5.png" alt="image-20210802142721017" referrerpolicy="no-referrer"></p>
+<p blockindex="388">可以看到<code>DownLoadManagerService</code>去继承了一个Service类，</p>
+<p blockindex="389">那么我们不让它去继承 是不是就破解了</p>
+<p blockindex="390">继续</p>
+<p blockindex="391">查找用例</p>
+<p blockindex="392"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a241c17fe8daa55f7dd94077c76f0524ab44afdb.png" alt="image-20210802144037140" referrerpolicy="no-referrer"></p>
+<p blockindex="393"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-edd1538fd4a77b8d15e2b5af0f0583d0d11efb75.png" alt="image-20210802144126412" referrerpolicy="no-referrer"></p>
+<p blockindex="394"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-aa49a8955c96b83cf4421f9fef1b4a44426bb794.png" alt="image-20210802144154118" referrerpolicy="no-referrer"></p>
+<pre blockindex="395"><code class="hljs language-php"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> onDestroy() {
+ Intent iii;
+ w a2;
+ <span class="hljs-keyword">if</span> (isNetworkAvailable(this)) {
+  startActivity(<span class="hljs-keyword">new</span> Intent(this, WebPageDownLoadMainActivity.<span class="hljs-keyword">class</span>));
+}
+</code></pre>
+<p blockindex="396">看这个onDestroy</p>
+<p blockindex="397">isNetworkAvailable查询当前一个网络状况</p>
+<p blockindex="398">如果有网络就<code>startActivity</code></p>
+<p blockindex="399">继续</p>
+<p blockindex="400"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-2b5bc550dcbceeaa7c241f6269f0bc9b7f549353.png" alt="image-20210802144609214" referrerpolicy="no-referrer"></p>
+<h3 blockindex="401">Android Killer分析</h3>
+<p blockindex="402">将APK丢进来</p>
+<p blockindex="403">首先搜索</p>
+<pre blockindex="404"><code class="hljs language-php">WebPageDownLoadMainActivity
+</code></pre>
+<p blockindex="405"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-3c956144b4777d4a0c2bcfb643a3f534697aaddc.png" alt="image-20210802140923149" referrerpolicy="no-referrer"></p>
+<p blockindex="406">进入<code>AndroidMainfest.xml</code> 它是APK的配置文件</p>
+<p blockindex="407"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-be9276e839cf88e46e0c14c955d5f00787684dc4.png" alt="image-20210802141124572" referrerpolicy="no-referrer"></p>
+<p blockindex="408">然后搜索这个网址</p>
+<p blockindex="409"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-bf258b5f24c6bea7cab6ab74d21621860522c5cd.png" alt="image-20210802140648390" referrerpolicy="no-referrer"></p>
+<p blockindex="410">然后我们删掉这个URL 根据第一节 去广告的知识 <a href="https://www.freebuf.com/articles/mobile/280471.html">安卓学习(一)</a></p>
+<p blockindex="411"><strong>我们知道 删掉这个页面 它就不会加载了 但是依然会有那个白屏的界面</strong></p>
+<p blockindex="412">那么我们如果放上自己的钓鱼页面呢</p>
+<p blockindex="413">拿百度进行举例</p>
+<p blockindex="414"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-2a79c7dc642ffae0c2a06fb04a759ac247d3f728.png" alt="image-20210802141717879" referrerpolicy="no-referrer"></p>
+<p blockindex="415">保存 回编译 <img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-381a27861b67b95929d48b8a104b7c03ae2fb1d5.png" alt="image-20210802141805474" referrerpolicy="no-referrer"></p>
+<p blockindex="416">进行查看</p>
+<p blockindex="417">当我们继续退出的时候</p>
+<p blockindex="418"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b095b6abb813a139b4cfc6d4d331b549e046b200.png" alt="image-20210802141940561" referrerpolicy="no-referrer"></p>
+<p blockindex="419">成功跳转到百度 说明是可以的</p>
+<p blockindex="420">然后继续</p>
+<p blockindex="421">搜索<code>DownLoadManagerService</code> 我们是要找Web层的</p>
+<p blockindex="422"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-fd6d1001e7a1a778213f7c8d57500ec9ee1297ce.png" alt="image-20210802143619723" referrerpolicy="no-referrer"></p>
+<p blockindex="423">定位<code>startService</code>这个方法</p>
+<p blockindex="424">v4集合到p0里面 然后就<code>return-void</code>退出了</p>
+<p blockindex="425"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a2310ff791ec101e358e59fad8c9005645365e30.png" alt="image-20210802143518451" referrerpolicy="no-referrer"></p>
+<p blockindex="426">然后我们去搜索这个onDestroy方法</p>
+<p blockindex="427">根据package</p>
+<pre blockindex="428"><code class="hljs language-php">package com.speedsoftware.rootexplorer;
+</code></pre>
+<p blockindex="429"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-120abb9d42bb9f532d8f411141cde2dee87d283b.png" alt="image-20210802144919291" referrerpolicy="no-referrer"></p>
+<p blockindex="430"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-7ae251d3d33044c803e287456cea0567c4d2829e.png" alt="image-20210802144951025" referrerpolicy="no-referrer"></p>
+<p blockindex="431">成功找到</p>
+<p blockindex="432"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-2aeb107daa244a23a2506a6ba1a3099941be90e4.png" alt="image-20210802145043288" referrerpolicy="no-referrer"></p>
+<p blockindex="433">进行分析</p>
+<p blockindex="434">找到 onDestroy</p>
+<p blockindex="435">isNetworkAvailable进行一个判断</p>
+<pre blockindex="436"><code class="hljs language-php"><span class="hljs-keyword">if</span>-eqz v0, :cond_0
+</code></pre>
+<p blockindex="437">然后返回一个v0有没有网络，如果v0等于0就跳转到<code>cond_0</code></p>
+<p blockindex="438"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-64b4fc8d88a52f7127c1bb911c187ba766f8a3cf.png" alt="image-20210802145416843" referrerpolicy="no-referrer"></p>
+<p blockindex="439">继续向下执行 就跳转到</p>
+<p blockindex="440"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1bf75369e009fa61279d69ee506e914497df77b0.png" alt="image-20210802145525856" referrerpolicy="no-referrer"></p>
+<p blockindex="441">那么我们进行修改就可以了</p>
+<pre blockindex="442"><code class="hljs language-php"><span class="hljs-keyword">if</span>-nez v0, :cond_0
+</code></pre>
+<p blockindex="443"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a1443880714be149c255106a89b2d05507dc456d.png" alt="image-20210802145613444" referrerpolicy="no-referrer"></p>
+<p blockindex="444">进行回编译</p>
+<p blockindex="445"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-5b266f48f6a7c2105264da58da09bae8ac21892c.png" alt="image-20210802145711922" referrerpolicy="no-referrer"></p>
+<p blockindex="446">进行查看</p>
+<p blockindex="447">当我们点击的时候 成功退出了</p>
+<p blockindex="448"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-673e2bef175e3cc177bf121a8508a3ff0119757c.png" alt="image-20210802145854092" referrerpolicy="no-referrer"></p>
+<h2 blockindex="449">实操五：车来了</h2>
+<h3 blockindex="450">前言</h3>
+<p blockindex="451">进行安装</p>
+<p blockindex="452"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-274a277cb2fb7bebb7b6b487850141afd9bc5234.png" alt="image-20210802150137291" referrerpolicy="no-referrer"></p>
+<p blockindex="453">打开</p>
+<p blockindex="454">可以看到 广告</p>
+<p blockindex="455"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-56a734bf12dfac6ef34aa88b8ca85bab76531811.png" alt="image-20210802151113781" referrerpolicy="no-referrer"></p>
+<p blockindex="456">那么我们的目标就是：去掉这些中间的广告</p>
+<p blockindex="457">今天这里运用<code>ddms</code></p>
+<h3 blockindex="458">ddms</h3>
+<p blockindex="459">进行启动</p>
+<p blockindex="460"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-72ee2c9c71da374365640f2c2df273752963e86d.png" alt="image-20210802151423267" referrerpolicy="no-referrer"></p>
+<p blockindex="461"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b150b22bdcf88a847e23eba90e56d744b46cd216.png" alt="image-20210802151715778" referrerpolicy="no-referrer"></p>
+<p blockindex="462"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b7eb85e3bee3a04b1568a1b184204ba71a193757.png" alt="image-20210802151511432" referrerpolicy="no-referrer"></p>
+<p blockindex="463">它可以对栈和堆进行跟踪</p>
+<p blockindex="464">ddms基本界面</p>
+<p blockindex="465"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c22f7be333bd8cef6207845c5d8b2025f6b32360.png" alt="image-20210802153027309" referrerpolicy="no-referrer"></p>
+<p blockindex="466">它给我们的一个设备</p>
+<p blockindex="467">这个就是 读取目前存活的设备</p>
+<pre blockindex="468"><code class="hljs language-php">adb devices
+</code></pre>
+<p blockindex="469">而</p>
+<pre blockindex="470"><code class="hljs language-php">dumpsys activity top
+</code></pre>
+<p blockindex="471">它是抓取当前顶层的页面信息</p>
+<p blockindex="472"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c36544a511485b57102055f9ce179c34c9bc32d3.png" alt="image-20210802153142469" referrerpolicy="no-referrer"></p>
+<p blockindex="473">这都是相对应的</p>
+<p blockindex="474">继续</p>
+<p blockindex="475"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b93c3f36dbdaa2b8bd62022fd24c1fb186f659c9.png" alt="image-20210802153347455" referrerpolicy="no-referrer"></p>
+<p blockindex="476">分别对应package、端口、PID</p>
+<p blockindex="477">继续</p>
+<p blockindex="478"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-ad1d91d003c424095bde88747934aea7d8c3624d.png" alt="image-20210802153520380" referrerpolicy="no-referrer"></p>
+<p blockindex="479">这是一个过滤寄存器</p>
+<p blockindex="480"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-28adbb2d6ea9f68b056032e76934a9d2ed9a0f0b.png" alt="image-20210802153542402" referrerpolicy="no-referrer"></p>
+<p blockindex="481"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-da4486490525df730cf7ca23b909547d0f888be9.png" alt="image-20210802155229239" referrerpolicy="no-referrer"></p>
+<p blockindex="482">一般只用填这两个</p>
+<p blockindex="483">继续</p>
+<p blockindex="484">存活机器 运行应用之后 会有信息</p>
+<p blockindex="485">这里是毫秒输出</p>
+<p blockindex="486"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-7dcf018dbf8c6f24a184e957726f54617d8f5738.png" alt="image-20210802154113922" referrerpolicy="no-referrer"></p>
+<p blockindex="487">然后向右走</p>
+<p blockindex="488"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b80e819c5e748d1af7a27a031356317d76fe8544.png" alt="image-20210802155343122" referrerpolicy="no-referrer"></p>
+<p blockindex="489">这是6个级别</p>
+<p blockindex="490">然后我们进行分析</p>
+<p blockindex="491"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a0920a89eccda9afbe025ce092667ed0b01cc93c.png" alt="image-20210802155558255" referrerpolicy="no-referrer"></p>
+<p blockindex="492">这里提示成功发送第三方埋点</p>
+<p blockindex="493">还附带了链接</p>
+<p blockindex="494">这就是APK中途的一些信息</p>
+<p blockindex="495"><a href="http://atrace.chelaile.net.cn/thirdPartyResponse?&amp;traceid=3820bc36-9623-4776-bbfd-fcb593f59c7d_1627890977521&amp;pid=00&amp;s=android&amp;adid=&amp;jsid=1023075&amp;aid=sdk_baidu&amp;adStyle=2&amp;req_time=315&amp;code=200&amp;is_backup=0&amp;ad_order=0&amp;ad_status=1&amp;v=3.68.0&amp;s=android&amp;imei=010305023634174&amp;cityId=027">http://atrace.chelaile.net.cn/thirdPartyResponse?&amp;amp;traceid=3820bc36-9623-4776-bbfd-fcb593f59c7d_1627890977521&amp;amp;pid=00&amp;amp;s=android&amp;amp;adid=&amp;amp;jsid=1023075&amp;amp;aid=sdk_baidu&amp;amp;adStyle=2&amp;amp;req_time=315&amp;amp;code=200&amp;amp;is_backup=0&amp;amp;ad_order=0&amp;amp;ad_status=1&amp;amp;v=3.68.0&amp;amp;s=android&amp;amp;imei=010305023634174&amp;amp;cityId=027</a></p>
+<p blockindex="496">然后我们右键 选择这个</p>
+<p blockindex="497"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-2dab4fb38df756c1f8100985c948a6a84bd0a16a.png" alt="image-20210802155821957" referrerpolicy="no-referrer"></p>
+<p blockindex="498">找到他的包名</p>
+<pre blockindex="499"><code class="hljs language-php">com.ygkj.chelaile.standard
+</code></pre>
+<p blockindex="500"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e8efb6844dbb4c231d85609f6ceb5ebfbb894870.png" alt="image-20210802155906053" referrerpolicy="no-referrer"></p>
+<p blockindex="501">添加过滤寄存器</p>
+<p blockindex="502"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b77e9b057c1a7dbf1b77b1bdb534946d0eb793c7.png" alt="image-20210802160032864" referrerpolicy="no-referrer"></p>
+<p blockindex="503">添加之后 就只会有这个包的信息</p>
+<p blockindex="504"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d714ee1c5937b3aba42fe7f7c43a2f1a77b22596.png" alt="image-20210802160128691" referrerpolicy="no-referrer"></p>
+<p blockindex="505">我们继续右键 进行分析</p>
+<p blockindex="506"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d814f6600b16a73b2a5d2a917d6ffb382b20fee1.png" alt="image-20210802160302994" referrerpolicy="no-referrer"></p>
+<p blockindex="507">发现这些广告 都是基于</p>
+<p blockindex="508"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-cd143d05df1ab1cec1874c64d2a708ae6aff10e8.png" alt="image-20210802160337612" referrerpolicy="no-referrer"></p>
+<p blockindex="509">这个域名</p>
+<pre blockindex="510"><code class="hljs language-php">atrace.chelaile.net.cn
+</code></pre>
+<p blockindex="511">那么第一个思路 就是 我们把这个域名替换成</p>
+<pre blockindex="512"><code class="hljs language-php"><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>
+</code></pre>
+<h3 blockindex="513">Android Killer分析</h3>
+<p blockindex="514">进行搜索</p>
+<p blockindex="515"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-226f40d6536a64107cd5914c3801e6770d4542c6.png" alt="image-20210802161324954" referrerpolicy="no-referrer"></p>
+<p blockindex="516">进行替换</p>
+<p blockindex="517"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-32a1bec0ee209616c0da64ab152dee688051f5b7.png" alt="image-20210802161412676" referrerpolicy="no-referrer"></p>
+<p blockindex="518">进行回编译</p>
+<p blockindex="519"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e0ebfd9bb976cb345c5c46744fcbe465a647a211.png" alt="image-20210802161603583" referrerpolicy="no-referrer"></p>
+<p blockindex="520">进行查看</p>
+<p blockindex="521">因为一些原因 换了 模拟器 现在是雷电</p>
+<p blockindex="522"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/202108031653673.png" alt="image-20210802161704212" referrerpolicy="no-referrer"></p>
+<p blockindex="523">可以看到 中间的广告没有了</p>
+<p blockindex="524"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-cec8a07443adee367e4ca09e6332f4209a32f09b.png" alt="image-20210802161839194" referrerpolicy="no-referrer"></p>
+<h2 blockindex="525">实操六：好搜小说大全</h2>
+<h3 blockindex="526">添加injectcode</h3>
+<p blockindex="527">这里要给Android Killer添加injectcode</p>
+<p blockindex="528">原目录</p>
+<p blockindex="529"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-0dcfb2f2cc2eb74d721570c5359b053d5b7591d4.png" alt="image-20210802202811744" referrerpolicy="no-referrer"></p>
+<p blockindex="530">添加后的目录</p>
+<p blockindex="531"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b545bdb8661bf68edf352426254590302b501542.png" alt="image-20210802202849297" referrerpolicy="no-referrer"></p>
+<p blockindex="532">重启AndroidKiller</p>
+<p blockindex="533">把好搜小说的APK丢到AndroidKiller中</p>
+<p blockindex="534">随意找一个smali代码看看效果</p>
+<p blockindex="535"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-3962d645041453f275cbe58f0db993e59f87c2e2.png" alt="image-20210802203225801" referrerpolicy="no-referrer"></p>
+<p blockindex="536">这里要注意一下</p>
+<p blockindex="537"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a32d14f035ac635166465d2862d95a703cd86547.png" alt="image-20210802203348297" referrerpolicy="no-referrer"></p>
+<p blockindex="538"><strong>一个app程序的入口点比入口界面执行得更早</strong></p>
+<p blockindex="539"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-dd2d172bcda44643f08c164748843609863c8255.png" alt="image-20210802203530709" referrerpolicy="no-referrer"></p>
+<p blockindex="540">这点一定要记住</p>
+<h3 blockindex="541">Log信息输出插桩</h3>
+<p blockindex="542">进入入口点smali代码 进行分析</p>
+<p blockindex="543">我们前面在学习Actvity知道 <code>onCreate()</code>是最开始的建立的地方</p>
+<p blockindex="544">这个可以看在<a href="https://www.freebuf.com/articles/mobile/281426.html">安卓学习思路方法总结（二）</a>中的图解</p>
+<p blockindex="545">我们开始分析<code>onCreate()</code></p>
+<p blockindex="546"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-e21c00cd325ef83c11616940d63592633824a6d3.png" alt="image-20210802203809905" referrerpolicy="no-referrer"></p>
+<p blockindex="547">所以插桩就是在代码开始处进行实现</p>
+<p blockindex="548">在下面空白处 右键插入--&gt;代码--&gt;Log信息输出</p>
+<p blockindex="549"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-51f3c28e732238c8b7d2b25bdfbfcf918188d0ef.png" alt="image-20210802203852784" referrerpolicy="no-referrer"></p>
+<p blockindex="550">这里是要输入的文字unicode码</p>
+<p blockindex="551"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-203de3d1fd1b5e6fcc85e9ea69760d00d5ceec99.png" alt="image-20210802204023527" referrerpolicy="no-referrer"></p>
+<p blockindex="552">进行Unicode 转换</p>
+<p blockindex="553"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-575840314aa91a53b49234000ded7d9dc46342e9.png" alt="image-20210802204101796" referrerpolicy="no-referrer"></p>
+<pre blockindex="554"><code class="hljs language-php">嘻嘻\u563b\u563b\u563b
+</code></pre>
+<p blockindex="555"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-ba42bfb9ce9213cf2324cff7ebee87cfbbfb1fbb.png" alt="image-20210802204141937" referrerpolicy="no-referrer"></p>
+<p blockindex="556">进行分析</p>
+<p blockindex="557"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-15869dedf2a6d69adb215a5d2eaa68f8aa7108e6.png" alt="image-20210802204547619" referrerpolicy="no-referrer"></p>
+<p blockindex="558"><code>const-string</code>在<a href="https://www.freebuf.com/articles/mobile/282950.html">安卓学习思路方法总结（三）</a>中讲过</p>
+<p blockindex="559">它是数据定义指令</p>
+<p blockindex="560"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-06c4bdaabc48ace1a4bded0d0a6085b6dbc3d65d.png" alt="image-20210802204326473" referrerpolicy="no-referrer"></p>
+<p blockindex="561">同样<code>invoke-stati</code>也在<a href="https://www.freebuf.com/articles/mobile/282950.html">安卓学习思路方法总结（三）</a>中讲过</p>
+<p blockindex="562">它是方法调用指令，用来调用实例的静态方法</p>
+<p blockindex="563">继续</p>
+<p blockindex="564">还需要在程序的入口点插入Log信息</p>
+<p blockindex="565">查找清单文件：<code>Application.xml</code></p>
+<p blockindex="566"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-df859ba92a3b8506f881984ba786fbbaf936c4e1.png" alt="image-20210802205844361" referrerpolicy="no-referrer"></p>
+<p blockindex="567">进行分析</p>
+<p blockindex="568"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-00411f41fe448af146555629c52e81421b09527b.png" alt="image-20210802205938373" referrerpolicy="no-referrer"></p>
+<pre blockindex="569"><code class="hljs language-php">android:name=<span class="hljs-string">"com.reader.ReaderApplication"</span>
+</code></pre>
+<p blockindex="570">后面有路径</p>
+<p blockindex="571">那么在工程管理器中</p>
+<p blockindex="572">继续查找<code>com.reader.ReaderApplication</code></p>
+<p blockindex="573"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-657678e5c068195d731f7cd72af6cb648829ef00.png" alt="image-20210802210307802" referrerpolicy="no-referrer"></p>
+<p blockindex="574"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1547543edd4908ed0a5b6b65353e027e9faebadd.png" alt="image-20210802210337092" referrerpolicy="no-referrer"></p>
+<p blockindex="575">进入之后</p>
+<p blockindex="576">继续锁定<code>onCreate()</code>方法</p>
+<p blockindex="577"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b54c3ce95025fa31a06a33273f7f59e3704b357c.png" alt="image-20210802210428627" referrerpolicy="no-referrer"></p>
+<p blockindex="578">继续在<code>.prologue</code>下进行插桩</p>
+<p blockindex="579">这次我们插入一个</p>
+<pre blockindex="580"><code class="hljs language-php">哈哈哈\u54c8\u54c8\u54c8
+</code></pre>
+<p blockindex="581"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b80bf5226e0e484bd745bb2f87f01bdd49c97d65.png" alt="image-20210802211327532" referrerpolicy="no-referrer"></p>
+<p blockindex="582">保存 进行回编译</p>
+<p blockindex="583"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a6d1021486e17fd8dced1ac87e4b8c9b47085544.png" alt="image-20210802211503628" referrerpolicy="no-referrer"></p>
+<p blockindex="584">进行查看</p>
+<p blockindex="585"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/202108031653695.png" alt="image-20210802205417666" referrerpolicy="no-referrer"></p>
+<h3 blockindex="586">ddms</h3>
+<p blockindex="587">这个时候我们进行 ddms抓包</p>
+<p blockindex="588">成功连接到设备 并且有信息输出</p>
+<p blockindex="589"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-2252dce6e9b40a6ef08cbd5f58ee9cc165b4f4d5.png" alt="image-20210802210944741" referrerpolicy="no-referrer"></p>
+<p blockindex="590">哈哈哈是入口点</p>
+<p blockindex="591"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-9ab264323f29c2d307e5f3c9333a436d8612004b.png" alt="image-20210802211814654" referrerpolicy="no-referrer"></p>
+<p blockindex="592">嘻嘻嘻是入口界面</p>
+<p blockindex="593"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-b0e1d59f52386b919650a6023b0dcecd1b82d647.png" alt="image-20210802211836747" referrerpolicy="no-referrer"></p>
+<p blockindex="594">两者只有几毫秒的差别</p>
+<p blockindex="595"><strong>但是入口点永远比入口界面执行的更早</strong></p>
+<h3 blockindex="596">一些问题解决</h3>
+<h4 blockindex="597">一、程序崩溃</h4>
+<p blockindex="598">中间出现的问题</p>
+<p blockindex="599">当我们成功插桩 APK回编译成功</p>
+<p blockindex="600">但是在模拟器中</p>
+<pre blockindex="601"><code class="hljs language-php">打开失败 程序崩溃 点击没反应
+</code></pre>
+<p blockindex="602">因为插桩导致寄存器不够用，需要加一些寄存器</p>
+<p blockindex="603">进行全局搜索</p>
+<pre blockindex="604"><code class="hljs language-php">locals <span class="hljs-number">0</span>
+</code></pre>
+<p blockindex="605">随意修改</p>
+<p blockindex="606"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-fc4453d3e0f14eca1fa02a9e2bcf1e49c3d1f4a8.png" alt="image-20210802212526851" referrerpolicy="no-referrer"></p>
+<p blockindex="607">修改为 加一些寄存器</p>
+<pre blockindex="608"><code class="hljs language-php">locals <span class="hljs-number">1</span>或locals <span class="hljs-number">2</span>
+</code></pre>
+<p blockindex="609">进行回编译</p>
+<h4 blockindex="610">二、init()</h4>
+<p blockindex="611">我们也喜欢在<code>init()</code>这个方法这里进行插桩</p>
+<p blockindex="612">因为init表示这个方法在初始化，在初始化状态下是不会去调用任何寄存器状态，没加载入口点</p>
+<p blockindex="613"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-46078e4dfb979b3a9076484866afa2cce16eab2d.png" alt="image-20210802213127464" referrerpolicy="no-referrer"></p>
+<h2 blockindex="614">栈跟踪：好搜小说大全</h2>
+<p blockindex="615">继续就上一个实操的</p>
+<p blockindex="616">APK：好搜小说大全</p>
+<h3 blockindex="617">获取当前界面进程</h3>
+<pre blockindex="618"><code class="hljs language-php">adb shell dumpsys activity top
+</code></pre>
+<pre blockindex="619"><code class="hljs language-php">com.qihoo.haosou.subscribe.vertical.book
+</code></pre>
+<p blockindex="620"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-ebe19260ea50f959f5f26be7c02a12e86f1f9692.png" alt="image-20210802213440616" referrerpolicy="no-referrer"></p>
+<h3 blockindex="621">ddms</h3>
+<p blockindex="622">进入该界面调取程序栈</p>
+<p blockindex="623"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-bbf57ca4cbcf8fc1d0aaa2db4f0cc9a11e343d02.png" alt="image-20210802213606310" referrerpolicy="no-referrer"></p>
+<p blockindex="624">然后进行过滤寄存器的添加</p>
+<p blockindex="625"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-0a579cb44b8c0c8247e715d0c5173027b0e1f2d1.png" alt="image-20210802213759196" referrerpolicy="no-referrer"></p>
+<p blockindex="626">进行查看输出的信息</p>
+<p blockindex="627">开始第一个关注点：<code>System.err</code></p>
+<p blockindex="628"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8cba410c3e5ab2563a9352a34c55ad92790fb973.png" alt="image-20210802213942688" referrerpolicy="no-referrer"></p>
+<p blockindex="629">这里要理解一下中间的关系</p>
+<p blockindex="630">上层是调用者 下层是被调用者</p>
+<p blockindex="631">我们看的时候 应该是<strong>从下往上看</strong></p>
+<p blockindex="632"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-8f563ce9e5c111ebc55770062a769fb4d44b699a.png" alt="image-20210802214248899" referrerpolicy="no-referrer"></p>
+<h3 blockindex="633">StackTrace栈跟踪</h3>
+<p blockindex="634">然后<code>StackTrace栈跟踪</code>的插桩</p>
+<p blockindex="635">同样是找到入口点的<code>smali</code>代码</p>
+<p blockindex="636">然后锁定<code>loadData()</code>方法</p>
+<p blockindex="637"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-fd7d49c765b1f20545cb248a7b6589ff768c0e44.png" alt="image-20210802214535724" referrerpolicy="no-referrer"></p>
+<p blockindex="638"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-7be5f428f511ddf6f3f20f05a4485243d8dc1e54.png" alt="image-20210802214626309" referrerpolicy="no-referrer"></p>
+<p blockindex="639">简单分析一下</p>
+<p blockindex="640">我们加入了两个局部变量寄存器v0和v1</p>
+<p blockindex="641">程序本身locals也存在两个局部变量寄存器，所以就不需要修改了</p>
+<p blockindex="642">然后<code>print trace</code>是打印栈</p>
+<pre blockindex="643"><code class="hljs language-php"><span class="hljs-keyword">new</span>-instance v0, Ljava/lang/<span class="hljs-built_in">Exception</span>;    <span class="hljs-keyword">const</span>-<span class="hljs-keyword">string</span> v1, <span class="hljs-string">"print trace"</span>    invoke-direct {v0, v1}, Ljava/lang/<span class="hljs-built_in">Exception</span>;-&gt;&lt;init&gt;(Ljava/lang/<span class="hljs-keyword">String</span>;)V    invoke-virtual {v0}, Ljava/lang/<span class="hljs-built_in">Exception</span>;-&gt;printStackTrace()V
+</code></pre>
+<p blockindex="644"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d6b43c607395c0d01309c3734dd7d7db5e0b435c.png" alt="image-20210802214911349" referrerpolicy="no-referrer"></p>
+<p blockindex="645">然后保存 进行回编译</p>
+<p blockindex="646"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-1690d078dac9eb686d09674bf754589d59c03ee5.png" alt="image-20210802215142716" referrerpolicy="no-referrer"></p>
+<p blockindex="647">模拟器重新安装 进行打开</p>
+<h3 blockindex="648">ddms2</h3>
+<p blockindex="649">继续上ddms 进行分析</p>
+<p blockindex="650">依然 进行 过滤寄存器的锁定</p>
+<p blockindex="651"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-eb961937de1c657a4acf3344e5c1ecb8a978d9bb.png" alt="image-20210802215938816" referrerpolicy="no-referrer"></p>
+<p blockindex="652">这里没有这个信息的话</p>
+<p blockindex="653">可以重启 一下ddms</p>
+<p blockindex="654">看到System.err 同时打印了<code>print.trace</code></p>
+<p blockindex="655">是从那里开始的</p>
+<p blockindex="656">同样是从下往上看</p>
+<p blockindex="657"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4f88a3fcaf50970faec84787e986767c6a118600.png" alt="image-20210802220134887" referrerpolicy="no-referrer"></p>
+<p blockindex="658">然后我们呢 是从<code>loadData</code>下插入 <code>StackTrace栈跟踪</code> 也续上了</p>
+<p blockindex="659">请记住：从下网上看！</p>
+<p blockindex="660"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-9f62b7741fdb76d4a949bc8bdbb3e672c29b584b.png" alt="image-20210802221958144" referrerpolicy="no-referrer"></p>
+<p blockindex="661">然后进行 登录界面的栈跟踪</p>
+<p blockindex="662"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4fe7f929caa5bb2365a75a1b18b87b67f55bc934.png" alt="image-20210802221910477" referrerpolicy="no-referrer"></p>
+<p blockindex="663"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-0d018558c26b89adc59de92dde8284a490f42e69.png" alt="image-20210802221937695" referrerpolicy="no-referrer"></p>
+<p blockindex="664">然后取ddms中进行：暂停分析栈</p>
+<p blockindex="665">当我们随意的选择一个类的时候</p>
+<p blockindex="666"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-f8dbd2ddff7f8b114fad71f6e6c1f555f318768b.png" alt="image-20210802220640554" referrerpolicy="no-referrer"></p>
+<p blockindex="667">菜单栏中的 按钮就可以用了</p>
+<p blockindex="668">我圈注的这个是：暂停分析栈</p>
+<p blockindex="669">当我们点击它之后</p>
+<p blockindex="670"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-5517a2c954faf823bd1f2d23bd24aefaa6e4b02c.png" alt="image-20210802220745795" referrerpolicy="no-referrer"></p>
+<p blockindex="671">第一个选择是自定过滤</p>
+<p blockindex="672">第二个选择是打印所有的</p>
+<p blockindex="673">选择第一个 1000就可以</p>
+<p blockindex="674"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-29f5e3b82545502a9668d51ea2eca28163a137be.png" alt="image-20210802221736166" referrerpolicy="no-referrer"></p>
+<p blockindex="675">然后OK 之后</p>
+<p blockindex="676">点击进行启动</p>
+<p blockindex="677"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-593259b07335462f581f12f96fb0836d99a131f9.png" alt="image-20210803153954500" referrerpolicy="no-referrer"></p>
+<p blockindex="678"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-c72e75e31b38e197e1ba83420204e948497eb912.png" alt="image-20210803154016503" referrerpolicy="no-referrer"></p>
+<p blockindex="679"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-aaab4fab692eeec78619a08e12a5564d747b54ee.png" alt="image-20210803154151321" referrerpolicy="no-referrer"></p>
+<p blockindex="680">然后等待 一会 就会弹出一个窗口</p>
+<p blockindex="681"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-4b4643a4a1b51d80d6bdb18c3c3719ce7a064f60.png" alt="image-20210803154224104" referrerpolicy="no-referrer"></p>
+<p blockindex="682">总共有246个方法</p>
+<p blockindex="683">这个取决于点击<code>立即登录</code>的速度</p>
+<p blockindex="684">进行分析一下节点</p>
+<p blockindex="685"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-41a720a9eda90ea9d0582d4edb70394d27f70e40.png" alt="image-20210803154429175" referrerpolicy="no-referrer"></p>
+<p blockindex="686">Parents：父节点 当前方法的上层调用<br>
+<strong>如果父节点下面没有节点，就是系统自启动的</strong></p>
+<p blockindex="687">Children：子节点 当前方法的下层调用<br>
+可以理解 Children以下的都是 Parents子节点</p>
+<p blockindex="688">调用的是一个循环体</p>
+<p blockindex="689">这里就是：1分支---&gt;0分支---&gt;26分支---&gt;循环体---&gt;0分支---&gt;1分支</p>
+<p blockindex="690">然后1分支 又会开始另外的循环</p>
+<p blockindex="691">然后参数解读</p>
+<p blockindex="692"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a6ee015b3b207cf2e206ab49a9ae9c28f0d2fb2b.png" alt="image-20210803155515151" referrerpolicy="no-referrer"></p>
+<p blockindex="693"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-d84dd3585f6c8739d21dcaa22bbfa693363f5cce.png" alt="image-20210803155534353" referrerpolicy="no-referrer"></p>
+<p blockindex="694"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-a9261536c9018f5083e727ad3420767b7c1cc743.png" alt="image-20210803155545288" referrerpolicy="no-referrer"></p>
+<p blockindex="695">分析：onclick</p>
+<p blockindex="696"><img src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/attach-75fc39dca7f7c9da85c78a3160968055a6c690fe.png" alt="image-20210803155809469" referrerpolicy="no-referrer"></p>
+<p blockindex="697">那么就是 85分支---&gt;84分支---&gt;83分支</p>
+<p blockindex="698">这是一个登录逻辑</p>
+<p blockindex="699">OK 这篇就到这里 栈跟踪一定要会</p>
+<p blockindex="700"><strong>请注意：这里使用的技术仅用于学习知识目的，如果列出的技术用于其他任何目标，我概不负责。</strong></p>
+<p blockindex="701">转载于：<a href="https://www.freebuf.com/articles/mobile/282950.html">https://www.freebuf.com/articles/mobile/282950.html</a></p><!--1--></div></div>
+                    <div class="post-opt mt-30">
+                        <ul class="list-inline text-muted">
+                            <li>
+                                <i class="fa fa-clock-o"></i>
+                                发表于 2021-08-20 09:48:48
+                            </li>
+                            <li>阅读 ( 956 )</li>
+                                                        <li>分类：<a href="https://forum.butian.net/community/Web" target="_blank" rel="noopenner noreferrer">WEB安全</a>
+                                                        </li>
+                                                                                </ul>
+                    </div>
+                </div>
+                <div class="text-center mt-30 mb-20">
+                                            <button id="support-button" class="btn btn-success btn-lg mr-5" data-loading-text="加载中..." data-source_type="community" data-source_id="505" data-support_num="0"> 0 推荐</button>
+                                       
+                                            <button id="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..." data-source_type="community" data-source_id="505"> 收藏</button>
+                                    </div>
+                            </div>
+            
+            <div class="widget-answers mt-15">
+                <h2 class="h4 post-title">0 条评论</h2>
+                    <div class="comment">
+                                            </div>
+                    <!-- 一级评论框 -->
+                                            <div class="widget-comment-form row mt-20 mb-20">
+                            <div class="col-md-12">
+                                请先 <a class="a_unLogin" href="https://forum.butian.net/login">登录</a> 后评论
+                            </div>
+                        </div>
+                                        <!-- 分页 -->
+                    <div class="text-center">
+                        
+                    </div>
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-3 side">
+            <div class="widget-user ">
+                <div class="media">
+                    <a class="pull-left" href="https://forum.butian.net/people/4484"><img class="media-object avatar-64" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/default_avatar.jpg" alt="略略略"></a>
+                    <div class="media-body ">
+                        <a href="https://forum.butian.net/people/4484" class="media-heading">略略略</a>
+                                                <p class="text-muted">36 篇文章</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-xs">
+                <div id="toc" class="bytemd-sidebar tocFixed" style="width: 263px;"><div class="bytemd-toc"><h2>目录</h2><ul><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">Dalvik指令集</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">整体分析：</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">Dalvik指令使用</li><li class="bytemd-toc-3" style="padding-left:24px">空操作指令</li><li class="bytemd-toc-3" style="padding-left:24px">返回指令</li><li class="bytemd-toc-3" style="padding-left:24px">数据定义指令</li><li class="bytemd-toc-3" style="padding-left:24px">跳转指令</li><li class="bytemd-toc-3" style="padding-left:24px">实例操作指令</li><li class="bytemd-toc-4" style="padding-left:40px">1、"check-cast vAA,type@BBBB"</li><li class="bytemd-toc-4" style="padding-left:40px">2、"instance-of vA,vB"</li><li class="bytemd-toc-4" style="padding-left:40px">3、"new-instance vAA,type@BBBB"</li><li class="bytemd-toc-3" style="padding-left:24px">数组操作类型</li><li class="bytemd-toc-4" style="padding-left:40px">1、array-length vA，vB"</li><li class="bytemd-toc-4" style="padding-left:40px">2、"new-array vA,vB,type@CCCC"：</li><li class="bytemd-toc-3" style="padding-left:24px">异常指令</li><li class="bytemd-toc-3" style="padding-left:24px">比较指令(cmp)</li><li class="bytemd-toc-3" style="padding-left:24px">字段操作指令</li><li class="bytemd-toc-4" style="padding-left:40px">普通字段</li><li class="bytemd-toc-4" style="padding-left:40px">静态字段</li><li class="bytemd-toc-3" style="padding-left:24px">方法调用指令</li><li class="bytemd-toc-3" style="padding-left:24px">数据转换指令</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">APK快速上手小技巧</li><li class="bytemd-toc-3" style="padding-left:24px">1、快速定位关键代码</li><li class="bytemd-toc-4" style="padding-left:40px">搜索特征字符串</li><li class="bytemd-toc-4" style="padding-left:40px">搜索关键api</li><li class="bytemd-toc-4" style="padding-left:40px">通过方法名来判断方法的功能</li><li class="bytemd-toc-4" style="padding-left:40px">反编译APK程序</li><li class="bytemd-toc-4" style="padding-left:40px">程序的主 activity(程序入口界面)</li><li class="bytemd-toc-4" style="padding-left:40px">需重点关注的 application</li><li class="bytemd-toc-3" style="padding-left:24px">2、定位关键代码的技巧</li><li class="bytemd-toc-4" style="padding-left:40px">1)信息反馈法(资源id/字符串)</li><li class="bytemd-toc-4" style="padding-left:40px">2)特征函数法</li><li class="bytemd-toc-4" style="padding-left:40px">3)顺序查看法</li><li class="bytemd-toc-4" style="padding-left:40px">4)代码注入法</li><li class="bytemd-toc-4" style="padding-left:40px">5)栈跟踪法</li><li class="bytemd-toc-4" style="padding-left:40px">6)Method Profiling</li><li class="bytemd-toc-3" style="padding-left:24px">3、关键词</li><li class="bytemd-toc-4" style="padding-left:40px">方法名和游戏方法名</li><li class="bytemd-toc-4" style="padding-left:40px">爱游戏方法名</li><li class="bytemd-toc-4" style="padding-left:40px">沃游戏方法名</li><li class="bytemd-toc-4" style="padding-left:40px">4399游戏方法名</li><li class="bytemd-toc-4" style="padding-left:40px">支付宝和银行卡方法名</li><li class="bytemd-toc-4" style="padding-left:40px">移动MM方法名</li><li class="bytemd-toc-4" style="padding-left:40px">360支付</li><li class="bytemd-toc-4" style="padding-left:40px">支付宝搜索字符串：9000</li><li class="bytemd-toc-4" style="padding-left:40px">咪咕游戏搜索常量：onresult</li><li class="bytemd-toc-4" style="padding-left:40px">发送短信权</li><li class="bytemd-toc-4" style="padding-left:40px">锁定支付模式关键字符串：CHINA TELECOM</li><li class="bytemd-toc-4" style="padding-left:40px">支付上限</li><li class="bytemd-toc-4" style="padding-left:40px">谷歌广告</li><li class="bytemd-toc-4" style="padding-left:40px">运营商网络特征码备注</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操一：单地斗地主</li><li class="bytemd-toc-3" style="padding-left:24px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">jadx-gui查看Java代码</li><li class="bytemd-toc-3" style="padding-left:24px">Android Killer进行查看smali代码</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操二：卧龙影视</li><li class="bytemd-toc-3" style="padding-left:24px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">jadx-gui查看Java代码</li><li class="bytemd-toc-3" style="padding-left:24px">Android Killer进行查看smali代码</li><li class="bytemd-toc-3" style="padding-left:24px">关于回编译失败问题：</li><li class="bytemd-toc-4" style="padding-left:40px">1、APKTOOL版本问题</li><li class="bytemd-toc-4" style="padding-left:40px">2、Java环境问题</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操三：起名软件</li><li class="bytemd-toc-3" style="padding-left:24px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">jadx-gui查看Java代码</li><li class="bytemd-toc-3" style="padding-left:24px">Android Killer进行查看smali代码</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操四：RE文件管理器</li><li class="bytemd-toc-3" style="padding-left:24px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">jadx-gui分析</li><li class="bytemd-toc-3" style="padding-left:24px">Android Killer分析</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操五：车来了</li><li class="bytemd-toc-3" style="padding-left:24px">前言</li><li class="bytemd-toc-3" style="padding-left:24px">ddms</li><li class="bytemd-toc-3" style="padding-left:24px">Android Killer分析</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">实操六：好搜小说大全</li><li class="bytemd-toc-3 bytemd-toc-active" style="padding-left:24px">添加injectcode</li><li class="bytemd-toc-3" style="padding-left:24px">Log信息输出插桩</li><li class="bytemd-toc-3" style="padding-left:24px">ddms</li><li class="bytemd-toc-3" style="padding-left:24px">一些问题解决</li><li class="bytemd-toc-4" style="padding-left:40px">一、程序崩溃</li><li class="bytemd-toc-4" style="padding-left:40px">二、init()</li><li class="bytemd-toc-2 bytemd-toc-first" style="padding-left:8px">栈跟踪：好搜小说大全</li><li class="bytemd-toc-3" style="padding-left:24px">获取当前界面进程</li><li class="bytemd-toc-3" style="padding-left:24px">ddms</li><li class="bytemd-toc-3" style="padding-left:24px">StackTrace栈跟踪</li><li class="bytemd-toc-3" style="padding-left:24px">ddms2</li></ul></div></div>
+            </div>
+        </div>
+        <div class="mobile-toc-wrapper visible-xs">
+            <div id="mobile-toc" class="toc-mobile" style="display: none;"></div>
+            <button type="button" class="btn btn-default fixed-toc-button" aria-label="Left Align" style="display: none;">
+                <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+            </button>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+
+
+<footer id="footer">
+    <div class="container">
+                <div class="text-center">
+            <a href="https://forum.butian.net/">奇安信攻防社区</a><span class="span-line">|</span>
+            <a href="mailto:butian_report@qianxin.com" target="_blank" rel="noopenner noreferrer">联系我们</a><span class="span-line">|</span>
+                        <a href="https://forum.butian.net/sitemap">sitemap</a>
+        </div>
+        <div class="copyright mt-10">
+            Copyright © 2013-2023 BUTIAN.NET 版权所有 <a href="https://beian.miit.gov.cn/#/Integrated/index">京ICP备18014330号-2</a>
+        </div>
+    </div>
+</footer>
+
+
+<div class="modal fade" id="sendTo_message_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">发送私信</h4>
+            </div>
+
+                            <div class="widget-comment-form row">
+                    <div class="modal-header">
+                        请先 <a class="a_unLogin" href="https://forum.butian.net/login">登录</a> 后发送私信
+                    </div>
+                </div>
+                    </div>
+    </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/jquery.min.js.下载"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/bootstrap.min.js.下载"></script>
+<!-- jQuery (necessary for Twitter Bootstrap Hover Dropdown Plugin) -->
+<script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/twitter-bootstrap-hover-dropdown.js.下载"></script>
+<script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/layer.js.下载"></script>
+<!-- 单点登录sso.js -->
+<script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/sso.js.下载"></script>
+<script type="text/javascript">
+    var is_login = Boolean("");
+    $(document).ready(async function(){
+        var url = window.location.href;
+        
+        if ($("a.a_unLogin")) {
+            var newUrl = "https://forum.butian.net/login" + "?redirectPath=" + url;
+            $("a.a_unLogin").attr('href', newUrl);
+        }
+        if ($("a.a_unLogin_bt")) {
+            var newUrl = "https://forum.butian.net/btlogin" + "?redirectPath=" + url;
+            $("a.a_unLogin_bt").attr('href', newUrl);
+        }
+
+        if ($("a.a_unRegister")) {
+            var newUrl = "https://forum.butian.net/register" + "?redirectPath=" + url;
+            $("a.a_unRegister").attr('href', newUrl);
+        }
+    });
+    const hostName = "https://user.skyeye.qianxin.com/".split('https://')[1];
+    console.log(hostName,'hostName');
+    const cookieName = 'btuc_ba52447ea424004a7da412b344e5e41a';
+    function getCookie(name) {
+        const strCookie = document.cookie
+        const cookieList = strCookie.split(';')
+        for(let i = 0; i < cookieList.length; i++) {
+            const arr = cookieList[i].split('=');
+            if (name === arr[0].trim()) {
+                return arr[1]
+            }
+        }
+        return '';
+    }
+    // 退出登录 移除 cookie
+    $(document).on("click",".logout",async function() {
+        await window.sessionModule.clearUCSessionID(hostName, $);
+        var oDate = new Date();
+        oDate.setDate(oDate.getDate()-1);//访问页面的前一天
+        document.cookie =`${cookieName}=;SameSite=None;Secure=true;path=/;expires=${oDate.toGMTString()}`;
+        location.href='https://forum.butian.net/logout'
+    })
+    window.onload = function () {
+        // 获取sessionId,设置到cookie中
+        async function getSessionId() {
+            const hasCookie = getCookie(cookieName) !=='';
+            // 若是当前第一次访问社区页面
+            if(!hasCookie || (hasCookie && !is_login)) {
+                let sessionId = await window.sessionModule.getUCSessionID(hostName, $);
+
+                if(!sessionId) {
+                    return
+                }
+           
+                // 若登录了其他应用
+                document.cookie =`${cookieName}=${sessionId};SameSite=None;Secure=true;path=/;domain=.butian.net`;
+                // 单点登陆后第一次刷新页面，走到此处时页面已被渲染，故请求接口获取登陆信息
+                await new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: "GET",
+                        url: '/ajax/cookieLogin',
+                        success: function (res) {
+                            const { data } = res;
+                            if(data.code + '' === '1'){
+                                $("#template").html(data.html);
+                                resolve();
+                            }else if(data.url){
+                                location.href = data.url;
+                            }
+                        },
+                    });
+                })
+            }
+            
+            /*通知异步加载*/
+            $.ajax({
+                type: "GET",
+                url: "/ajax/unreadNotifications",
+                success: function (data) {
+                    $("#unread_notifications").html(data)
+                },
+                fail: function (error) {
+                   console.log(error); 
+                }
+            })
+        }
+        getSessionId();
+    }
+</script>
+<script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/global.js.下载"></script>
+<!-- 微信分享 -->
+<script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/jweixin-1.6.0.js.下载"></script>
+<script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/qq-share.js.下载"></script>
+<script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/share.js.下载"></script>
+<script>
+function GetUrlRelativePath() {
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+
+  var start = arrUrl[1].indexOf("/");
+    var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+  if(relUrl.indexOf("?") != -1){
+      relUrl = relUrl.split("?")[0];
+    }
+    return relUrl;
+}
+
+$(function(){
+    if(GetUrlRelativePath().slice(0,9) !== "/article/" && GetUrlRelativePath().slice(0,7) !== "/share/" && GetUrlRelativePath().slice(0,10) !== "/question/") {
+        initShare({
+            APIs: ["updateAppMessageShareData", "updateTimelineShareData"],
+            callback: {
+              title: "奇安信攻防社区",
+              imgUrl:
+                "https://shs3.b.qianxin.com/butian_public/f8499623f20f6b5c90e8ca94ac7fc238acf39e36be2ef.jpg",
+              description: "专注于网络安全技术分享，帮助安全从业者持续成长的专业社区！",
+              url: window.location.href,
+              successMethod: ""
+            }
+        });
+    }
+
+})
+</script>
+    <div class="modal fade" id="send_report_model" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="reportModalLabel">举报此文章</h4>
+            </div>
+            <div class="modal-body">
+                <form name="reportForm" id="report_form" method="post" action="https://forum.butian.net/report">
+                    <input type="hidden" name="_token" value="5KNv6nElBWADKy018hzjJkPvLXWadMT7p2ISctLo">
+                    <input type="hidden" name="source_type" value="">
+                    <input type="hidden" name="source_id" value="">
+                                            <div class="radio">
+                            <label>
+                                <input type="radio" name="report_type" class="reportRadioItem" value="1">
+                                垃圾广告信息：
+                                <span class="text-muted">广告、推广、测试等内容</span>
+                            </label>
+                        </div>
+                                            <div class="radio">
+                            <label>
+                                <input type="radio" name="report_type" class="reportRadioItem" value="2">
+                                违规内容：
+                                <span class="text-muted">色情、暴力、血腥、敏感信息等内容</span>
+                            </label>
+                        </div>
+                                            <div class="radio">
+                            <label>
+                                <input type="radio" name="report_type" class="reportRadioItem" value="3">
+                                不友善内容：
+                                <span class="text-muted">人身攻击、挑衅辱骂、恶意行为</span>
+                            </label>
+                        </div>
+                                            <div class="radio">
+                            <label>
+                                <input type="radio" name="report_type" class="reportRadioItem" value="99">
+                                其他原因：
+                                <span class="text-muted">请补充说明</span>
+                            </label>
+                        </div>
+                                        <div class="form-group" id="report_reason" style="display: none;">
+                        <label for="message-text" class="control-label">举报原因:</label>
+                        <textarea class="form-control" id="message-text" name="reason"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="report_submit_button">举报</button>
+            </div>
+        </div>
+    </div>
+</div>           <div class="modal fade in" id="payment-qrcode-modal-article-505" tabindex="-1" role="" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title text-center" id="exampleModalLabel">
+                    <img class="avatar-64" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/default_avatar.jpg" alt="略略略">
+                </h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <p class="text-md">如果觉得我的文章对您有用，请随意打赏。你的支持将鼓励我继续创作！</p>
+                <img class="payment-qrcode" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/qrcode-4fa4cc02142c5e0537a17f73e757ce93674c115d.png" alt="" style="height:300px"><hr>
+            </div>
+
+        </div>
+    </div>
+</div>        <script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/geetest.js.下载"></script>
+    <script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/editor-butian-forum.min.js.下载"></script>
+    <script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/untils.js.下载"></script><div style="display:none;position:fixed;top:40%;left:50%;z-index:9999;transform: translate(-50%, -50%);padding: 3px 15px;border-radius:8px;background: rgba(120, 120, 120, 0.7);box-shadow: 1px 1px 3px 1px rgba(160, 160, 160, 0.6);text-align:center;font-size:12px;color:#fff;"></div><div id="windowLoading" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="loading text-center text-warning">
+                        <i class="fa fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+                        <br>
+                        <span class="text">加载中</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.fixed-toc-button').click(function(){
+                $(window.innerWidth > 1199 ? '#toc' : '#mobile-toc').toggle()
+            })
+
+            var article_id = "505";
+            var url = window.location.href;
+            /*评论默认展开*/
+            // load_comments('community',article_id);
+            // $("#comments-community-"+article_id).collapse('show');
+            /* 初始化文章详情 */
+            var viewerObj = butianForumEditor.tocViewer({
+                target: document.querySelector("#md_view"),
+                tocTarget: document.querySelector(window.innerWidth > 1199 ? '#toc' : '#mobile-toc'),
+                props: {
+                    value: $("#md_view_content").text(),
+                },
+            });
+            
+            $('#mobile-toc').addClass('toc-mobile')
+            $('.mobile-toc-wrapper .bytemd-toc ul').click(function(){
+                $('#mobile-toc').hide();
+            })
+            var tocContent = $('#mobile-toc').text();
+            if(!tocContent) {
+                 $('#mobile-toc').hide();
+                 $('.fixed-toc-button').hide();
+            }
+
+            // 吸顶
+            $(window).scroll(window.throttle(function() {
+                if($(window).scrollTop() > 109){
+                var w = $("#toc").outerWidth();
+                $("#toc").css({"width": w}).addClass('tocFixed');
+            }else{
+                $("#toc").css({"width": '100%'}).removeClass('tocFixed');
+            }
+            }, 50));
+
+            $(".add-more-comment").on("click", function(){
+                var _this = $(this)
+                var source = _this.data("source")
+                $.ajax({
+                    type: "GET",
+                    url: `/${source}/secondaryComment`,
+                    success: function (data) {
+                        var renderHtml = ''
+                        $.each(data, function (index, item){
+                            renderHtml += `<div class="media">
+                                                <div class="media-left">
+                                                    <a href="" class="avatar-link user-card" target="_blank" rel="noopenner noreferrer">
+                                                        <img class="avatar-40 hidden-xs" src="${item.user.avatar}" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="media-heading">
+                                                        <a href="" class="mr-5 user-card">${item.user.name}</a>`
+                                                        if(item.to_user){
+                                                            renderHtml += `<span>回复</span><a href="" class="mr-5 user-card">${item.to_user.name}</a>`
+                                                        }
+                                    renderHtml += `</div>
+                                                    <div class="content">
+                                                        <div class="text-fmt mt-10 mb-10">${item.content}</div>
+                                                    </div>
+                                                    <div class="media-footer">
+                                                        <ul class="list-inline text-muted">
+                                                            <li>${item.created_at}</li>
+                                                            <li>
+                                                                <span class="ml-10 second-comment-reply" data-source="${source}" data-source_id="${item.source_id}" data-to_user_id="${item.user_id}" data-source_type="comment" data-message="回复 ${item.user.name}"><i class="fa fa-reply"></i> 回复</span>
+                                                            </li>
+                                                            <li class="pull-right">
+                                                                <button class="btn btn-default btn-xs btn-support`
+                                                                    if(item.is_supoort){
+                                                                        renderHtml += ` support-success`
+                                                                    }
+                                    renderHtml += `" data-source_id="${item.id}" data-source_type="comment" data-support_num="${item.supports}"><i class="fa fa-thumbs-o-up"></i> ${item.supports}</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                        })
+                        _this.before(renderHtml)
+                        _this.hide()
+                        
+                    },
+                    error: function (data) {
+                        var errors = data.responseJSON.errors.content;
+                        alert(errors)
+                    }
+                })
+            })
+            var params = {}
+            $(".comment-btn, .seconed-comment-btn").on("click", function(){
+                // source_id：一级评论值为文章id  二级评论为一级评论的id
+                params.source_id = $(this).data('source_id');
+                // source_type：community文章 answe回答 movable活动
+                params.source_type = $(this).data('source_type');
+                params.to_user_id = $(this).data('to_user_id');
+                params.token = $(this).data('token');
+                if(params.source_type === 'community') {
+                    params.content = $("#comment-content").val()
+                } else{
+                    params.source = $(this).data('source');
+                    params.content = $("#second_comment-"+params.source+"-textarea").val();
+                };
+                gCaptchaObj.verify(); //显示验证码
+            })
+            /*评论提交*/
+            function submit_comment(validate) {
+                var silence = 0 ;
+                if(silence){
+                    window.location.href = 'https://forum.butian.net/question/create'
+                    return false;
+                }
+                params.captcha = $('input[name="geetest_challenge"]').val() || "";
+                params.geetest_challenge = validate.geetest_challenge;
+                params.geetest_validate = validate.geetest_validate;
+                params.geetest_seccode = validate.geetest_seccode;
+                handleClickAddComment(params);
+                params = {}
+            }
+
+            var gCaptchaObj;
+            function jyCllback(type,captchaObj) {
+                if(type === 'ready'){
+                    gCaptchaObj = captchaObj;
+                }else if(type === 'success'){
+                    var validate = gCaptchaObj.getValidate();
+                    submit_comment(validate, $(this))
+                }
+            }
+            jyInit(jyCllback)
+
+
+
+
+            /*文章推荐*/
+            $("#support-button").click(function() {
+                var btn_support = $(this);
+                var source_type = btn_support.data('source_type');
+                var source_id = btn_support.data('source_id');
+                var support_num = parseInt(btn_support.data('support_num'));
+                $.post('/support',{_token: '5KNv6nElBWADKy018hzjJkPvLXWadMT7p2ISctLo',source_type:source_type,source_id:source_id},function(msg){
+                    if (msg == 'success') {
+                        support_num++
+                    }
+                    btn_support.html(support_num+' 已推荐');
+                    btn_support.data('support_num', support_num);
+                });
+            });
+
+
+
+            /*收藏问题或文章*/
+            $("#collect-button").click(function(){
+                var isCollected =$("#collect-button").html() ;
+                $("#collect-button").button('loading');
+                var source_type = $(this).data('source_type');
+                var source_id = $(this).data('source_id');
+                $.post('/collect',{_token: '5KNv6nElBWADKy018hzjJkPvLXWadMT7p2ISctLo',source_type:source_type,source_id:source_id},function(msg){
+                    $("#collect-button").removeClass('disabled');
+                    $("#collect-button").removeAttr('disabled');
+
+                    if(msg.code === 401) {
+                        window.location.replace("https://forum.butian.net/login" + "?redirectPath=" + url);
+                    }
+
+                    if(msg=='collected'){
+                        $("#collect-button").html('已收藏');
+                    }else if(msg == 'uncollect'){
+                        $("#collect-button").html('收藏');
+                    }else{
+                        $("#collect-button").html(isCollected);
+                    }
+
+                });
+            });
+
+            $('.text-fmt pre').each(function(i, block) { hljs.highlightBlock(block); });
+        });
+    </script>
+     <!-- 微信分享 -->
+    <script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/jweixin-1.6.0.js.下载"></script>
+    <script type="text/javascript" src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/share.js.下载"></script>
+    <script>
+    $(function(){
+        var title = escape2Html($.trim($('.title').html()));
+        var description =escape2Html($.trim($('.quote').html()));
+        initShare({
+        APIs: ["updateAppMessageShareData", "updateTimelineShareData"],
+        callback: {
+          title: title,
+          imgUrl:
+            "https://shs3.b.qianxin.com/butian_public/f8499623f20f6b5c90e8ca94ac7fc238acf39e36be2ef.jpg",
+          description: description,
+          url: window.location.href,
+          successMethod: ""
+        }
+      });
+    })
+    </script>
+
+<script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1279782571'%3E%3C/span%3E%3Cscript src='https://s4.cnzz.com/z_stat.php%3Fid%3D1279782571' type='text/javascript'%3E%3C/script%3E"));</script><span id="cnzz_stat_icon_1279782571"><a href="https://www.cnzz.com/stat/website.php?web_id=1279782571" target="_blank" title="站长统计">站长统计</a></span><script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/z_stat.php" type="text/javascript"></script><script src="./奇安信攻防社区-安卓学习思路方法总结（三）_files/core.php" charset="utf-8" type="text/javascript"></script>
+
+
+
+<div class="geetest_panel geetest_wind" style="display: none;"><div class="geetest_panel_ghost"></div><div class="geetest_panel_box"><div class="geetest_other_offline geetest_panel_offline"></div><div class="geetest_panel_loading"><div class="geetest_panel_loading_icon"></div><div class="geetest_panel_loading_content">智能验证检测中</div></div><div class="geetest_panel_success"><div class="geetest_panel_success_box"><div class="geetest_panel_success_show"><div class="geetest_panel_success_pie"></div><div class="geetest_panel_success_filter"></div><div class="geetest_panel_success_mask"></div></div><div class="geetest_panel_success_correct"><div class="geetest_panel_success_icon"></div></div></div><div class="geetest_panel_success_title">通过验证</div></div><div class="geetest_panel_error"><div class="geetest_panel_error_icon"></div><div class="geetest_panel_error_title">网络超时</div><div class="geetest_panel_error_content">请点击此处重试</div><div class="geetest_panel_error_code"><div class="geetest_panel_error_code_text"></div></div></div><div class="geetest_panel_footer"><div class="geetest_panel_footer_logo"></div><div class="geetest_panel_footer_copyright">由极验提供技术支持</div></div><div class="geetest_panel_next"></div></div></div></body></html>
